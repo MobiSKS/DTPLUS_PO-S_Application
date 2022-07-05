@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/amountEntryFragment"
+    app:startDestination="@id/AmountEntryFragment">
+
+    <fragment
+        android:id="@+id/AmountEntryFragment"
+        android:name="com.paytm.hpclpos.ui.amount.AmountEntryFragment"
+        android:label="AmountEntryFragment"
+        tools:layout="@layout/activity_ccsms_sale">
+
+        <action
+            android:id="@+id/action_amountConfirmFragment"
+            app:destination="@id/confirm_amount_fragment" />
+
+        <action android:id="@+id/action_cardConfirmFragment"
+            app:destination="@+id/confirm_card_fragment"/>
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/confirmamountfragment" />
+    <include app:graph="@navigation/confirmcardfragment"/>
+</navigation>

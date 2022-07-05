@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transaction_success"
+    app:startDestination="@id/action_transactionSuccess">
+
+    <fragment
+        android:id="@+id/action_transactionSuccess"
+        android:name="com.paytm.hpclpos.ui.transactionsuccess.TransactionSucessActivity"
+        android:label="TransactionSuccess"
+        tools:layout="@layout/activity_transaction_sucess">
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>

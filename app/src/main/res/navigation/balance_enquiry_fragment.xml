@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/enquiry_type_fragment"
+    app:startDestination="@id/goenquiry_type_fragment">
+
+    <fragment
+        android:id="@+id/goenquiry_type_fragment"
+        android:name="com.paytm.hpclpos.ui.SelectEnquiryTypeFragment.SelectEnquiryTypeFragment"
+        android:label="SelectEnquiryTypeFragment"
+        tools:layout="@layout/fragment_select_enquiry_type">
+
+        <action
+            android:id="@+id/action_enterCardPinFragment"
+            app:destination="@id/card_pin_fragment" />
+
+        <action
+            android:id="@+id/action_enterMobileNumberFragment"
+            app:destination="@id/entermobilenumber" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/card_pin_fragment" />
+    <include app:graph="@navigation/enter_mobile_number_fragment" />
+</navigation>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.transactionsuccess.TransactionSucessActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="?attr/actionBarSize">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/gotoBack"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/back_icon">
+
+                </ImageView>
+            </LinearLayout>
+
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="35dp"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:lines="1"
+                android:textStyle="normal"
+                android:text="PAYBACK Burn"
+                android:textAllCaps="true"
+                android:textColor="@color/white">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/strokewhite"
+            android:layout_height="20dp">
+
+        </LinearLayout>
+        <RelativeLayout
+            android:background="@drawable/rounded_fragment_white"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="-10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="80dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:fontFamily="@font/ptregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount"
+                        android:textAllCaps="true"
+                        android:textSize="18sp"
+                        android:layout_gravity="left"
+                        android:textColor="@color/black">
+
+                    </TextView>
+
+                    <TextView
+                        android:fontFamily="@font/ptregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15.00"
+                        android:textSize="17sp"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/black">
+
+                    </TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:fontFamily="@font/ptregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BALANCE PTS"
+                        android:textAllCaps="true"
+                        android:textSize="18sp"
+                        android:layout_gravity="left"
+                        android:textColor="@color/black">
+
+                    </TextView>
+
+                    <TextView
+                        android:fontFamily="@font/ptregular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="62"
+                        android:textSize="17sp"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/black">
+
+                    </TextView>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="35dp"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_marginLeft="35dp">
+
+        <LinearLayout
+            android:id="@+id/lLCancl"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:background="@drawable/strokelightgreen"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="18dp"
+                android:textColor="@color/light_blue">
+            </TextView>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lLContinue"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:background="@drawable/strokelightgreen"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:fontFamily="@font/ptregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Continue"
+                    android:textAllCaps="true"
+                    android:textSize="18dp"
+                    android:textColor="@color/light_blue">
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

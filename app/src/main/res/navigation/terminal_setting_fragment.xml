@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/terminalSettingFragment"
+    app:startDestination="@id/goterminalSettingFragment">
+
+    <fragment
+        android:id="@+id/goterminalSettingFragment"
+        android:name="com.paytm.hpclpos.ui.terminalsettingfragment.TerminalSettingFragment"
+        android:label="TerminalSettingFragment"
+        tools:layout="@layout/fragment_terminal_setting">
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+</navigation>

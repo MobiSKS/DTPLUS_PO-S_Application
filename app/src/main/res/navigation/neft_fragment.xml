@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/neft"
+    app:startDestination="@id/UtrMainFragment">
+
+    <fragment
+        android:id="@+id/UtrMainFragment"
+        android:name="com.paytm.hpclpos.ui.NeftMainFragment.NEFTMainFragment"
+        android:label="NeftMainFragment"
+        tools:layout="@layout/fragment_n_e_f_t_main">
+
+        <action
+            android:id="@+id/amountEntryFragment"
+            app:destination="@id/amountEntryFragment" />
+    </fragment>
+    <include app:graph="@navigation/amount_entry_fragment" />
+</navigation>

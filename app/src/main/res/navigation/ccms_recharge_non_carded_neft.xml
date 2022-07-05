@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ccmsRechargeNonCarded_neft"
+    app:startDestination="@id/UtrMainFragment">
+
+    <fragment
+        android:id="@+id/UtrMainFragment"
+        android:name="com.paytm.hpclpos.ui.NeftMainFragment.NEFTMainFragment"
+        android:label="NeftMainFragment"
+        tools:layout="@layout/fragment_n_e_f_t_main">
+
+        <action
+            android:id="@+id/action_controlCardNumber"
+            app:destination="@id/ccmsRechargeNonCarded_controlCardFragment" />
+    </fragment>
+    <include app:graph="@navigation/ccms_recharge_non_carded_controlnumberfragment" />
+</navigation>

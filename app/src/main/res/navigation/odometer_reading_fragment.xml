@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/odometerReadingFragment"
+    app:startDestination="@id/go_odometerReadingFragment">
+
+    <fragment
+        android:id="@+id/go_odometerReadingFragment"
+        android:name="com.paytm.hpclpos.ui.odometerreading.OdometerReadingFragment"
+        android:label="OdometerReadingFragment"
+        tools:layout="@layout/activity_odometer_reading">
+
+        <action
+            android:id="@+id/action_transactionSuccess"
+            app:destination="@id/transaction_success" />
+
+        <action
+            android:id="@+id/action_transactionFailed"
+            app:destination="@id/transaction_failure" >
+            <argument
+                android:name="transactionStatus"
+                app:argType="string"
+                android:defaultValue="Transaction Failed" />
+        </action>
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/transaction_failure_fragment" />
+    <include app:graph="@navigation/transaction_success_fragment" />
+</navigation>

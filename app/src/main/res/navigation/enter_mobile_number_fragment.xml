@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/entermobilenumber"
+    app:startDestination="@id/goenterMobileNumber">
+
+    <fragment
+        android:id="@+id/goenterMobileNumber"
+        android:name="com.paytm.hpclpos.ui.entermobilenumber.EnterMobileNumberFragment"
+        android:label="EnterMobileNumberFragment"
+        tools:layout="@layout/activity_enter_mobile_number">
+
+        <action
+            android:id="@+id/action_enterOtpFragment"
+            app:destination="@id/enterOtpFragment" />
+
+        <action
+            android:id="@+id/action_vehicleNumberFragment"
+            app:destination="@id/vehicleNumberFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/enter_otp_fragment" />
+    <include app:graph="@navigation/vehicle_number_fragment" />
+</navigation>

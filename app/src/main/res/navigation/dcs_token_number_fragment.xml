@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dcsTokenFragment"
+    app:startDestination="@id/goDcsTokenFragment">
+
+    <fragment
+        android:id="@+id/goDcsTokenFragment"
+        android:name="com.paytm.hpclpos.ui.enterdcstoken.DCSTokenNoFragment"
+        android:label="DCS Token Fragment"
+        tools:layout="@layout/activity_d_c_s_token_no">
+
+        <action
+            android:id="@+id/amountEntryFragment"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/amount_entry_fragment" />
+</navigation>

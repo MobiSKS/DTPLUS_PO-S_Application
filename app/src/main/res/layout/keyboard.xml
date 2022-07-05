@@ -1,0 +1,385 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llayout_1"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="1">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+            <LinearLayout
+                android:id="@+id/llayout_2"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="2">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+            <LinearLayout
+                android:id="@+id/llayout_3"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="3">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color">
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llayout_4"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="4">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+            <LinearLayout
+                android:id="@+id/llayout_5"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="5">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+            <LinearLayout
+                android:id="@+id/llayout_6"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="6">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color">
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llayout_7"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="7"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+
+            <LinearLayout
+                android:id="@+id/llayout_8"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="8">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+
+            <LinearLayout
+                android:id="@+id/llayout_9"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="9">
+
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llayout_erase"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/erase_icon">
+
+                </ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="del">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+            <LinearLayout
+                android:id="@+id/llayout_0"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="0">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+            <LinearLayout
+                android:id="@+id/llayout_back"
+                android:layout_width="0dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:text="back">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider_color">
+
+            </View>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</merge>

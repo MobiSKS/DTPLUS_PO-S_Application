@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.selecttransactiontype.SelectTransactionTypeFargment">
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:fontFamily="@font/ptregular"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:text="@string/balance"
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+
+        </TextView>
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="5dp">
+
+        </View>
+
+        <RelativeLayout
+            android:layout_margin="@dimen/_10dp"
+            android:padding="@dimen/_10dp"
+            android:orientation="vertical"
+            android:id="@+id/llAMount"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/llLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:id="@+id/llRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/rvBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:background="@color/white"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="MONTHLY LIMIT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/tvMonthlyLimit"
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="MONTHLY SPENDING"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="MONTHLY LMT BAL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="DAILY LIMIT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="DAILY SPENDING"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="DAILY LMT BAL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="CCMS LIMIT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CCMS LMT BAL"
+                    android:textSize="15sp">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+               android:layout_margin="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:text="CARD BALANCE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="Rs 5000.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+    </ScrollView>
+</RelativeLayout>
+
+</layout>

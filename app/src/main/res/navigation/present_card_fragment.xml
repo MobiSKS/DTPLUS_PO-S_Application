@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/present_card_fragment"
+    app:startDestination="@id/goPresentCardFragment">
+
+    <fragment
+        android:id="@+id/goPresentCardFragment"
+        android:name="com.paytm.hpclpos.ui.PresentCardFragment.PresentCardFragment"
+        android:label="PresentCardFragment"
+        tools:layout="@layout/fragment_present_card_type">
+
+        <action
+            android:id="@+id/action_enter_newpin"
+            app:destination="@id/pin_change_fragment" />
+
+        <action
+            android:id="@+id/action_change_card_pin_fragment"
+            app:destination="@id/changeCardPinFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+
+    </fragment>
+    <include app:graph="@navigation/pin_change_fragment" />
+    <include app:graph="@navigation/change_card_pin_fragment" />
+</navigation>

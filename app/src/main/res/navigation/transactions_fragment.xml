@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transactions_Fragment"
+    app:startDestination="@id/transactionsDashBoardFragment">
+
+    <fragment
+        android:id="@+id/transactionsDashBoardFragment"
+        android:name="com.paytm.hpclpos.activities.dashboard.TransactionDashboardActivity"
+        android:label="Card Swipe Fragment"
+        tools:layout="@layout/activity_transaction_dashboard">
+
+        <action
+            android:id="@+id/action_reloadMainFragment"
+            app:destination="@id/relaodMainFragment" />
+
+        <action
+            android:id="@+id/action_ccmsRechargeMainFragment"
+            app:destination="@id/ccmsRechargeMainFragment" />
+
+        <action
+            android:id="@+id/action_amount_entry_fragment"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_ccmsRechargeNonCardedMainFragment"
+            app:destination="@id/ccmsRechargeNonCardedMainFragment" />
+
+        <action
+            android:id="@+id/action_cardFeeFragment"
+            app:destination="@id/cardFee" />
+
+        <action
+            android:id="@+id/action_balanceEnquiryFragment"
+            app:destination="@id/enquiry_type_fragment" />
+
+        <action
+            android:id="@+id/action_control_card_fragment"
+            app:destination="@id/ccmsRechargeNonCarded_controlCardFragment" />
+
+        <action
+            android:id="@+id/action_present_card"
+            app:destination="@id/present_card_fragment" />
+    </fragment>
+
+    <include app:graph="@navigation/ccms_recharge_main_fragment" />
+    <include app:graph="@navigation/ccms_recharge_non_carded_main_fragment" />
+    <include app:graph="@navigation/balance_transfer_navigation" />
+    <include app:graph="@navigation/card_fee_fragment" />
+    <include app:graph="@navigation/amount_entry_fragment"/>
+    <include app:graph="@navigation/cardedandmobile_reload_fragment"/>
+    <include app:graph="@navigation/balance_enquiry_fragment"/>
+    <include app:graph="@navigation/ccms_recharge_non_carded_controlnumberfragment"/>
+    <include app:graph="@navigation/present_card_fragment"/>
+</navigation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/changeCardPinFragment"
+    app:startDestination="@id/gochangeCardPinFragment">
+
+    <fragment
+        android:id="@+id/gochangeCardPinFragment"
+        android:name="com.paytm.hpclpos.fragmentscardedandmobtrans.changecardpin.ChangeTerminalPinFragment"
+        android:label="ChangeTerminalPinFragment"
+        tools:layout="@layout/fragment_change_terminal_pin">
+
+        <action
+            android:id="@+id/action_transactionSuccess"
+            app:destination="@id/transaction_success" />
+
+        <action
+            android:id="@+id/action_transactionFailed"
+            app:destination="@id/transaction_failure" >
+            <argument
+                android:name="transactionStatus"
+                app:argType="string"
+                android:defaultValue="Transaction Failed" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/transaction_failure_fragment" />
+    <include app:graph="@navigation/transaction_success_fragment" />
+</navigation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginDialogFragment"
+    app:startDestination="@id/gologinDialogFragment">
+
+    <dialog
+        android:id="@+id/gologinDialogFragment"
+        android:name="com.paytm.hpclpos.Dialog.LoginDialogFragment"
+        tools:layout="@layout/fragment_login_dialog">
+
+        <action
+            android:id="@+id/action_mainFragment_to_transactions"
+            app:destination="@id/transactions_Fragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_saleProductFragment"
+            app:destination="@id/saleProductFragment" />
+
+        <action
+            android:id="@+id/action_operator_options_fragment"
+            app:destination="@id/operatorOptionsFragment" />
+    </dialog>
+
+    <include app:graph="@navigation/sale_product_fragment_navigation" />
+    <include app:graph="@navigation/transactions_fragment" />
+    <include app:graph="@navigation/amount_entry_fragment" />
+</navigation>

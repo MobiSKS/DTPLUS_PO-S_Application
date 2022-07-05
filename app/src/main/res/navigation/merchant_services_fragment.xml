@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/merchant_services"
+    app:startDestination="@id/action_merchant_services">
+
+    <fragment
+        android:id="@+id/action_merchant_services"
+        android:name="com.paytm.hpclpos.activities.dashboard.merchantservice.MerchantServiceDashboardActivity"
+        android:label="Merchant Services"
+        tools:layout="@layout/activity_merchant_service_dashboard">
+
+        <action
+            android:id="@+id/action_settlement_fragment"
+            app:destination="@id/settlementScreenFragment" />
+
+        <action
+            android:id="@+id/action_enter_invoice_number"
+            app:destination="@id/invoice_number_fragment" />
+
+        <action
+            android:id="@+id/action_operator_options_fragment"
+            app:destination="@id/operatorOptionsFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/invoice_number_fragment"
+        android:name="com.paytm.hpclpos.ui.enterinvoicenumber.EnterInvoiceNumber"
+        android:label="Enter Invoice Number"
+        tools:layout="@layout/fragment_enter_invoice_number"/>
+
+    <include app:graph="@navigation/operator_options_fragment"/>
+    <include app:graph="@navigation/settlement_screen_fragment" />
+</navigation>

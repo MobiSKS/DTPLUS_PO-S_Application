@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ccmsRechargeNonCarded_controlCardFragment"
+    app:startDestination="@id/action_ccmsRechargeNonCarded_controlCardFragment">
+
+    <fragment
+        android:id="@+id/action_ccmsRechargeNonCarded_controlCardFragment"
+        android:name="com.paytm.hpclpos.ui.controlcardnumber.ControlCardNoFragment"
+        android:label="ControlCardNumber"
+        tools:layout="@layout/fragment_cash_enter_cnt_r_l_card_no">
+
+        <action
+            android:id="@+id/amountEntryFragment"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_card_pin_fragment"
+            app:destination="@id/card_pin_fragment" />
+
+        <action
+            android:id="@+id/action_change_card_pin_fragment"
+            app:destination="@id/changeCardPinFragment" />
+
+    </fragment>
+
+    <include app:graph="@navigation/amount_entry_fragment"/>
+    <include app:graph="@navigation/card_pin_fragment"/>
+    <include app:graph="@navigation/change_card_pin_fragment"/>
+</navigation>

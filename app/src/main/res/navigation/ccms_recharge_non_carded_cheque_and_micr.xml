@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ccmsRechargeNonCarded_chequeAndMicr"
+    app:startDestination="@id/ChequeMainFragment">
+
+    <fragment
+        android:id="@+id/ChequeMainFragment"
+        android:name="com.paytm.hpclpos.ui.checkandmicrnumber.ChequeMainFragment"
+        android:label="ChequeMainFragment"
+        tools:layout="@layout/fragment_cheque_main">
+
+        <action
+            android:id="@+id/controlCardNumber"
+            app:destination="@id/ccmsRechargeNonCarded_controlCardFragment" />
+    </fragment>
+    <include app:graph="@navigation/ccms_recharge_non_carded_controlnumberfragment" />
+</navigation>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_gravity="center"
+    android:background="@drawable/corner_terminal_dialog"
+    android:backgroundTint="@color/colorbackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/operatorlogo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24"
+            android:layout_gravity="center" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@id/operatorlogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="center"
+            android:textColorHint="@color/light_blue"
+            app:hintTextColor="@color/colorBlack"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:boxStrokeColor="@color/light_blue"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/operatorid">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="number"
+                android:text=""
+                android:id="@+id/operatorId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@id/outlinedTextField1"
+            android:layout_gravity="center"
+            android:textColorHint="@color/light_blue"
+            app:hintTextColor="@color/colorBlack"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:boxStrokeColor="@color/light_blue"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="number"
+                android:text=""
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/logincancel"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="@string/cancel"
+            android:background="@drawable/corner_full_rounded_btn_grey"
+            android:backgroundTint="@color/colorbackground"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintTop_toBottomOf="@id/outlinedTextField2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/loginconfirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_15dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginconfirm"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/colorwhite"
+            android:background="@drawable/corner_full_rounded_btn_grey"
+            android:backgroundTint="@color/light_blue"
+            app:layout_constraintTop_toBottomOf="@id/outlinedTextField2"
+            app:layout_constraintStart_toEndOf="@id/logincancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_15dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

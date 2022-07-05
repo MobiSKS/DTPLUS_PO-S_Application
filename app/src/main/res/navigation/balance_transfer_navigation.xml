@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/balance_transfer_navigation"
+    app:startDestination="@id/balance_transfer_select_transaction_fragment">
+
+    <fragment
+        android:id="@+id/balance_transfer_select_transaction_fragment"
+        android:name="com.paytm.hpclpos.ui.balancetransfer.BalanceTransferSelectTransactionFrgament"
+        android:label="SelectTransaction"
+        tools:layout="@layout/fragment_balance_transfer_select_transaction_fragment">
+
+        <action
+            android:id="@+id/amountEntryFragment"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>

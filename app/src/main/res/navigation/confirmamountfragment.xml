@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/confirm_amount_fragment"
+    app:startDestination="@id/amountConfirmFragment">
+
+    <fragment
+        android:id="@+id/amountConfirmFragment"
+        android:name="com.paytm.hpclpos.ui.cardreading.ConfirmAmountFragment"
+        android:label="AmountConfirmFragment"
+        tools:layout="@layout/activity_confirm_amount">
+
+        <action
+            android:id="@+id/action_ConfirmCardFragment"
+            app:destination="@id/confirm_card_fragment" />
+
+        <action
+            android:id="@+id/action_enterMobileNumberFragment"
+            app:destination="@id/entermobilenumber" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+
+    </fragment>
+    <include app:graph="@navigation/confirmcardfragment" />
+    <include app:graph="@navigation/enter_mobile_number_fragment" />
+    <include app:graph="@navigation/card_pin_fragment" />
+</navigation>

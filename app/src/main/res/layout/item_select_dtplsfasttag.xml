@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="80dp"
+            android:padding="20dp"
+            android:background="@drawable/corner_full_rounded_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:gravity="center"
+                android:text="@string/seletcttype"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+          <RadioGroup
+              android:id="@+id/radioGroup"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <RadioButton
+                  android:id="@+id/rbdtplus"
+                  android:checked="true"
+                  android:textSize="16sp"
+                  android:text="@string/dtplus"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+              </RadioButton>
+              <RadioButton
+                  android:id="@+id/rbfasttag"
+                  android:textSize="16dp"
+                  android:text="@string/fasttag"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+              </RadioButton>
+          </RadioGroup>
+
+
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+
+                    android:id="@+id/btnConfirm"
+                    android:background="@drawable/corner_full_rounded_btn_purple"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_margin="10dp"
+
+                    android:layout_width="150dp"
+                    android:layout_height="45dp"></androidx.appcompat.widget.AppCompatButton>
+            </LinearLayout>
+
+        </LinearLayout>
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressBar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </ProgressBar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <com.paytm.hpclpos.constants.EnterMobileNoKeyboard
+                android:id="@+id/mobileNokeyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

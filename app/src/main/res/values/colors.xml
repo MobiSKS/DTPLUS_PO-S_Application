@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#ff0000</color>
+    <color name="smokewhite">#F5F5F5</color>
+
+    <color name="hint">#808080</color>
+
+    <color name="light_blue">#2571be</color>
+    <color name="light_bluenew">#ADD8E6</color>
+
+    <color name="background">#003366</color>
+
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#F7F7F7</color>
+    <color name="colorAccent">#003CAB</color>
+    <color name="colorBlack">#232323</color>
+    <color name="colorDim">#fff</color>
+
+
+    <color name="colorwhite">#FFFFFF</color>
+    <color name="colorText">#232323</color>
+    <color name="colorGreen">#84B740</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorOrange">#FE8B00</color>
+    <color name="colorblue">#259BD6</color>
+    <color name="common_text_color">#00d389</color>
+    <color name="app_header_color">#f54d4f</color>
+    <color name="text_color_disable">#c0c0c0</color>
+    <color name="text_color_enable">#8c8c8c</color>
+    <color name="app_button_color">#f54d4f</color>
+    <color name="app_red_text_color">#f54d4f</color>
+    <color name="app_gray_text_color">#959595</color>
+    <color name="app_black_text_color">#000000</color>
+    <color name="app_blue_text_color">#51cad8</color>
+    <color name="app_title_text_color">#fbb3b4</color>
+    <color name="app_gray_backgroud_color">#f1f1f1</color>
+    <!-- 默认界面背景色 -->
+    <color name="default_ui_bg">#ffffff</color>
+    <color name="button_text_color">#51cad8</color>
+    <color name="enable_button_text_color">#000000</color>
+    <color name="divider_color">#d2d2d2</color>
+    <color name="keyboard_press_color">#f54d4f</color>
+    <color name="keyboard_unpress_color">#ffffff</color>
+    <color name="keyboard_icon_blue">#259bd6</color>
+    <color name="keyboard_icon_green">#84b740</color>
+    <color name="keyboard_icon_orange">#fe8b00</color>
+    <color name="keyboard_icon_white">#fff</color>
+
+    <color name="transparent">#0000</color>
+    <color name="grey">#ff808080</color>
+    <color name="half_transparent">#B3B6BB</color>
+    <color name="coloritem">#ffae42</color>
+    <color name="colorbackground">#F3F3F3</color>
+    <color name="colorNextBtn">#259BD6</color>
+</resources>

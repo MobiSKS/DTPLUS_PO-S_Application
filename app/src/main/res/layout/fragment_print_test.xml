@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fragmentscardedandmobtrans.printtest.PrintTestFragment">
+    <EditText
+        android:visibility="gone"
+        android:hint="type text for printing"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:id="@+id/etInputText"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </EditText>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_below="@+id/etInputText"
+        android:id="@+id/btnPrint"
+        android:layout_margin="20dp"
+        android:text="Print "
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</RelativeLayout>

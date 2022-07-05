@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/background_1"
+    >
+
+    android:background="@drawable/background"
+    tools:context=".activities.mainSaleActivities.SelectTransactionTypeActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="?attr/actionBarSize">
+
+
+            <LinearLayout
+                android:id="@+id/gotoBack"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/back_icon">
+
+                </ImageView>
+            </LinearLayout>
+
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="35dp"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textAllCaps="true"
+                android:text="@string/reload"
+                android:textColor="@color/white">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rlCashReld"
+                android:layout_width="match_parent"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_select_backgrnd"
+                android:layout_height="60dp">
+                <TextView
+                    android:fontFamily="@font/ptregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/cashreload"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true">
+
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlChequeReld"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_select_backgrnd"
+                android:layout_height="60dp">
+                <TextView
+                    android:fontFamily="@font/ptregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/chequereload"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true">
+
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlCcmsReld"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_select_backgrnd"
+                android:layout_height="60dp">
+                <TextView
+                    android:fontFamily="@font/ptregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/ccmsreload"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true">
+
+                </TextView>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/reloadFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</RelativeLayout>
+</layout>

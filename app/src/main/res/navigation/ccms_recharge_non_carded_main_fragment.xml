@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ccmsRechargeNonCardedMainFragment"
+    app:startDestination="@id/ccmsRecharge">
+
+    <fragment
+        android:id="@+id/ccmsRecharge"
+        android:name="com.paytm.hpclpos.fragmentscardedandmobtrans.ccmsrecharge.CCMSRchrgMainFrag"
+        android:label="CCMSRechargeMainFragment"
+        tools:layout="@layout/fragment_c_c_m_s_rchrg_main">
+
+        <action
+            android:id="@+id/action_ccmsRecharge_non_carded_cash"
+            app:destination="@id/ccmsRechargeNonCarded_controlCardFragment" />
+
+        <action
+            android:id="@+id/action_ccmsRecharge_non_carded_cheque"
+            app:destination="@id/ccmsRechargeNonCarded_chequeAndMicr" />
+
+        <action
+            android:id="@+id/action_ccmsRecharge_non_carded_neft"
+            app:destination="@id/ccmsRechargeNonCarded_neft" />
+
+    </fragment>
+    <include app:graph="@navigation/ccms_recharge_non_carded_controlnumberfragment" />
+    <include app:graph="@navigation/amount_entry_fragment" />
+    <include app:graph="@navigation/cheque_and_micr_fragment" />
+    <include app:graph="@navigation/ccms_recharge_non_carded_cheque_and_micr" />
+    <include app:graph="@navigation/ccms_recharge_non_carded_neft" />
+    <include app:graph="@navigation/neft_fragment" />
+</navigation>

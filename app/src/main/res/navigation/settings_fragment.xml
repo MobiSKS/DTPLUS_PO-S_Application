@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingFragment"
+    app:startDestination="@id/action_setting_fragment">
+
+    <fragment
+        android:id="@+id/action_setting_fragment"
+        android:name="com.paytm.hpclpos.activities.dashboard.settings.SettingDashboardFragment"
+        android:label="Settings"
+        tools:layout="@layout/activity_setting_dashboard">
+
+        <action
+            android:id="@+id/action_enter_invoice_number"
+            app:destination="@id/invoice_number_fragment" />
+
+        <action
+            android:id="@+id/action_display_parameter_fragments"
+            app:destination="@+id/display_parameter_fragments" />
+
+        <action
+            android:id="@+id/action_terminal_setting_fragment"
+            app:destination="@+id/terminalSettingFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+
+        <action
+            android:id="@+id/action_about_fragment"
+            app:destination="@+id/about_fragment" />
+
+        <action
+            android:id="@+id/action_terminal_input_screen_fragment"
+            app:destination="@+id/terminalInputScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/display_parameter_fragments"
+        android:name="com.paytm.hpclpos.ui.displayparameters.DisplayParametersFragment"
+        android:label="Display Parameters"
+        tools:layout="@layout/fragment_display_parameters"/>
+
+    <fragment
+        android:id="@+id/invoice_number_fragment"
+        android:name="com.paytm.hpclpos.ui.enterinvoicenumber.EnterInvoiceNumber"
+        android:label="Enter Invoice Number"
+        tools:layout="@layout/fragment_enter_invoice_number"/>
+
+    <fragment
+        android:id="@+id/about_fragment"
+        android:name="com.paytm.hpclpos.ui.about.AboutFragment"
+        android:label="About Fragment"
+        tools:layout="@layout/fragment_about"/>
+
+    <include app:graph="@navigation/terminal_setting_fragment" />
+    <include app:graph="@navigation/terminal_input_screen_navigation" />
+</navigation>

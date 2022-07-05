@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.selecttransactiontype.SelectTransactionTypeFargment">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/rounded_fragment_white"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Payment"
+                android:textSize="12sp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:backgroundTint="@color/black"
+                        android:background="@drawable/rupee_icon"
+                        android:layout_height="25dp">
+
+                    </ImageView>
+
+                    <TextView
+                        android:fontFamily="@font/ptregular"
+                        android:background="@null"
+                        android:id="@+id/rcvAmountText"
+                        android:layout_width="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:hint="0.00"
+                        android:textColorHint="@color/black"
+                        android:textSize="35sp"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/hint">
+
+                </View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:layout_marginTop="20dp">
+                    <LinearLayout
+                        android:id="@+id/cardSwipeTransaction"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/presentcard_icon">
+
+                        </ImageView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnCardSwipe"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/presentcard_1_icon">
+
+                        </ImageView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lLcardlesstransaction"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/presentcard_2_icon">
+
+                        </ImageView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

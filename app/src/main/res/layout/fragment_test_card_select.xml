@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".activities.dashboard.TestCardSelectFragment">
+    <TextView
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="CARD READ "
+        android:textSize="20dp"
+        android:textColor="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:textColor="@color/white"
+        android:background="@color/background"
+        android:id="@+id/btnCardSwipe"
+        android:text="CARD SWIPE READ"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.AppCompatButton>
+    <TextView
+        android:gravity="center"
+        android:text="OR"
+        android:textSize="20dp"
+        android:textColor="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:textColor="@color/white"
+        android:background="@color/background"
+        android:id="@+id/btnChipCard"
+        android:text="CHIP CARD READ"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:visibility="gone"
+        android:id="@+id/btnPrint"
+        android:text="PRINT RECEIPT "
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</LinearLayout>

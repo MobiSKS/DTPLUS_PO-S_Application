@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_pin_fragment"
+    app:startDestination="@id/enterCardPinFragment">
+
+    <fragment
+        android:id="@+id/enterCardPinFragment"
+        android:name="com.paytm.hpclpos.ui.getcardpin.EnterCardPinFragment"
+        android:label="CardPinFragment"
+        tools:layout="@layout/activity_enter_card_pin">
+
+    <action
+        android:id="@+id/action_transactionSuccess"
+        app:destination="@id/transaction_success" />
+
+        <action
+            android:id="@+id/action_balance_enquiry_transactionSuccess"
+            app:destination="@id/balance_transfer_transaction_success">
+            <argument
+                android:name="transactionStatus"
+                app:argType="com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.Data" />
+        </action>
+
+        <action
+            android:id="@+id/action_ccms_balance_enquiry_transactionSuccess"
+            app:destination="@id/balance_transfer_transaction_success">
+            <argument
+                android:name="transactionStatus"
+                app:argType="com.paytm.hpclpos.livedatamodels.CCMSBalance.Data" />
+        </action>
+
+    <action
+        android:id="@+id/action_transactionFailed"
+        app:destination="@id/transaction_failure" >
+        <argument
+            android:name="transactionStatus"
+            app:argType="string"
+            android:defaultValue="Transaction Failed" />
+    </action>
+
+        <action
+            android:id="@+id/action_odometerReadingFragment"
+            app:destination="@id/odometerReadingFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/odometer_reading_fragment" />
+    <include app:graph="@navigation/transaction_failure_fragment" />
+    <include app:graph="@navigation/transaction_success_fragment" />
+    <include app:graph="@navigation/balance_transfer_transaction_success_fragment" />
+</navigation>

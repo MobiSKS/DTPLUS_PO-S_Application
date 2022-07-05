@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardFee"
+    app:startDestination="@id/cardFeeFragment">
+
+    <fragment
+        android:id="@+id/cardFeeFragment"
+        android:name="com.paytm.hpclpos.ui.cardfeefragment.CardFeeFragment"
+        android:label="CardFeeFragment"
+        tools:layout="@layout/fragment_card_fee">
+        <action
+            android:id="@+id/action_card_fee_confirm_amount_fragment"
+            app:destination="@id/card_fee_confirm_amount_fragment" >
+        </action>
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/card_fee_confirm_amount_fragment"
+        android:name="com.paytm.hpclpos.ui.cardfeeamountfragment.CardFeeCnfrmAmntFrag"
+        android:label="CardFeeFragment"
+        tools:layout="@layout/fragment_card_fee_cnfrm_amnt">
+        <action
+            android:id="@+id/action_ccmsRecharge_transactionSuccess"
+            app:destination="@id/transaction_success" />
+
+        <action
+            android:id="@+id/action_ccmsRecharge_transactionFailed"
+            app:destination="@id/transaction_failure">
+            <argument
+                android:name="transactionStatus"
+                android:defaultValue="Transaction Failed"
+                app:argType="string" />
+        </action>
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/transaction_failure_fragment" />
+    <include app:graph="@navigation/transaction_success_fragment" />
+</navigation>

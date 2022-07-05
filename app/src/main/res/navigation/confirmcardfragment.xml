@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/confirm_card_fragment"
+    app:startDestination="@id/ConfirmCardFragment">
+
+    <fragment
+        android:id="@+id/ConfirmCardFragment"
+        android:name="com.paytm.hpclpos.ui.confirmcard.CardConfirmFragment"
+        android:label="CCMSRechargeMainCardConfirmFragment"
+        tools:layout="@layout/fragment_card_confirm_fragment">
+
+        <action
+            android:id="@+id/action_enterCardPinFragment"
+            app:destination="@id/card_pin_fragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/card_pin_fragment" />
+</navigation>

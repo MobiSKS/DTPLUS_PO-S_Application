@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relaodMainFragment"
+    app:startDestination="@id/gorelaodMainFragment">
+
+    <fragment
+        android:id="@+id/gorelaodMainFragment"
+        android:name="com.paytm.hpclpos.fragmentscardedandmobtrans.reload.ReloadMainFragment"
+        android:label="ReloadMainFragment"
+        tools:layout="@layout/fragment_reload_main">
+
+        <action
+            android:id="@+id/action_cashReload"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_chequeReload"
+            app:destination="@id/chequeAndMicr" />
+
+        <action
+            android:id="@+id/action_ccmsReload"
+            app:destination="@id/amountEntryFragment" />
+    </fragment>
+    <include app:graph="@navigation/amount_entry_fragment"/>
+    <include app:graph="@navigation/cheque_and_micr_fragment"/>
+</navigation>

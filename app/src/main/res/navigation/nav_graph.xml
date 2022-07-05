@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.paytm.hpclpos.activities.mainsaleactivities.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_transactions"
+            app:destination="@id/transactions_Fragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_saleProductFragment"
+            app:destination="@id/saleProductFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_merchantServices"
+            app:destination="@id/merchant_services" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+
+        <action
+            android:id="@+id/action_login_fragment"
+            app:destination="@id/loginDialogFragment" />
+    </fragment>
+
+    <include app:graph="@navigation/amount_entry_fragment" />
+    <include app:graph="@navigation/transactions_fragment" />
+    <include app:graph="@navigation/merchant_services_fragment" />
+    <include app:graph="@navigation/settings_fragment" />
+    <include app:graph="@navigation/login_dialog_fragment"/>
+    <include app:graph="@navigation/sale_product_fragment_navigation"/>
+</navigation>

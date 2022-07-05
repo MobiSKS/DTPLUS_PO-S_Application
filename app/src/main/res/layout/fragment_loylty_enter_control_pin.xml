@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.selecttransactiontype.SelectTransactionTypeFargment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="?attr/actionBarSize">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/gotoBack"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/back_icon">
+
+                </ImageView>
+            </LinearLayout>
+
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="35dp"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:lines="1"
+                android:textStyle="normal"
+                android:text="Loyalty redeem"
+                android:textAllCaps="true"
+                android:textColor="@color/white">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:text="Enter Control Pin">
+
+            </TextView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="4dp"
+                android:layout_height="50dp">
+
+                <EditText
+                    android:fontFamily="@font/ptregular"
+                    android:id="@+id/cntRLPin_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:maxLength="4"
+                    android:gravity="center"
+                    android:hint="Enter Control Pin">
+
+                </EditText>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <com.paytm.hpclpos.constants.EnterMobileNoKeyboard
+            android:id="@+id/mobileNokeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
