@@ -20,7 +20,7 @@ class DemoApp : Application() {
     companion object {
         private var dal: IDAL? = null
          var appContext: Context? = null
-        @JvmStatic
+
         fun getDal(): IDAL? {
             if (dal == null) {
                 try {

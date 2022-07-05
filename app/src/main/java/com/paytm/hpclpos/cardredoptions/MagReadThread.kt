@@ -17,9 +17,9 @@ class MagReadThread(con: Context,cardEventList: CardEventListener,cardSuccessLis
         while (!interrupted()) {
             var resStr = ""
             val cardInfoEntity = CardInfoEntity()
-            if (MagTester.getInstance().isSwiped) {
+            if (MagTester.instance!!.isSwiped) {
                 try {
-                    val trackData = MagTester.getInstance().read()
+                    val trackData = MagTester.instance!!.read()
                     if (trackData != null) {
                         if (trackData.resultCode == 0) {
                             resStr = context.resources.getString(R.string.mag_card_error)

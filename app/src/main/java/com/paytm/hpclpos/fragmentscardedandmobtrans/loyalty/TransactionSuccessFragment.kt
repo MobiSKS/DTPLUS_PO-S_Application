@@ -57,8 +57,8 @@ class TransactionSuccessFragment : Fragment() {
 
     private fun showReceipt() {
         Thread {
-            PrinterTester.getInstance().init()
-            PrinterTester.getInstance().setInvert(false)
+            PrinterTester.instance!!.init()
+            PrinterTester.instance?.setInvert(false)
             // String str = etInputText.getText().toString();
 
             /*  BitmapFactory.Options options = new BitmapFactory.Options();
@@ -84,93 +84,93 @@ class TransactionSuccessFragment : Fragment() {
             val str16 = "Ensure that the above details are correct"
             val str18 = "-----------------------------------------"
             if (str != null && str.length > 0) {
-                PrinterTester.getInstance().fontSet(EFontTypeAscii.FONT_16_48,
+                PrinterTester.instance?.fontSet(EFontTypeAscii.FONT_16_48,
                         EFontTypeExtCode.FONT_16_16)
-                PrinterTester.getInstance().setGray(2)
-                PrinterTester.getInstance().step(100)
+                PrinterTester.instance?.setGray(2)
+                PrinterTester.instance?.step(100)
 
-                PrinterTester.getInstance().spaceSet("1".toByte(), "0".toByte())
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.spaceSet("1".toByte(), "0".toByte())
+                PrinterTester.instance?.printStr("""
     $str
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str1
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str2
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str3
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str4
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().fontSet(EFontTypeAscii.FONT_8_32,
+                PrinterTester.instance?.fontSet(EFontTypeAscii.FONT_8_32,
                         EFontTypeExtCode.FONT_16_16)
-                PrinterTester.getInstance().setGray(2)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.setGray(2)
+                PrinterTester.instance?.printStr("""
     $str5
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $strTid
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $strBatcchNo
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $strRocNo
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().fontSet(EFontTypeAscii.FONT_12_48,
+                PrinterTester.instance?.fontSet(EFontTypeAscii.FONT_12_48,
                         EFontTypeExtCode.FONT_16_16)
-                PrinterTester.getInstance().setGray(3)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.setGray(3)
+                PrinterTester.instance?.printStr("""
     $str7
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().fontSet(EFontTypeAscii.FONT_8_32,
+                PrinterTester.instance?.fontSet(EFontTypeAscii.FONT_8_32,
                         EFontTypeExtCode.FONT_16_16)
-                PrinterTester.getInstance().setGray(2)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.setGray(2)
+                PrinterTester.instance?.printStr("""
     $str8
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str10
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str12
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.printStr("""
     $str15
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().fontSet(EFontTypeAscii.FONT_8_16,
+                PrinterTester.instance?.fontSet(EFontTypeAscii.FONT_8_16,
                         EFontTypeExtCode.FONT_16_16)
-                PrinterTester.getInstance().setGray(1)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.setGray(1)
+                PrinterTester.instance?.printStr("""
     $str16
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().fontSet(EFontTypeAscii.FONT_8_32,
+                PrinterTester.instance?.fontSet(EFontTypeAscii.FONT_8_32,
                         EFontTypeExtCode.FONT_16_16)
-                PrinterTester.getInstance().setGray(2)
-                PrinterTester.getInstance().printStr("""
+                PrinterTester.instance?.setGray(2)
+                PrinterTester.instance?.printStr("""
     $str18
     
     
     """.trimIndent(), null)
-                PrinterTester.getInstance().start()
+                PrinterTester.instance?.start()
             }
         }.start()
     }

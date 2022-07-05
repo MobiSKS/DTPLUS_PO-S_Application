@@ -36,10 +36,10 @@ class PrintUtils {
         }
 
         fun printTRansactionCopy(bitmap: Bitmap?, listener: PrintStatusListener?) {
-            val printer: PrinterTester = PrinterTester.getInstance()
+            val printer: PrinterTester = PrinterTester.instance!!
             printer.init()
             printer.printBitmap(bitmap)
-            printer.startPrint(listener)
+            printer.startPrint(listener!!)
         }
 
         fun getHeaderData(context: Context, receiptFieldList: ArrayList<ReceiptDataFieldEntity>, view: View) {

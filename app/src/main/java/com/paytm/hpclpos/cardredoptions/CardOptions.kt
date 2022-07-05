@@ -14,10 +14,10 @@ class CardOptions(context: Context, cardEventListener: CardEventListener, cardSu
         fun closeIccAndMag() {
             magReadThread?.interrupt()
             iccDetectThread?.interrupt()
-            IccTester.getInstance().close(0.toByte())
-            IccTester.getInstance().light(false)
-            MagTester.getInstance().close()
-            MagTester.getInstance().reset()
+            IccTester.instance?.close(0.toByte())
+            IccTester.instance?.light(false)
+            MagTester.instance?.close()
+            MagTester.instance?.reset()
         }
 
         object cardeventListener : CardEventListener {
@@ -40,8 +40,8 @@ class CardOptions(context: Context, cardEventListener: CardEventListener, cardSu
         // assigning Listener from Confirm Amount Fragment to send Success and Failure Results
         cardEntListnr = cardEventListener
         magReadThread = MagReadThread(context, cardeventListener, cardSuccessListener)
-        MagTester.getInstance().open()
-        MagTester.getInstance().reset()
+        MagTester.instance?.open()
+        MagTester.instance?.reset()
         magReadThread!!.start();
 
         iccDetectThread = IccDetectThread(cardeventListener, cardSuccessListener)

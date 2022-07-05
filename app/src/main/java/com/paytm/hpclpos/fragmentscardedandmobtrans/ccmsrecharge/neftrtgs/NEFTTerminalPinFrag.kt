@@ -127,11 +127,11 @@ class NEFTTerminalPinFrag : Fragment(), View.OnClickListener {
     }
 
     private fun callTransactionSuccess(transId: String, transDate: String, transAmount: String, product: String) {
-        val intent = Intent(requireContext(), com.paytm.hpclpos.fragmentscardedandmobtrans.ccmsrecharge.TransactionSucessActivity::class.java)
+       /* val intent = Intent(requireContext(), com.paytm.hpclpos.fragmentscardedandmobtrans.ccmsrecharge.TransactionSucessActivity::class.java)
         intent.putExtra(Constants.TRANSID, transId)
         intent.putExtra(Constants.TRANSDATE, transDate)
         intent.putExtra(Constants.TRANSAMOUNT, transAmount)
         intent.putExtra(Constants.TRANSPRODUCT, product)
-        startActivity(intent)
+        startActivity(intent)*/
     }
 }
