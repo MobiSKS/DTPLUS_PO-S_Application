@@ -223,7 +223,6 @@ class PrinterTester private constructor() : BaseTester() {
 
     companion object {
         private var printerTester: PrinterTester? = null
-        @JvmStatic
         val instance: PrinterTester?
             get() {
                 if (printerTester == null) {

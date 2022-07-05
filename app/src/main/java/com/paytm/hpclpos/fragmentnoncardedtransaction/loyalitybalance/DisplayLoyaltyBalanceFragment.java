@@ -72,68 +72,6 @@ public class DisplayLoyaltyBalanceFragment extends Fragment {
 
     private void showReceipt(){
 
-        new Thread(() -> {
-            PrinterTester.getInstance().init();
-            PrinterTester.getInstance().setInvert(false);
-
-            String str = "         CUSTOMER COPY";
-            String str1="            HPCL";
-            String str2="        DriveTrack Plus";
-            String str3="       MOTI RAM AND SONS";
-            String str4="           PALWAL";
-            String str5="DATE/TIME:          02/06/21  06:36:21";
-            String strTid="TID:                        5000057570";
-            String strDevider="----------------------------------------";
-            String strctrlId="CONTROL ID:                 1900006767";
-            String str7="    LOYLTY REDEEM (POINTS)";
-            String str8="SERVICE:               LOYLTY_BALANCE_ENQ";
-            String str10="BALANCE:                           216129";
-            String str15="----------------------------------------";
-            String str16="                Thank You";
-            String str17="                   HPCL";
-            String str18="-----------------------------------------";
-            if (str != null && str.length() > 0){
-                PrinterTester.getInstance().fontSet((EFontTypeAscii) FONT_16_48,
-                        (EFontTypeExtCode) FONT_16_16);
-                PrinterTester.getInstance().setGray(2);
-                PrinterTester.getInstance().step(100);
-
-                PrinterTester.getInstance().spaceSet(Byte.parseByte("1"),
-                        Byte.parseByte("0"));
-                PrinterTester.getInstance().printStr(str +"\n", null);
-                PrinterTester.getInstance().printStr(str1+"\n", null);
-                PrinterTester.getInstance().printStr(str2+"\n", null);
-                PrinterTester.getInstance().printStr(str3+"\n", null);
-                PrinterTester.getInstance().printStr(str4+"\n"+"\n", null);
-
-                PrinterTester.getInstance().fontSet((EFontTypeAscii) FONT_8_32,
-                        (EFontTypeExtCode) FONT_16_16);
-                PrinterTester.getInstance().setGray(2);
-
-                PrinterTester.getInstance().printStr(str5+"\n", null);
-                PrinterTester.getInstance().printStr(strTid+"\n", null);
-                PrinterTester.getInstance().printStr(strDevider+"\n", null);
-                PrinterTester.getInstance().printStr(strctrlId+"\n", null);
-
-                PrinterTester.getInstance().fontSet((EFontTypeAscii) FONT_12_48,
-                        (EFontTypeExtCode) FONT_16_16);
-                PrinterTester.getInstance().setGray(3);
-                PrinterTester.getInstance().printStr(str7 +"\n", null);
-
-                PrinterTester.getInstance().fontSet((EFontTypeAscii) FONT_8_32,
-                        (EFontTypeExtCode) FONT_16_16);
-                PrinterTester.getInstance().setGray(2);
-
-                PrinterTester.getInstance().printStr(str8+"\n", null);
-                PrinterTester.getInstance().printStr(str10+"\n", null);
-                PrinterTester.getInstance().printStr(str15+"\n", null);
-                PrinterTester.getInstance().printStr(str16+"\n", null);
-                PrinterTester.getInstance().printStr(str17+"\n", null);
-                PrinterTester.getInstance().printStr(str18+"\n"+"\n", null);
-
-                PrinterTester.getInstance().start();
-            }
-        }).start();
     }
 
     private void goToMainPage() {

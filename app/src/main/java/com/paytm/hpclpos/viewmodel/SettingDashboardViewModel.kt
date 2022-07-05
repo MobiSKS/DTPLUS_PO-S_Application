@@ -46,6 +46,7 @@ class SettingDashboardViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     liveDataRegistration!!.value = response.body()
                 } else {
+                    Log.d("------->"," " + response.errorBody().toString())
                     liveDataRegistration!!.value = null
                 }
             }
