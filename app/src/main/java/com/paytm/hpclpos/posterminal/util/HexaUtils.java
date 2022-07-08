@@ -2,6 +2,11 @@ package com.paytm.hpclpos.posterminal.util;
 
 import android.util.Log;
 
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 public class HexaUtils {
     private HexaUtils() {
     }
@@ -53,5 +58,86 @@ public class HexaUtils {
     public static String getVehicleNumberByTrack1(String track1) {
         String name = track1.substring(track1.lastIndexOf('^') - NUMBER_24, track1.lastIndexOf('^'));
         return name.trim();
+    }
+
+    public static String stringToHexDecimal(String str) {
+        StringBuffer sb = new StringBuffer();
+        //Converting string to character array
+        char ch[] = str.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            String hexString = Integer.toHexString(ch[i]);
+            sb.append(hexString);
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
+    public static byte[] concatByteArray(byte[] first,byte[] second,byte[] third) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(first);
+        outputStream.write(second);
+        outputStream.write(third);
+        byte[] result = outputStream.toByteArray();
+        System.out.println(new String(result));
+        return result;
+    }
+
+    public static byte[] concatByteArray(byte[] first,byte[] second) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(first);
+        outputStream.write(second);
+        byte[] result = outputStream.toByteArray();
+        return result;
+    }
+
+    public static String byte2HexStr(byte[] data) {
+        if (data == null || data.length <= 0) {
+            return null;
+        }
+        try {
+            String stmp = "";
+            StringBuilder sb = new StringBuilder("");
+            for (int n = 0; n < data.length; n++) {
+                stmp = Integer.toHexString(data[n] & 0xFF);
+                sb.append(stmp.length() == 1 ? "0" + stmp : stmp);
+            }
+            return sb.toString().toUpperCase().trim();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static byte[] hexStr2Bytes(String src) {
+        if (src == null || src.length() <= 0) {
+            return null;
+        }
+        try {
+            int m = 0;
+            int n = 0;
+            if (src.length() % 2 != 0) {
+                src = "0" + src;
+            }
+            int l = src.length() / 2;
+
+            byte[] ret = new byte[l];
+            for (int i = 0; i < l; i++) {
+                m = i * 2 + 1;
+                n = m + 1;
+                ret[i] = Integer.decode("0x" + src.substring(i * 2, m) + src.substring(m, n)).byteValue();
+            }
+            return ret;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static String str2Asc(String str) throws UnsupportedEncodingException {
+        if (str == null || str.length() <= 0) return null;
+
+        String ascStr = "";
+        for (int i = 0; i < str.length(); i++) {
+            ascStr += String.format("%02X", str.substring(i, i + 1).getBytes("ISO-8859-1")[0]);
+        }
+        return ascStr;
     }
 }

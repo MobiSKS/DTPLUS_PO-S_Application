@@ -1,10 +1,10 @@
 package com.paytm.hpclpos.cardredoptions
 
 import android.util.Log
-import com.paytm.hpclpos.posterminal.util.BaseTester
 import com.pax.dal.IMag
 import com.pax.dal.entity.TrackData
 import com.pax.dal.exceptions.MagDevException
+import com.paytm.hpclpos.posterminal.util.BaseTester
 import kotlin.Throws
 import com.paytm.hpclpos.posterminal.base.DemoApp
 

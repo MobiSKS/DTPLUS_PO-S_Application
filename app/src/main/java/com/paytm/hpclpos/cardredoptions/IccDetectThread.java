@@ -94,7 +94,9 @@ public class IccDetectThread extends Thread {
                                                     try {
                                                         //Read PAN number
                                                         byte[] reqreadPan = {(byte) 0x00, (byte) 0xb2, (byte) 0x01, (byte) 0X04, (byte) 0X10};
+                                                        byte[] readPin = {(byte) 0x00, (byte) 0xB2, (byte) 0x01, (byte) 0X04, (byte) 0X10 };
                                                         byte[] isoResreadPan = IccTester.getInstance().isoCommand((byte) 0, reqreadPan);
+                                                        byte[] isoreadPin = IccTester.getInstance().isoCommand((byte) 0, readPin);
 
                                                         if (isoResreadPan != null) {
                                                             IApdu.IApduResp apduRespreadPan = apdu.unpack(isoResreadPan);
@@ -109,6 +111,21 @@ public class IccDetectThread extends Thread {
 
                                                             }
                                                         }
+
+                                                        if (isoreadPin != null) {
+                                                            IApdu.IApduResp apduRespreadPin = apdu.unpack(isoreadPin);
+
+                                                            if (apduRespreadPin.getStatusString().equalsIgnoreCase("9000")) {
+
+                                                                buildIsoStr(isoStr,apduRespreadPin,apdu);
+                                                            } else {
+                                                                cardEventListener.onCardEvent(new CardEventState(CardEventState.ERROR_READ));
+                                                                Log.i("Test", "Can not read PAN nubber");
+                                                                return;
+
+                                                            }
+                                                        }
+
 
                                                     } catch (Exception e) {
                                                         cardEventListener.onCardEvent(new CardEventState(CardEventState.ERROR_READ));
@@ -178,6 +195,12 @@ public class IccDetectThread extends Thread {
             Log.e(ICC_DETECT_THREAD, e.getLocalizedMessage());
         }
         return isoStr;
+    }
+
+    public static String buildPinString(StringBuilder isoStr,IApdu.IApduResp apduRespreadPan,IApdu apdu) {
+        String panNumner = HexaUtils.hexToAscii(HexaUtils.ByteArrayToHexString(apduRespreadPan.getData()));
+        Log.d("ICC detect Thread", "Pin Number Of Card" + panNumner);
+        return panNumner;
     }
 
     public static String setMF(IApdu apdu) {

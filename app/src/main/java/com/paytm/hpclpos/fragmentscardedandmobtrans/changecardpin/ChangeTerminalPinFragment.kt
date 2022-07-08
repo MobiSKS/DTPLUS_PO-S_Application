@@ -15,6 +15,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.paytm.hpclpos.R
+import com.paytm.hpclpos.cardredoptions.CardEventListener
+import com.paytm.hpclpos.cardredoptions.CardEventState
+import com.paytm.hpclpos.cardredoptions.VerifyPinThreadInit
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.FragmentChangeTerminalPinBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
@@ -28,6 +31,7 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
     lateinit var mobNokeyboard: EnterMobileNoKeyboard
     lateinit var binding: FragmentChangeTerminalPinBinding
     lateinit var batchId: String
+    var verifyPinThreadInit: VerifyPinThreadInit? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -90,7 +94,7 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
                 binding.reEnterPinEditText.setError(resources.getString(R.string.mismatchnewpin))
                 ToastMessages.customMsgToast(context, resources.getString(R.string.mismatchnewpin))
             } else {
-                checkAndNavigate(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
+                callPinVerifyThreadInit(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
             }
     }
 
@@ -153,5 +157,21 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
                 true
             } else false
         })
+    }
+
+
+    fun callPinVerifyThreadInit(newPin: String,oldPin: String) {
+        verifyPinThreadInit = VerifyPinThreadInit(object : CardEventListener {
+            override fun onCardEvent(state: CardEventState?) {
+                ToastMessages.customMsgToast(requireContext(),state?.state)
+            }
+
+            override fun onCardReadSuccess() {
+                requireActivity().runOnUiThread({
+                    ToastMessages.customMsgToast(requireActivity(), "Pin Changed SuccessFully")
+                    checkAndNavigate(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
+                })
+            }
+        },Constants.CHANGE_PIN,oldPin,newPin)
     }
 }

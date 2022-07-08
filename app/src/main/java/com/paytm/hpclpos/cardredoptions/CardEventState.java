@@ -18,6 +18,10 @@ public class CardEventState {
     public static final String CARD_REMOVED_READ_WHILE_READING = "CARD_REMOVED_READ_WHILE_READING";
     public static final String TAP_MULTIPLE_CARDS="TAP_MULTIPLE_CARDS";
 
+    public static final String CARD_PROFILE_READ_ERROR = "CARD_PROFILE_READ_ERROR";
+    public static final String INCORRECT_PIN = "INCORRECT_PIN";
+    public static final String CARD_PIN_READ_ERROR = "CARD_PIN_READ_ERROR";
+
     @Getter
     public String state;
 

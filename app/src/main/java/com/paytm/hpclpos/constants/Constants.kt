@@ -20,6 +20,9 @@ interface Constants {
             GlobalMethods.putString("trace", msg)
         }
 
+        const val VERIFY_PIN = "verifypin"
+        const val CHANGE_PIN = "changepin"
+
         const val NAV_VALUE = "navValue"
         const val NAV_VALUE1 = "navValue1"
         const val ICC = "ICC"

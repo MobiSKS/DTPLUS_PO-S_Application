@@ -15,6 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.paytm.hpclpos.PrintReceipts.Store
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.activities.dialogs.SettlementDialog
+import com.paytm.hpclpos.cardredoptions.CardEventListener
+import com.paytm.hpclpos.cardredoptions.CardEventState
+import com.paytm.hpclpos.cardredoptions.CardOptions
+import com.paytm.hpclpos.cardredoptions.VerifyPinThreadInit
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivityEnterCardPinBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
@@ -31,6 +35,7 @@ class EnterCardPinFragment : BaseFragment() {
     lateinit var batchId: String
     lateinit var viewModel: MainActivityViewModel
     private var settlementDialog: SettlementDialog? = null
+    var verifyPinThreadInit: VerifyPinThreadInit? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_enter_card_pin, container, false)
@@ -65,14 +70,14 @@ class EnterCardPinFragment : BaseFragment() {
         if (!Validation.isvalidCardPin(cardPin.trim { it <= ' ' })) {
             ToastMessages.customMsgToast(this.requireContext(), "Enter 4 digit PIN")
         } else {
-            checkTransTypeforNavigation()
+            GlobalMethods.setPinData(binding.enterPinText.text.toString())
+            callPinVerifyThreadInit()
         }
     }
 
     fun checkTransTypeforNavigation() {
         val viewModel: MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         val merchantViewModel = ViewModelProvider(this).get(MerchantActivityViewModel::class.java)
-        GlobalMethods.setPinData(binding.enterPinText.text.toString())
         Log.d("EnterCardPinFragment","Sale Name ${GlobalMethods.getSaleType()}")
         when (GlobalMethods.getSaleType()) {
             SaleTransactionDetails.CARDSALE.saleName,
@@ -255,5 +260,41 @@ class EnterCardPinFragment : BaseFragment() {
     private fun gotoMainFragment() {
         ToastMessages.customMsgToastShort(requireContext(),getString(R.string.transaction_cancelled))
         navController!!.navigate(R.id.action_main_fragment)
+    }
+
+    fun handleCardReadError(state: CardEventState?) {
+        when (state!!.state) {
+            CardEventState.CARD_PROFILE_READ_ERROR ->   requireActivity().runOnUiThread({
+                ToastMessages.customMsgToast(requireActivity(), "Card Profile Read Failed")
+                CardOptions.closeIccAndMag()
+                navController!!.navigate(R.id.action_main_fragment)
+            })
+
+            CardEventState.INCORRECT_PIN ->  requireActivity().runOnUiThread {
+                ToastMessages.customMsgToast(requireActivity(), "Incorrect Pin")
+                CardOptions.closeIccAndMag()
+            }
+
+            CardEventState.CARD_PIN_READ_ERROR -> requireActivity().runOnUiThread {
+                ToastMessages.customMsgToast(requireActivity(), "Card Pin Read Error")
+                CardOptions.closeIccAndMag()
+                navController!!.navigate(R.id.action_main_fragment)
+            }
+        }
+    }
+
+    fun callPinVerifyThreadInit() {
+        verifyPinThreadInit = VerifyPinThreadInit(object : CardEventListener {
+            override fun onCardEvent(state: CardEventState?) {
+                handleCardReadError(state)
+            }
+
+            override fun onCardReadSuccess() {
+                requireActivity().runOnUiThread({
+                    ToastMessages.customMsgToast(requireActivity(), "Card Read Success")
+                    checkTransTypeforNavigation()
+                })
+            }
+        },Constants.VERIFY_PIN)
     }
 }
