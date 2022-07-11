@@ -34,8 +34,8 @@ class SelectTransactionTypeFargment : BaseFragment() {
 
     private fun viewFinds() {
         //All click listner
-        binding.gotoBack!!.setOnClickListener({
-            showExitDialog()
+        binding.gotoBack.setOnClickListener({
+           // showExitDialog()
         })
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

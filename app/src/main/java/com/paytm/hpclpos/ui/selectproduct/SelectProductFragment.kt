@@ -32,7 +32,7 @@ class SelectProductFragment : BaseFragment() {
 
     private fun viewFinds() {
        binding.selectproductgotoBack.setOnClickListener( {
-           requireActivity().onBackPressed()
+           //requireActivity().onBackPressed()
        })
        handleOnBackPressed()
     }

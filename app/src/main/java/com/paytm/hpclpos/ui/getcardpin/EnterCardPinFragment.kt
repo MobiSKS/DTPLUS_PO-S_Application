@@ -254,7 +254,7 @@ class EnterCardPinFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.enterCardPinCancel.setOnClickListener({ gotoMainFragment() })
-        binding.gotoBack.setOnClickListener({ gotoMainFragment() })
+        binding.gotoBack.setOnClickListener({ /*gotoMainFragment()*/ })
     }
 
     private fun gotoMainFragment() {

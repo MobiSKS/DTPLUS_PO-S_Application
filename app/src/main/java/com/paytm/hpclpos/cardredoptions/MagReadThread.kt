@@ -59,12 +59,15 @@ class MagReadThread(con: Context,cardEventList: CardEventListener,cardSuccessLis
                         cardEventListener.onCardEvent(CardEventState(CardEventState.SWIPE_INCORRECT))
                     }
                 } catch (magdec : MagDevException ) {
+                    interrupt()
                     Log.d("MagReadThread", magdec.toString())
                     cardEventListener.onCardEvent(CardEventState(CardEventState.SWIPE_INCORRECT))
                 } catch (nullPointerException : NullPointerException) {
+                    interrupt()
                     Log.d("MagReadThread", nullPointerException.toString())
                     cardEventListener.onCardEvent(CardEventState(CardEventState.SWIPE_INCORRECT))
                 } catch (stringOutOfBoundException: StringIndexOutOfBoundsException) {
+                    interrupt()
                     Log.d("MagReadThread", stringOutOfBoundException.toString())
                     cardEventListener.onCardEvent(CardEventState(CardEventState.SWIPE_INCORRECT))
                 }

@@ -27,6 +27,7 @@
                 android:id="@+id/gotoBack"
                 android:layout_width="wrap_content"
                 android:gravity="center"
+                android:visibility="invisible"
                 android:layout_marginLeft="10dp"
                 android:layout_height="match_parent">
 

@@ -60,7 +60,7 @@ class OdometerReadingFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View) {
         closesoftKeypad(binding.odometerEditText)
         when (v.id) {
-            R.id.gotoBack -> goToMainFragment()
+            R.id.gotoBack -> { /*goToMainFragment()*/ }
             R.id.lLskip -> odometerdoneCall()
         }
     }

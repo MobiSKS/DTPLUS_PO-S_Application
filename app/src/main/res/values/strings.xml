@@ -209,4 +209,6 @@
     <string name="input_required">Input Required</string>
     <string name="enter_terminal_pin">Enter Terminal Pin</string>
     <string name="reenter_terminal_pin">Re-Enter Terminal Pin</string>
+    <string name="select_product">SELECT PRODUCT</string>
+    <string name="select_transaction_type">SELECT TRANSACTION TYPE</string>
 </resources>

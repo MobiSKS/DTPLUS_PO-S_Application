@@ -88,7 +88,7 @@ class EnterMobileNumberFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.gotoBack -> {
-               goToMainFragment()
+               // goToMainFragment()
             }
         }
     }

@@ -27,6 +27,7 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:visibility="invisible"
                     android:id="@+id/gotoBack"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -97,9 +98,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_7sdp"
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_7sdp"
-                    android:background="@color/colorbackground"
                     android:hint="@string/enter_mobile_no"
                     android:textColorHint="@color/light_blue"
                     app:boxStrokeColor="@color/light_blue"
@@ -112,17 +112,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:inputType="number"
-                        android:maxLength="10"
-                        android:textStyle="bold" />
+                        style="@style/textSize16sp_robomedium"
+                        android:maxLength="10" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:layout_marginTop="@dimen/_5dp"
-                    android:layout_marginRight="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:text="10 Digits"
                     android:textColor="@color/black" />

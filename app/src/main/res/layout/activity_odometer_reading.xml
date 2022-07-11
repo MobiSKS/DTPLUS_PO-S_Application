@@ -28,6 +28,7 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:visibility="invisible"
                     android:id="@+id/gotoBack"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -104,6 +105,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/odometer_EditText"
+                        style="@style/textSize16sp_robomedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_5sdp"
@@ -117,6 +119,7 @@
                     android:layout_height="35dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/_3sdp"
+                    style="@style/textstyletitle"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_4sdp"
                     android:background="@drawable/rounded_fragment_white"

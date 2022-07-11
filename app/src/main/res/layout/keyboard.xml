@@ -38,6 +38,7 @@
 
             </View>
 
+
             <LinearLayout
                 android:id="@+id/llayout_2"
                 android:layout_width="0dp"
@@ -65,6 +66,8 @@
 
             </View>
 
+
+
             <LinearLayout
                 android:id="@+id/llayout_3"
                 android:layout_width="0dp"
@@ -72,7 +75,6 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:layout_height="60dp">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:gravity="center"
@@ -86,12 +88,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/divider_color">
-
-            </View>
 
         </LinearLayout>
 
@@ -99,6 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider_color">
+
         </View>
 
         <LinearLayout
@@ -114,7 +111,6 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:layout_height="60dp">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:gravity="center"
@@ -134,6 +130,7 @@
                 android:background="@color/divider_color">
 
             </View>
+
 
             <LinearLayout
                 android:id="@+id/llayout_5"
@@ -162,6 +159,8 @@
 
             </View>
 
+
+
             <LinearLayout
                 android:id="@+id/llayout_6"
                 android:layout_width="0dp"
@@ -182,12 +181,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/divider_color">
-
-            </View>
 
         </LinearLayout>
 
@@ -195,7 +188,12 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider_color">
+
         </View>
+
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -210,7 +208,6 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:layout_height="60dp">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:gravity="center"
@@ -218,7 +215,9 @@
                     android:layout_height="match_parent"
                     android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:text="7"/>
+                    android:text="7">
+
+                </TextView>
 
             </LinearLayout>
 
@@ -258,6 +257,7 @@
             </View>
 
 
+
             <LinearLayout
                 android:id="@+id/llayout_9"
                 android:layout_width="0dp"
@@ -281,6 +281,12 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color">
+
+        </View>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -324,6 +330,7 @@
 
             </View>
 
+
             <LinearLayout
                 android:id="@+id/llayout_0"
                 android:layout_width="0dp"
@@ -351,6 +358,8 @@
 
             </View>
 
+
+
             <LinearLayout
                 android:id="@+id/llayout_back"
                 android:layout_width="0dp"
@@ -371,12 +380,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/divider_color">
-
-            </View>
 
         </LinearLayout>
 

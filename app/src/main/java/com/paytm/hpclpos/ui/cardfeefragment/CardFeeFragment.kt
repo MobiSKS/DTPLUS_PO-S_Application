@@ -50,8 +50,8 @@ class CardFeeFragment : BaseFragment() {
             callCnfrmAmntFrag()
         }
         gotoBack.setOnClickListener {
-            hideKeypad()
-            goToMainFragment()
+            /* hideKeypad()
+            goToMainFragment() */
         }
         handleOnBackPressed()
         handleEnterKey()

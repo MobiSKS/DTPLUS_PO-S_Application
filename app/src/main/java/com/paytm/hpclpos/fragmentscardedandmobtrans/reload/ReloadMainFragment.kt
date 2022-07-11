@@ -41,7 +41,7 @@ class ReloadMainFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.gotoBack -> requireActivity().onBackPressed()
+            R.id.gotoBack ->  { /*requireActivity().onBackPressed()*/ }
             R.id.rlCashReld -> {
                 displayDialog(
                     "Remind",

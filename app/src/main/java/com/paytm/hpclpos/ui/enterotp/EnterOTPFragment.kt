@@ -36,7 +36,7 @@ class EnterOTPFragment : BaseFragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_enter_o_t_p, container, false)
-        binding.gotoBack.setOnClickListener { gotoMainActivity() }
+        binding.gotoBack.setOnClickListener { /*gotoMainActivity()*/ }
         binding.title.setText(GlobalMethods.getSaleType())
         mobileNumber = GlobalMethods.getMobileNo()!!
         handleEnterKey()
@@ -49,7 +49,7 @@ class EnterOTPFragment : BaseFragment() {
         if (!Validation.isvalidOTPNo(oTPNo.trim { it <= ' ' })) {
             Toast.makeText(context, "Please enter a valid OTP No.", Toast.LENGTH_SHORT).show()
         } else {
-            authOtp()
+            authOtp(oTPNo)
         }
     }
 
@@ -68,7 +68,8 @@ class EnterOTPFragment : BaseFragment() {
         })
     }
 
-    fun authOtp() {
+    fun authOtp(otpNumber: String) {
+        GlobalMethods.setOtpNumber(otpNumber)
         checkTransTypeforNavigation()
     }
 

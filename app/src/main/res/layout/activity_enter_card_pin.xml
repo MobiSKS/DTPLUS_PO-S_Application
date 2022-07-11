@@ -28,6 +28,7 @@
                 android:gravity="center">
 
                 <ImageView
+                    android:visibility="invisible"
                     android:id="@+id/gotoBack"
                     android:layout_width="25dp"
                     android:layout_height="25dp"

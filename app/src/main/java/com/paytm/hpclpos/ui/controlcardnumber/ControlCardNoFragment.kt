@@ -47,8 +47,8 @@ class ControlCardNoFragment : BaseFragment(), View.OnClickListener {
                 requireActivity().onBackPressed()
             }
             R.id.gotoBack -> {
-                hideKeypad()
-                requireActivity().onBackPressed()
+                /* hideKeypad()
+                requireActivity().onBackPressed() */
             }
         }
     }

@@ -39,7 +39,7 @@ class ConstructSaleRequest (var context: Context,var batchId:Int,var odometerRea
             ccmsSaleRequest.odometerReading = odometerReading
         } else {
             ccmsSaleRequest.mobileNo = GlobalMethods.getMobileNo()
-            ccmsSaleRequest.otp = "123456"
+            ccmsSaleRequest.otp = GlobalMethods.getOtpNumber()
             ccmsSaleRequest.odometerReading = odometerReading
         }
         if(GlobalMethods.getSaleType()!!.equals(SaleTransactionDetails.DEALER_CREDIT_SALE.saleName)) {
@@ -78,7 +78,7 @@ class ConstructSaleRequest (var context: Context,var batchId:Int,var odometerRea
             ccmsRechargeRequest.pin = GlobalMethods.getPinData()!!
         } else {
             ccmsRechargeRequest.mobileNo = GlobalMethods.getMobileNo()!!
-            ccmsRechargeRequest.otp = "123456"
+            ccmsRechargeRequest.otp = GlobalMethods.getOtpNumber()!!
         }
         return ccmsRechargeRequest
     }
@@ -99,7 +99,7 @@ class ConstructSaleRequest (var context: Context,var batchId:Int,var odometerRea
             balanceTransferRequest.pin = GlobalMethods.getPinData()
         } else {
             balanceTransferRequest.mobileNo = GlobalMethods.getMobileNo()
-            balanceTransferRequest.otp = "123456"
+            balanceTransferRequest.otp = GlobalMethods.getOtpNumber()
         }
         return balanceTransferRequest
     }
@@ -124,7 +124,7 @@ class ConstructSaleRequest (var context: Context,var batchId:Int,var odometerRea
             reloadRequest.pin = GlobalMethods.getPinData()
         } else {
             reloadRequest.mobileNo = GlobalMethods.getMobileNo()
-            reloadRequest.otp = "123456"
+            reloadRequest.otp = GlobalMethods.getOtpNumber()
         }
         return reloadRequest
     }
@@ -143,7 +143,7 @@ class ConstructSaleRequest (var context: Context,var batchId:Int,var odometerRea
             balanceEnquiryRequest.pin = GlobalMethods.getPinData()
         } else {
             balanceEnquiryRequest.mobileNo = GlobalMethods.getMobileNo()
-            balanceEnquiryRequest.otp = "123456"
+            balanceEnquiryRequest.otp = GlobalMethods.getOtpNumber()
         }
         return balanceEnquiryRequest
     }

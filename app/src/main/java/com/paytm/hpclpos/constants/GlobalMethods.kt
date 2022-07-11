@@ -131,6 +131,7 @@ class GlobalMethods {
         private val PIN_DATA = "PIN_DATA"
         private val UTR_NUMBER = "UTR_NUMBER"
         private val TOKEN_NUMBER = "TOKEN_NUMBER"
+        private val OTP_NUMBER = "OTP_NUMBER"
         private val CARD_NUM = "CARD_NUM"
         private val MICR_NUMBER = "MICR_NUMBER"
 
@@ -364,6 +365,14 @@ class GlobalMethods {
 
         fun getTokenNumber(): String? {
             return datas!!.get(TOKEN_NUMBER) as? String
+        }
+
+        fun setOtpNumber(otpNumber: String) {
+            datas!!.put(OTP_NUMBER, otpNumber)
+        }
+
+        fun getOtpNumber(): String? {
+            return datas!!.get(OTP_NUMBER) as? String
         }
     }
 }

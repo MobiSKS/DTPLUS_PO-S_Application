@@ -114,12 +114,11 @@ class SaleReceipts(val context: Context,val activity: Activity,val lastTransacti
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("RSP:","-"))
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("VOLUME:","-"))
         } else {
-            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("RSP:",lastTransactionData.rsp))
-            val volume = lastTransactionData.transaction_Amount!!.toFloat() / lastTransactionData.rsp!!.toFloat()
+            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("RSP:", lastTransactionData.rsp))
+            /*val volume = lastTransactionData.transaction_Amount!!.toFloat() / lastTransactionData.rsp!!.toFloat()
             val df = DecimalFormat("#.###")
-            df.setRoundingMode(RoundingMode.CEILING)
-            Log.d("Sale Receipt",df.format(volume))
-            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("VOLUME:",df.format(volume)))
+            df.setRoundingMode(RoundingMode.CEILING)*/
+            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("VOLUME:", lastTransactionData.volume))
         }
     }
 }

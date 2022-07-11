@@ -48,7 +48,7 @@ class NEFTMainFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.lLcancl, R.id.gotoBack -> {
+            R.id.lLcancl -> {
                 hideKeypad()
                 requireActivity().onBackPressed()
             }

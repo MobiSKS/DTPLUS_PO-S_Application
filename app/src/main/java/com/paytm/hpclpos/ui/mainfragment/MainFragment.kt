@@ -1,19 +1,15 @@
 package com.paytm.hpclpos.activities.mainsaleactivities
 
-import android.content.Context
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.apphpcldb.entity.repository.AppRepository
-import com.paytm.hpclpos.Dialog.LoginDialogFragment
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.constants.ToastMessages.customMsgToast

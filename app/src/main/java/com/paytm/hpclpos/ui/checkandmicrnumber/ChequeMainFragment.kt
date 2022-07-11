@@ -39,8 +39,8 @@ class ChequeMainFragment : BaseFragment() {
     private fun viewFinds() {
         handleEnterKey()
         binding.gotoBack.setOnClickListener {
-            hideKeypad()
-            requireActivity().onBackPressed()
+            /* hideKeypad()
+               requireActivity().onBackPressed() */
         }
     }
 

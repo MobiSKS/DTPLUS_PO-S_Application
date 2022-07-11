@@ -57,4 +57,34 @@
     <style name="Theme.HPCLPOS.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.HPCLPOS.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="textstylemediumblack">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/robotomedium</item>
+    </style>
+
+    <style name="textstylemediumwhite">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/robotomedium</item>
+    </style>
+
+    <style name="textstyletitle">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/robotolight</item>
+    </style>
+
+    <style name="textSize16sp_robomedium">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/robotomedium</item>
+    </style>
+
+    <style name="textSize16sp_roboLight">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/robotomedium</item>
+    </style>
 </resources>

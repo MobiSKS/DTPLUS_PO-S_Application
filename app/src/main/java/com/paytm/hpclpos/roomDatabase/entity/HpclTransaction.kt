@@ -83,4 +83,7 @@ class HpclTransaction {
 
     @ColumnInfo(name = "RSP")
     var rsp: String? = null
+
+    @ColumnInfo(name = "Volume")
+    var volume: String? = null
 }
