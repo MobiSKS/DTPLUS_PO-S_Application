@@ -103,7 +103,7 @@
                         android:inputType="number"
                         android:maxLength="6"
                         android:text=""
-                        android:textCursorDrawable="@color/light_blue"
+                        style="@style/textSize16sp_robomedium"
                         android:textSize="@dimen/_13sdp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -144,7 +144,7 @@
                         android:inputType="number"
                         android:maxLength="9"
                         android:text=""
-                        android:textCursorDrawable="@color/light_blue"
+                        style="@style/textSize16sp_robomedium"
                         android:textSize="@dimen/_13sdp" />
 
                 </com.google.android.material.textfield.TextInputLayout>

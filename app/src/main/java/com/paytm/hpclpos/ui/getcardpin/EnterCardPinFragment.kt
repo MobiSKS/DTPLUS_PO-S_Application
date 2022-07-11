@@ -31,7 +31,6 @@ import com.paytm.hpclpos.viewmodel.MerchantActivityViewModel
 
 class EnterCardPinFragment : BaseFragment() {
     lateinit var binding: ActivityEnterCardPinBinding
-    lateinit var sharedPreferencesData: SharedPreferencesData
     lateinit var batchId: String
     lateinit var viewModel: MainActivityViewModel
     private var settlementDialog: SettlementDialog? = null

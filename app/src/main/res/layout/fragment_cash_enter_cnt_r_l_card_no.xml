@@ -103,6 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        style="@style/textSize16sp_robomedium"
                         android:maxLength="16"
                         android:textSize="@dimen/_14sdp" />
 

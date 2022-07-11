@@ -127,8 +127,10 @@ class PrintUtils {
                     }
 
                     override fun onError(error: Int) {
-                        ToastMessages.customMsgToast(activity, "Print Failed $error")
-                        printStatusListener?.onError(error)
+                        activity.runOnUiThread({
+                            ToastMessages.customMsgToast(activity, "Print Failed $error")
+                            printStatusListener?.onError(error)
+                        })
                     }
                 })
             }.start()
@@ -147,7 +149,7 @@ class PrintUtils {
             SaleTransactionDetails.CCMS_RELOAD.saleName -> { return SaleTransactionDetails.CCMS_RELOAD.saleName  }
             SaleTransactionDetails.CCMS_CHEQUERECHARGE.saleName -> { return "CCMS RECHARGE(CHEQUE)" }
             SaleTransactionDetails.CCMS_NEFTRECHARGE.saleName -> { return "CCMS RECHARGE(NEFT/RTGS)" }
-             SaleTransactionDetails.CCMS_CASHRECHARGE.saleName -> { return "CCMS RECHARGE(CASH)" }
+            SaleTransactionDetails.CCMS_CASHRECHARGE.saleName -> { return "CCMS RECHARGE(CASH)" }
             SaleTransactionDetails.CARD_FEE_PAYMENT.saleName -> { return "CARD FEE(DTP)" }
             SaleTransactionDetails.BALANCE_ENQUIRY.saleName -> { return "CARD BALANCE" }
         }

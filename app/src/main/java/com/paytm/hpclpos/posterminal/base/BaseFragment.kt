@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -25,12 +26,11 @@ import com.paytm.hpclpos.activities.broadcastreceiver.CallSettlement
 import com.paytm.hpclpos.activities.broadcastreceiver.SettlementListener
 import com.paytm.hpclpos.activities.dialogs.SettlementDialog
 import com.paytm.hpclpos.activities.mainsaleactivities.MainActivity
-import com.paytm.hpclpos.constants.Constants
-import com.paytm.hpclpos.constants.GlobalMethods
-import com.paytm.hpclpos.constants.ToastMessages
-import com.paytm.hpclpos.constants.TransactionUtils
+import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.livedatamodels.ccmsrecharge.CCMSRechargeResponse
+import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenRequest
 import com.paytm.hpclpos.viewmodel.DialogListener
+import com.paytm.hpclpos.viewmodel.MainActivityViewModel
 
 
 abstract class BaseFragment : Fragment() {
@@ -40,6 +40,7 @@ abstract class BaseFragment : Fragment() {
     private lateinit var settlementDialog: SettlementDialog
     protected lateinit var countDownTimer: CountDownTimer
     private val TAG = "BaseFragment"
+    lateinit var sharedPreferencesData: SharedPreferencesData
 
     abstract fun updateTimerUi(l: Long)
 
@@ -223,5 +224,23 @@ abstract class BaseFragment : Fragment() {
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
         }
+    }
+
+    fun getToken() {
+        val viewModel: MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        val tokenRequestData = GenerateTokenRequest(Constants.ANDROIDAGENT, "string", GlobalMethods.getDeviceId(requireContext()))
+        viewModel.makeApiCallGenerateToken(tokenRequestData)
+        viewModel.getLiveDataObserverGenerateToken().observe(viewLifecycleOwner, {
+
+            if (it != null) {
+                if (it.Success) {
+                    sharedPreferencesData.setSharedPreferenceData(Constants.TOKENIDPREF, Constants.TOKENID, it.Token)
+                } else {
+                    ToastMessages.customMsgToast(requireContext(), it.Message)
+                }
+            } else {
+                ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+            }
+        })
     }
 }

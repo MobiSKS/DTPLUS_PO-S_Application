@@ -26,7 +26,6 @@ class MainFragment : BaseFragment() {
     private var settingCardView: CardView? = null
     private var merchantServiceCardView: CardView? = null
     private val textToSpeech: TextToSpeech? = null
-    lateinit var sharedPreferencesData: SharedPreferencesData
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
@@ -69,24 +68,6 @@ class MainFragment : BaseFragment() {
             textToSpeech.stop()
             textToSpeech.shutdown()
         }
-    }
-
-    fun getToken() {
-        val viewModel: MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        val tokenRequestData = GenerateTokenRequest(Constants.ANDROIDAGENT, "string", GlobalMethods.getDeviceId(requireContext()))
-        viewModel.makeApiCallGenerateToken(tokenRequestData)
-        viewModel.getLiveDataObserverGenerateToken().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-            if (it != null) {
-                if (it.Success) {
-                    sharedPreferencesData.setSharedPreferenceData(Constants.TOKENIDPREF, Constants.TOKENID, it.Token)
-                } else {
-                     customMsgToast(requireContext(), it.Message)
-                }
-            } else {
-                customMsgToast(requireContext(), "Internal Server Error")
-            }
-        })
     }
 
     override fun onResume() {

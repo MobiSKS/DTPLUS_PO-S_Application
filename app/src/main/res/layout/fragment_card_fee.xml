@@ -101,6 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        style="@style/textSize16sp_robomedium"
                         android:maxLength="10"
                         android:textSize="@dimen/_14sdp" />
 
@@ -120,6 +121,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/noOfCards_EditText"
+                        style="@style/textSize16sp_robomedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"

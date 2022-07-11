@@ -116,6 +116,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_10sdp"
+                                style="@style/textSize16sp_robomedium"
                                 android:inputType="number"
                                 android:maxLength="6" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -128,7 +129,7 @@
                             android:layout_marginTop="@dimen/_5dp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            style="@style/textstyletitle"
+                            android:fontFamily="@font/robotomedium"
                             android:text="Enter 4 or 6 digit OTP number"
                             android:textColor="@color/black" />
 
