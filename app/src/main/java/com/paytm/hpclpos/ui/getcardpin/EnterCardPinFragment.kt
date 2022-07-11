@@ -43,11 +43,11 @@ class EnterCardPinFragment : BaseFragment() {
         binding.lLconfirm.setOnClickListener { odometerActivityCall() }
         binding.title.setText(GlobalMethods.getSaleType())
         val keyboard = binding.root.findViewById<View>(R.id.keyboard) as MyKeyboard
-        binding.enterPinText!!.setOnTouchListener { v, event ->
-            val inType = binding.enterPinText!!.inputType // backup the input type
-            binding.enterPinText!!.inputType = InputType.TYPE_NULL // disable soft input
-            binding.enterPinText!!.onTouchEvent(event) // call native handler
-            binding.enterPinText!!.inputType = inType // restore input type
+        binding.enterPinText.setOnTouchListener { v, event ->
+            val inType = binding.enterPinText.inputType // backup the input type
+            binding.enterPinText.inputType = InputType.TYPE_NULL // disable soft input
+            binding.enterPinText.onTouchEvent(event) // call native handler
+            binding.enterPinText.inputType = inType // restore input type
             true // consume touch even
         }
         sharedPreferencesData = SharedPreferencesData(requireActivity())
@@ -241,7 +241,7 @@ class EnterCardPinFragment : BaseFragment() {
         navController!!.navigate(R.id.action_balance_enquiry_transactionSuccess,bundle)
     }
 
-    override fun handleOnBackPressed(){
+    override fun handleOnBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -284,17 +284,21 @@ class EnterCardPinFragment : BaseFragment() {
     }
 
     fun callPinVerifyThreadInit() {
-        verifyPinThreadInit = VerifyPinThreadInit(object : CardEventListener {
-            override fun onCardEvent(state: CardEventState?) {
-                handleCardReadError(state)
-            }
+       if(GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.ICC)) {
+           verifyPinThreadInit = VerifyPinThreadInit(object : CardEventListener {
+               override fun onCardEvent(state: CardEventState?) {
+                   handleCardReadError(state)
+               }
 
-            override fun onCardReadSuccess() {
-                requireActivity().runOnUiThread({
-                    ToastMessages.customMsgToast(requireActivity(), "Card Read Success")
-                    checkTransTypeforNavigation()
-                })
-            }
-        },Constants.VERIFY_PIN)
+               override fun onCardReadSuccess() {
+                   requireActivity().runOnUiThread({
+                       ToastMessages.customMsgToast(requireActivity(), "Card Read Success")
+                       checkTransTypeforNavigation()
+                   })
+               }
+           },Constants.VERIFY_PIN)
+       } else {
+           checkTransTypeforNavigation()
+       }
     }
 }
