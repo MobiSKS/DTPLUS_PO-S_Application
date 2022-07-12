@@ -13,7 +13,7 @@ import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.enums.SaleTransactionDetails
 import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.BalanceEnquiryRequest
 import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.Data
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
 
 class BalanceEnquiryReceipts(val context: Context, val activity: Activity,val cardInfoEntity: CardInfoEntity) {

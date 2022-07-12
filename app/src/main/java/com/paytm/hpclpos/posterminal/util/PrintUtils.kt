@@ -1,4 +1,4 @@
-package com.paytm.hpclpos.posterminal.printer
+package com.paytm.hpclpos.posterminal.util
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
@@ -19,6 +19,7 @@ import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.constants.ToastMessages
 import com.paytm.hpclpos.enums.SaleTransactionDetails
+import com.paytm.hpclpos.posterminal.printer.PrinterTester
 import java.util.*
 
 class PrintUtils {
@@ -128,7 +129,6 @@ class PrintUtils {
 
                     override fun onError(error: Int) {
                         activity.runOnUiThread({
-                            ToastMessages.customMsgToast(activity, "Print Failed $error")
                             printStatusListener?.onError(error)
                         })
                     }
@@ -152,6 +152,7 @@ class PrintUtils {
             SaleTransactionDetails.CCMS_CASHRECHARGE.saleName -> { return "CCMS RECHARGE(CASH)" }
             SaleTransactionDetails.CARD_FEE_PAYMENT.saleName -> { return "CARD FEE(DTP)" }
             SaleTransactionDetails.BALANCE_ENQUIRY.saleName -> { return "CARD BALANCE" }
+            SaleTransactionDetails.CCMS_BALANCE.saleName -> { return "CCMS BAL(CCMS CASH)"}
         }
         return " "
     }

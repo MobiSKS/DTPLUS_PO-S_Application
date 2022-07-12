@@ -12,11 +12,12 @@ import androidx.lifecycle.ViewModel
 import com.example.apphpcldb.entity.repository.AppRepository
 import com.paytm.hpclpos.activities.broadcastreceiver.MyAlarm
 import com.paytm.hpclpos.constants.Constants
+import com.paytm.hpclpos.constants.HttpError
 import com.paytm.hpclpos.constants.RegistartionUtils
 import com.paytm.hpclpos.constants.TransactionUtils
+import com.paytm.hpclpos.livedatamodels.registrationapi.ApiResponse
 import com.paytm.hpclpos.livedatamodels.registrationapi.Data
 import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationRequest
-import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationResponse
 import com.paytm.hppay.api.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,8 +30,8 @@ import java.util.concurrent.TimeUnit
 
 class SettingDashboardViewModel : ViewModel() {
 
-    var liveDataRegistration: MutableLiveData<RegistrationResponse>? = null
-    fun getliveRegistration(): MutableLiveData<RegistrationResponse> {
+    var liveDataRegistration: MutableLiveData<ApiResponse>? = null
+    fun getliveRegistration(): MutableLiveData<ApiResponse> {
         return liveDataRegistration!!
     }
 
@@ -40,34 +41,28 @@ class SettingDashboardViewModel : ViewModel() {
         Constants.MainUrlChanged.urlChanged = "1"
         val retrofitInstance = ApiClient.getClient
         val retroService = retrofitInstance.getRegistration(genearteOtpRequest)
-        retroService.enqueue(object : Callback<RegistrationResponse> {
+        retroService.enqueue(object : Callback<ApiResponse.RegistrationResponse> {
 
-            override fun onResponse(call: Call<RegistrationResponse?>, response: Response<RegistrationResponse?>) {
+            override fun onResponse(call: Call<ApiResponse.RegistrationResponse?>, response: Response<ApiResponse.RegistrationResponse?>) {
                 if (response.isSuccessful) {
-                    liveDataRegistration!!.value = response.body()
+                    liveDataRegistration!!.postValue(response.body())
                 } else {
-                    Log.d("------->"," " + response.errorBody().toString())
-                    liveDataRegistration!!.value = null
+                    liveDataRegistration!!.postValue(ApiResponse.Error(HttpError(response.code().toString()
+                        ,response.errorBody().toString()).toString()))
                 }
             }
 
-            override fun onFailure(call: Call<RegistrationResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse.RegistrationResponse>, t: Throwable) {
                 if (t is ConnectException) {
-                    val registrationResponse = RegistrationResponse(true,Constants.STATUS_FALSE,
-                        Constants.STATUS_FALSE,t.localizedMessage!!.toString(),"RegistrationApi",Data(),"null")
-                    liveDataRegistration!!.value = registrationResponse
+                   liveDataRegistration!!.postValue(t.localizedMessage?.let { ApiResponse.Error(it) })
                 }
 
                 if (t is SocketException) {
-                    val registrationResponse = RegistrationResponse(true,Constants.STATUS_FALSE,
-                        Constants.STATUS_FALSE,t.localizedMessage!!.toString(),"RegistrationApi",Data(),"null")
-                    liveDataRegistration!!.value = registrationResponse
+                    liveDataRegistration!!.postValue(t.localizedMessage?.let { ApiResponse.Error(it) })
                 }
 
                 if (t is UnknownHostException) {
-                    val registrationResponse = RegistrationResponse(true,Constants.STATUS_FALSE,
-                        Constants.STATUS_FALSE,t.localizedMessage!!.toString(),"RegistrationApi",Data(),"null")
-                    liveDataRegistration!!.value = registrationResponse
+                    liveDataRegistration!!.postValue(t.localizedMessage?.let { ApiResponse.Error(it) })
                 }
             }
         })

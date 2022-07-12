@@ -18,7 +18,6 @@ import com.paytm.hpclpos.livedatamodels.generateotp.GenerateOTPResponse
 import com.paytm.hpclpos.livedatamodels.neftodometerbymono.NEFTOdoMeterRequest
 import com.paytm.hpclpos.livedatamodels.neftodometerbymono.NEFTOdoMeterResponse
 import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationRequest
-import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationResponse
 import com.paytm.hpclpos.livedatamodels.authenticateotp.AuthOtpRequest
 import com.paytm.hpclpos.livedatamodels.authenticateotp.AuthOtpResponse
 import com.paytm.hpclpos.livedatamodels.batchupload.BatchUploadRequest
@@ -58,13 +57,13 @@ import com.paytm.hpclpos.livedatamodels.creditsale.CreditSaleResponse
 import com.paytm.hpclpos.livedatamodels.creditsalebymono.CreditSaleByMoNoRequest
 import com.paytm.hpclpos.livedatamodels.creditsalebymono.CreditSaleByMoNoResponse
 import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenRequest
-import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenResponse
 import com.paytm.hpclpos.livedatamodels.generateapi.GenerateOtpRequest
 import com.paytm.hpclpos.livedatamodels.generateapi.GenerateOtpResponse
 import com.paytm.hpclpos.livedatamodels.idfcGetOtp.IdfcGetOtpRequest
 import com.paytm.hpclpos.livedatamodels.idfcGetOtp.IdfcGetOtpResponse
 import com.paytm.hpclpos.livedatamodels.neftreloadbyneft.NEFTREloadByResponseReload
 import com.paytm.hpclpos.livedatamodels.neftreloadbyneft.NEFTReloadRequsetByNEFT
+import com.paytm.hpclpos.livedatamodels.registrationapi.ApiResponse
 import com.paytm.hpclpos.livedatamodels.sendotp.SendOtpRequest
 import com.paytm.hpclpos.livedatamodels.sendotp.SendOtpResponse
 import com.paytm.hpclpos.livedatamodels.validatepin.ValidatePinRequest
@@ -79,7 +78,7 @@ import retrofit2.http.POST
 interface APIService {
 
     @POST(Utils.GET_GENERATE_TOKEN)
-    fun getGenerateToken(@Body generateTokenRequest: GenerateTokenRequest): Call<GenerateTokenResponse>
+    fun getGenerateToken(@Body generateTokenRequest: GenerateTokenRequest): Call<com.paytm.hpclpos.livedatamodels.generatetoken.ApiResponse.GenerateTokenResponse>
 
     @POST(Utils.GET_SET_ALL_CONFIGURATION_FOR_TERMINAL)
     fun getConfiguration(@Body configurationRequest: ConfigurationRequest): Call<ConfigurationResponse>
@@ -182,7 +181,7 @@ interface APIService {
     fun getOTP(@Body generateOtpRequest: GenerateOTPRequest): Call<GenerateOTPResponse>
 
     @POST(Utils.GET_REGISTRATION)
-    fun getRegistration(@Body registrationRequest: RegistrationRequest): Call<RegistrationResponse>
+    fun getRegistration(@Body registrationRequest: RegistrationRequest): Call<ApiResponse.RegistrationResponse>
 
     @POST(Utils.GET_RELOAD)
     fun getReload(@Body reloadRequest: ReloadRequest): Call<CCMSRechargeResponse>

@@ -29,8 +29,6 @@ class TransactionDashboardActivity : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_transaction_dashboard, container, false)
         rvCardedAndMobile = binding.root.findViewById(R.id.rvCardedAndMobile)
         rvNonCarded = binding.root.findViewById(R.id.rvNonCarded)
-        val gotoBack = binding.root.findViewById<View>(R.id.gotoBack) as ImageView
-        gotoBack.setOnClickListener { gotoBack() }
         return binding.root
     }
 
@@ -46,7 +44,7 @@ class TransactionDashboardActivity : BaseFragment() {
     }
 
     private fun nonCardedDataSet() {
-        cardedAndMobileModelList = ArrayList<CardedAndMobileModel>()
+        cardedAndMobileModelList = ArrayList()
         cardedAndMobileModelList.add(
             CardedAndMobileModel(
                 "Pay Merchant",

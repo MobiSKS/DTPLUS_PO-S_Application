@@ -1,4 +1,4 @@
-package com.paytm.hpclpos.posterminal.printer
+package com.paytm.hpclpos.posterminal.util
 
 import java.text.SimpleDateFormat
 import java.util.*

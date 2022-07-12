@@ -41,7 +41,7 @@ class OperatorOptionsFragment : BaseFragment() {
         super.onResume()
         Log.d("OperatorOptionsFragment","On Resume Called")
         binding.addOperator.setOnClickListener { navigate2LoginFragment(Constants.SIGNUP) }
-        binding.backpress.setOnClickListener { navController!!.navigate(R.id.action_mainFragment_to_merchantServices) }
+       // binding.backpress.setOnClickListener { navController!!.navigate(R.id.action_mainFragment_to_merchantServices) }
         handleOnBackPressed()
     }
 

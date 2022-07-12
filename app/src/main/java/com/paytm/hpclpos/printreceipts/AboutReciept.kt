@@ -2,16 +2,13 @@ package com.paytm.hpclpos.printreceipts
 
 import android.app.Activity
 import android.os.Build
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.paytm.hpclpos.R
-import com.paytm.hpclpos.constants.Constants
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
-import com.paytm.hpclpos.constants.TransactionUtils
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
 import com.paytm.hpclpos.ui.displayparameters.DisplayParameterViewModel
 

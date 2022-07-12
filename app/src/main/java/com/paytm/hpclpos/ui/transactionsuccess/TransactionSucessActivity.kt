@@ -24,7 +24,7 @@ import com.paytm.hpclpos.constants.GlobalMethods.Companion.setCardNo
 import com.paytm.hpclpos.databinding.ActivityTransactionSucessBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
 import com.paytm.hpclpos.posterminal.base.BaseFragment
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.BalanceTransferReceipts
 import com.paytm.hpclpos.printreceipts.CCMSRechargeReceipts
 import com.paytm.hpclpos.printreceipts.ReloadReciepts
@@ -41,6 +41,7 @@ open class TransactionSucessActivity : BaseFragment() {
     var bitmap : Bitmap? = null
     lateinit var settlementDialog: SettlementDialog
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_transaction_sucess, container, false)
@@ -76,6 +77,7 @@ open class TransactionSucessActivity : BaseFragment() {
         binding.tvTrasactionType.text = lastTransactionData.TransactionType
         binding.tvTransactionId.text = lastTransactionData.transaction_Id
         if (lastTransactionData.TransactionType.equals(SaleTransactionDetails.CARD_FEE_PAYMENT.saleName)) {
+            binding.tvCardNumber.visibility = View.GONE
             binding.formNumberLayout.visibility = View.VISIBLE
             binding.numberOfCardLayout.visibility = View.VISIBLE
             binding.numberOfCardEdittext.setText(lastTransactionData.numOfCards)
@@ -151,24 +153,24 @@ open class TransactionSucessActivity : BaseFragment() {
                 SaleTransactionDetails.CARDSALE.category,
                 SaleTransactionDetails.CARD_FEE_PAYMENT.category,
                 SaleTransactionDetails.CASH_RELOAD.category -> {
-                             DialogUtil.showDialog(requireContext(),"Remind","Click Ok to Print Merchant Copy",object :DialogUtil.OnClickListener {
-                                 override fun onConfirm() {
-                                     showGifDialog()
-                                     printMerchantCopy()
-                                 }
-
-                                 override fun onCancel() {
-                                     // Do nothing
-                                 }
-
-                             })
+                    showDialogPrint("Remind","Click Ok to Print Merchant Copy")
                 }
             }
         }
 
         override fun onError(error: Int) {
             dialog1!!.dismiss()
-            ToastMessages.customMsgToast(requireContext(),"Printing Error $error")
+            DialogUtil.showDialog(requireContext(),"Printer Error","Unable to print, Terminal is Out of Paper",object :DialogUtil.OnClickListener {
+                @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+                override fun onConfirm() {
+                    val lastTransactionData = AppRepository(requireContext()).getLastTransaction()
+                    checkPrintReceipts(lastTransactionData!!)
+                }
+
+                override fun onCancel() {
+                    // Do nothing
+                }
+            })
         }
     }
 
@@ -282,6 +284,19 @@ open class TransactionSucessActivity : BaseFragment() {
                 ToastMessages.customMsgToast(requireContext(),"Printer Issues $error")
             })
         }
+    }
+
+    fun showDialogPrint(title: String,message: String) {
+        DialogUtil.showDialog(requireContext(),title,message,object :DialogUtil.OnClickListener {
+            override fun onConfirm() {
+                showGifDialog()
+                printMerchantCopy()
+            }
+
+            override fun onCancel() {
+                // Do nothing
+            }
+        })
     }
 }
 

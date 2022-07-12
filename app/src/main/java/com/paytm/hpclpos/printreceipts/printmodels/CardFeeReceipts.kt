@@ -2,20 +2,14 @@ package com.paytm.hpclpos.printreceipts.printmodels
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
-import com.paytm.hpclpos.enums.SaleTransactionDetails
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
-import com.paytm.hpclpos.printreceipts.printmodels.PrintStatusListener
-import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.roomDatabase.entity.HpclTransaction
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class CardFeeReceipts(val context: Context, val activity: Activity, val lastTransactionData: HpclTransaction) {
 

@@ -10,7 +10,7 @@ import com.paytm.hpclpos.R
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.enums.SaleTransactionDetails
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.printmodels.PrintStatusListener
 import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
 import com.paytm.hpclpos.roomDatabase.entity.HpclTransaction
@@ -47,7 +47,7 @@ class ReloadReciepts(val context: Context, val activity: Activity, val lastTrans
         }
         val transNameForPrintReceipt = PrintUtils().displayTransNameForPrintReciepts(lastTransactionData.TransactionType!!)
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-        addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType!!))
+            // addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType!!))
         if(lastTransactionData.TransactionType!!.equals(SaleTransactionDetails.CHEQUE_RELOAD.saleName)) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("CH# ", lastTransactionData.chequeNum))
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("MICR CODE", lastTransactionData.micrCode))
@@ -87,7 +87,7 @@ class ReloadReciepts(val context: Context, val activity: Activity, val lastTrans
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("DATE/TIME",dateAndTime))
         val transNameForPrintReceipt = PrintUtils().displayTransNameForPrintReciepts(lastTransactionData.TransactionType!!)
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-        addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType!!))
+       // addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType!!))
         if(lastTransactionData.TransactionType!!.equals(SaleTransactionDetails.CHEQUE_RELOAD.saleName)) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("CH# ", lastTransactionData.chequeNum))
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("MICR CODE", lastTransactionData.micrCode))

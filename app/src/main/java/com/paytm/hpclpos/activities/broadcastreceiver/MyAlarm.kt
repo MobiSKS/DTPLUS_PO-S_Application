@@ -19,9 +19,7 @@ class MyAlarm : BroadcastReceiver() {
         Log.d("MyAlarmBelal", "Alarm just fired")
         Toast.makeText(context, "Alarm Invoked", Toast.LENGTH_SHORT).show()
         val intent = Intent("filter_string")
-        intent.putExtra("key", "My Data")
-        // put your all data using put extra
-
+        intent.putExtra("settlement", "performSettlement")
         // put your all data using put extra
         LocalBroadcastManager.getInstance(DemoApp.appContext!!).sendBroadcast(intent)
     }

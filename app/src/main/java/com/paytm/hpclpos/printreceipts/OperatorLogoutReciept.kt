@@ -11,7 +11,7 @@ import com.paytm.hpclpos.constants.Constants
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.constants.TransactionUtils
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
 
 class OperatorLogoutReciept(val activity: Activity) {

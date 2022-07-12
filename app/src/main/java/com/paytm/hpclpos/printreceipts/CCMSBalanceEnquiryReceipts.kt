@@ -10,7 +10,7 @@ import com.paytm.hpclpos.R
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.livedatamodels.CCMSBalance.Data
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
 
 class CCMSBalanceEnquiryReceipts(val context: Context, val activity: Activity) {
@@ -40,7 +40,7 @@ class CCMSBalanceEnquiryReceipts(val context: Context, val activity: Activity) {
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(PrintUtils.gap, true, true, 16))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("CONTROL ID",GlobalMethods.getControlCardNumber()))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("CCMS BAL(CCMS CASH)","1".toFloat()))
-        addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE",GlobalMethods.getSaleType()))
+      //  addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE",GlobalMethods.getSaleType()))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("CCMS BALANCE",data.ccmsLimitBal.toString()))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("LOYALTY BALANCE",data.loyaltyBalance.toString()))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(PrintUtils.gap, true, true, 16))

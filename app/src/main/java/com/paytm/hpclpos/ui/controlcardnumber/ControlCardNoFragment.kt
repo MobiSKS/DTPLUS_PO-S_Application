@@ -30,7 +30,7 @@ class ControlCardNoFragment : BaseFragment(), View.OnClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cash_enter_cnt_r_l_card_no, container, false)
         binding.lLNext.setOnClickListener(this)
         binding.lLcancl.setOnClickListener(this)
-        binding.gotoBack.setOnClickListener(this)
+        //binding.gotoBack.setOnClickListener(this)
         handleEnterKey()
         binding.tvTitle.setText(GlobalMethods.getSaleType())
         return binding.root
@@ -46,10 +46,10 @@ class ControlCardNoFragment : BaseFragment(), View.OnClickListener {
                 hideKeypad()
                 requireActivity().onBackPressed()
             }
-            R.id.gotoBack -> {
-                /* hideKeypad()
-                requireActivity().onBackPressed() */
-            }
+           /* R.id.gotoBack -> {
+                *//* hideKeypad()
+                requireActivity().onBackPressed() *//*
+            }*/
         }
     }
 

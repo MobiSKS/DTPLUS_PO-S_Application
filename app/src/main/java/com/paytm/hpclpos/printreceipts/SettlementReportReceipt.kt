@@ -15,7 +15,7 @@ import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.constants.TransactionUtils
 import com.paytm.hpclpos.enums.SaleTransactionDetails
 import com.paytm.hpclpos.livedatamodels.batchsettlement.BatchSettlementRequest
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import kotlin.collections.ArrayList
 
 class SettlementReportReceipt(val context: Context, val activity: Activity) {

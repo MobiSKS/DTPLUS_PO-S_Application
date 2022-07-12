@@ -28,6 +28,7 @@ import com.paytm.hpclpos.activities.dialogs.SettlementDialog
 import com.paytm.hpclpos.activities.mainsaleactivities.MainActivity
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.livedatamodels.ccmsrecharge.CCMSRechargeResponse
+import com.paytm.hpclpos.livedatamodels.generatetoken.ApiResponse
 import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenRequest
 import com.paytm.hpclpos.viewmodel.DialogListener
 import com.paytm.hpclpos.viewmodel.MainActivityViewModel
@@ -99,11 +100,8 @@ abstract class BaseFragment : Fragment() {
 
     open fun handleOnBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    showExitDialog()
-                }
+            viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() { showExitDialog() }
             })
     }
 
@@ -124,36 +122,39 @@ abstract class BaseFragment : Fragment() {
 
     var receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            Log.d("MainFragment","Broadcast Received at Main Screen Activity")
-            // get all your data from intent and do what you want
-            if (isAdded) {
-                settlementDialog = SettlementDialog(requireActivity())
-                settlementDialog.setTitle(context.getString(R.string.title_settlement))
-                settlementDialog.setVisibilityForSettlementStatus()
-                settlementDialog.settimerAndEndpoint("${GlobalMethods.getServerIp(requireContext())}.....")
-                settlementDialog.setpacketStatus("Recieving.....")
-                settlementDialog.setProcessing()
-                settlementDialog.show()
-                CallSettlement(context).makeApiCallForBatchSettlement(object : SettlementListener {
-                    override fun response(response: Any?) {
-                        val response1 = response as CCMSRechargeResponse
-                        if (response1.success) {
-                            if (response1.internelStatusCode.equals(Constants.STATUS_SUCCESS)) {
-                                GlobalMethods.decrementTransactionIdByOne(context, "000001")
-                                settlementDialog.onSuccess()
-                                Handler().postDelayed({ settlementDialog.dismiss() }, 1000)
-                                ToastMessages.customMsgToast(
+            if (intent.getStringExtra("settlement")!!.equals("performSettlement")) {
+                Log.d("MainFragment", "Broadcast Received at Main Screen Activity")
+                // get all your data from intent and do what you want
+                if (isAdded) {
+                    settlementDialog = SettlementDialog(requireActivity())
+                    settlementDialog.setTitle(context.getString(R.string.title_settlement))
+                    settlementDialog.setVisibilityForSettlementStatus()
+                    settlementDialog.settimerAndEndpoint("${GlobalMethods.getServerIp(requireContext())}.....")
+                    settlementDialog.setpacketStatus("Recieving.....")
+                    settlementDialog.setProcessing()
+                    settlementDialog.show()
+                    CallSettlement(context).makeApiCallForBatchSettlement(object :
+                        SettlementListener {
+                        override fun response(response: Any?) {
+                            val response1 = response as CCMSRechargeResponse
+                            if (response1.success) {
+                                if (response1.internelStatusCode.equals(Constants.STATUS_SUCCESS)) {
+                                    GlobalMethods.decrementTransactionIdByOne(context, "000001")
+                                    settlementDialog.onSuccess()
+                                    Handler().postDelayed({ settlementDialog.dismiss() }, 1000)
+                                    ToastMessages.customMsgToast(
                                         context,
                                         "Response Message ${response1.internelStatusCode} Message ${response1.message}"
-                                )
-                                TransactionUtils.incrementBatch(context, Constants.BATCH)
+                                    )
+                                    TransactionUtils.incrementBatch(context, Constants.BATCH)
+                                }
+                            } else {
+                                settlementDialog.onFailure(response1.message)
+                                Handler().postDelayed({ settlementDialog.dismiss() }, 1000)
                             }
-                        } else {
-                            settlementDialog.onFailure(response1.message)
-                            Handler().postDelayed({ settlementDialog.dismiss() },1000)
                         }
-                    }
-                })
+                    })
+                }
             }
         }
     }
@@ -226,20 +227,26 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun getToken() {
+    open fun getToken() {
         val viewModel: MainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         val tokenRequestData = GenerateTokenRequest(Constants.ANDROIDAGENT, "string", GlobalMethods.getDeviceId(requireContext()))
         viewModel.makeApiCallGenerateToken(tokenRequestData)
         viewModel.getLiveDataObserverGenerateToken().observe(viewLifecycleOwner, {
 
-            if (it != null) {
-                if (it.Success) {
-                    sharedPreferencesData.setSharedPreferenceData(Constants.TOKENIDPREF, Constants.TOKENID, it.Token)
-                } else {
-                    ToastMessages.customMsgToast(requireContext(), it.Message)
+            when (it) {
+                is ApiResponse.Error -> {
+                    ToastMessages.customMsgToast(requireContext(), it.error)
                 }
-            } else {
-                ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                is ApiResponse.GenerateTokenResponse -> {
+                    if (it.Success) {
+                        if (it.Internel_Status_Code == Constants.STATUS_SUCCESS) {
+                            sharedPreferencesData.setSharedPreferenceData(Constants.TOKENIDPREF, Constants.TOKENID, it.Token)
+                        }
+                    } else {
+                        ToastMessages.customMsgToast(requireContext(),"Error code : ${it.Internel_Status_Code} \n Error msg : ${it.Message}")
+                    }
+                }
             }
         })
     }

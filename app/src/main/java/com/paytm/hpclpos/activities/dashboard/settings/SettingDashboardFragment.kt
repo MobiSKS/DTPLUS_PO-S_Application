@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.paytm.hpclpos.viewmodel.PerformRegistartion
 import com.paytm.hpclpos.viewmodel.SettingDashboardViewModel
-import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationResponse
 import android.os.Looper
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -27,11 +26,11 @@ import android.content.IntentFilter
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivitySettingDashboardBinding
+import com.paytm.hpclpos.livedatamodels.registrationapi.ApiResponse
 import java.util.*
 
 class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemClick {
@@ -49,18 +48,16 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DataBindingUtil.inflate<ActivitySettingDashboardBinding>(
             inflater,
             R.layout.activity_setting_dashboard,
             container,
             false)
         sharedPreferencesData = SharedPreferencesData(context)
-        val gotoBack = binding.root.findViewById<ImageView>(R.id.gotoBack)
         rvAdmin = binding.root.findViewById(R.id.rvAdmin)
         rvMaintenance = binding.root.findViewById(R.id.rvMaintenance)
         rvOthers = binding.root.findViewById(R.id.rvOthers)
-        gotoBack.setOnClickListener { v: View? -> gotoBackActivity() }
         maintenanceData()
         adminData()
         othersData()
@@ -198,7 +195,7 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
                 && getTerminalPin(requireContext(), Constants.TERMINAL_PIN) == "") {
                 navController?.navigate(R.id.action_terminal_input_screen_fragment)
             } else if (!isTerminalRegistered(requireContext(), Constants.REGISTRATION_STATUS)) {
-                callRegistrationApi()
+                isNetworkAvailable()
             } else {
                 customMsgToast(requireContext(), "Terminal Already Registered")
             }
@@ -214,49 +211,29 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
     }
 
     private fun performRegistration() {
-        val performRegistartion =
-            PerformRegistartion(requireContext()).constructRegistrationRequest()
-        val viewModel = ViewModelProvider(this).get(
-            SettingDashboardViewModel::class.java
-        )
+        val performRegistartion = PerformRegistartion(requireContext()).constructRegistrationRequest()
+        val viewModel = ViewModelProvider(this).get(SettingDashboardViewModel::class.java)
         viewModel.makeApiRegistration(performRegistartion)
-        viewModel.getliveRegistration()
-            .observe(this) { registrationResponse: RegistrationResponse? ->
-                if (registrationResponse != null) {
-                    if (registrationResponse.Success) {
-                        if (registrationResponse.Internel_Status_Code == Constants.STATUS_SUCCESS) {
-                            val data = registrationResponse.Data
-                            settlementDialog!!.onSuccess()
-                            Handler(Looper.getMainLooper()).postDelayed(
-                                { settlementDialog!!.dismiss() },
-                                2000
-                            )
-                            viewModel.storeRegistrationDataIntoDb(data, requireContext())
-                            viewModel.setAlarmForSettlement(requireActivity())
-                        } else {
-                            requireActivity().runOnUiThread {
-                                settlementDialog!!.onFailure(registrationResponse.Message)
-                                Handler(Looper.getMainLooper()).postDelayed(
-                                    { settlementDialog!!.dismiss() },
-                                    2000
-                                )
+        viewModel.getliveRegistration().observe(viewLifecycleOwner) { apiResponse ->
+                when (apiResponse) {
+                    is ApiResponse.Error -> {
+                        requireActivity().runOnUiThread {
+                        settlementDialog!!.onFailure(apiResponse.error)
+                        Handler(Looper.getMainLooper()).postDelayed({ settlementDialog!!.dismiss() }, 2000) }
+                        customMsgToast(requireContext(), apiResponse.error)
+                    }
+
+                    is ApiResponse.RegistrationResponse -> {
+                        if (apiResponse.Success) {
+                            if (apiResponse.Internel_Status_Code == Constants.STATUS_SUCCESS) {
+                                val data = apiResponse.Data
+                                settlementDialog!!.onSuccess()
+                                Handler(Looper.getMainLooper()).postDelayed({ settlementDialog!!.dismiss() }, 2000)
+                                viewModel.storeRegistrationDataIntoDb(data, requireContext())
+                                viewModel.setAlarmForSettlement(requireActivity())
                             }
                         }
-                    } else {
-                        if (registrationResponse.Internel_Status_Code == Constants.STATUS_TOKEN_EXPIRED) {
-                            settlementDialog!!.onFailure(registrationResponse.Message)
-                            Handler(Looper.getMainLooper()).postDelayed(
-                                { settlementDialog!!.dismiss() },
-                                2000
-                            )
-                        }
                     }
-                } else {
-                    settlementDialog!!.onFailure("Please check your Internet Connection")
-                    Handler(Looper.getMainLooper()).postDelayed(
-                        { settlementDialog!!.dismiss() },
-                        2000
-                    )
                 }
             }
     }
@@ -285,7 +262,7 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
             // Get extra data included in the Intent
             val message = intent.getStringExtra("message")
             Log.d("receiver", "Got message: $message")
-            callRegistrationApi()
+            isNetworkAvailable()
         }
     }
 
@@ -318,6 +295,14 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
         } else {
             showDialog()
             performRegistration()
+        }
+    }
+
+    fun isNetworkAvailable() {
+        if(NetworkUtil.checkNetworkStatus(requireContext())) {
+           callRegistrationApi()
+        } else {
+            ToastMessages.noInternetConnectionToast(requireContext())
         }
     }
 }

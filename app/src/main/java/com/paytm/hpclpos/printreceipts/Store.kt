@@ -3,12 +3,8 @@ package com.paytm.hpclpos.PrintReceipts
 import android.content.Context
 import android.util.Log
 import com.example.apphpcldb.entity.repository.AppRepository
-import com.paytm.hpclpos.constants.Constants
-import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
-import com.paytm.hpclpos.constants.TransactionUtils
 import com.paytm.hpclpos.enums.SaleTransactionDetails
-import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.BalanceEnquiryRequest
 import com.paytm.hpclpos.livedatamodels.Reload.ReloadRequest
 import com.paytm.hpclpos.livedatamodels.balancetransfer.BalanceTransferRequest
 import com.paytm.hpclpos.livedatamodels.cardfee.CardFeeRequest
@@ -30,7 +26,7 @@ class Store(val context: Context) {
                 GlobalMethods.getCardInfoEntity()?.vehicleNumber.toString()
             transaction_Id = ccmsSaleRequest.invoiceId.toString()
             transaction_Date = ccmsSaleRequest.invoiceDate.toString()
-            transaction_Amount = ccmsSaleRequest.invoiceAmount.toString()
+            transaction_Amount = String.format("%.2f",ccmsSaleRequest.invoiceAmount)
             productType = ccmsSaleRequest.productId.toString()
             odometerNumber = ccmsSaleRequest.odometerReading.toString()
             cardType = GlobalMethods.getCardInfoEntity()?.cardType.toString()
@@ -59,7 +55,7 @@ class Store(val context: Context) {
                 GlobalMethods.getCardInfoEntity()?.vehicleNumber.toString()
             transaction_Id = ccmsRechargeRequest.invoiceId.toString()
             transaction_Date = ccmsRechargeRequest.invoiceDate
-            transaction_Amount = ccmsRechargeRequest.invoiceAmount.toString()
+            transaction_Amount = String.format("%.2f",ccmsRechargeRequest.invoiceAmount)
             cardType = GlobalMethods.getCardInfoEntity()?.cardType.toString()
             UTRNum = ccmsRechargeRequest.mUtrNo
             micrCode = ccmsRechargeRequest.micr
@@ -87,7 +83,7 @@ class Store(val context: Context) {
                 GlobalMethods.getCardInfoEntity()?.vehicleNumber.toString()
             transaction_Id = reloadRequest.invoiceId.toString()
             transaction_Date = reloadRequest.invoiceDate
-            transaction_Amount = reloadRequest.invoiceAmount.toString()
+            transaction_Amount = String.format("%.2f",reloadRequest.invoiceAmount)
             cardType = GlobalMethods.getCardInfoEntity()?.cardType.toString()
             micrCode = reloadRequest.micr
             chequeNum = reloadRequest.chequeNo
@@ -107,7 +103,7 @@ class Store(val context: Context) {
             transaction_Date = cardFeeRequest.invoiceDate
             batch_Id = cardFeeRequest.batchId
             formNum = cardFeeRequest.formNo
-            transaction_Amount = cardFeeRequest.invoiceAmount.toString()
+            transaction_Amount = String.format("%.2f",cardFeeRequest.invoiceAmount)
             numOfCards = cardFeeRequest.noofCards.toString()
             operatorId = db.getLgoinOperator(true).operatorId
             TransactionType =
@@ -127,7 +123,7 @@ class Store(val context: Context) {
             transaction_Id = balanceTransferRequest.invoiceId.toString()
             transaction_Date = balanceTransferRequest.invoiceDate
             batch_Id = balanceTransferRequest.batchId
-            transaction_Amount = balanceTransferRequest.invoiceAmount.toString()
+            transaction_Amount = String.format("%.2f",balanceTransferRequest.invoiceAmount)
             operatorId = db.getLgoinOperator(true).operatorId
             TransactionType =
                 SaleTransactionDetails.getSaleNameById(balanceTransferRequest.transType!!.toInt()).toString()

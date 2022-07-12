@@ -3,6 +3,8 @@ package com.paytm.hpclpos.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.paytm.hpclpos.constants.Constants
+import com.paytm.hpclpos.constants.HttpError
+import com.paytm.hpclpos.constants.NetworkUtil
 import com.paytm.hpclpos.fragmentnoncardedtransaction.rechargeccmsacount.RechargeCcmsAccountRequest
 import com.paytm.hpclpos.fragmentnoncardedtransaction.rechargeccmsacount.RechargeCcmsAccountResponse
 import com.paytm.hpclpos.livedatamodels.neftodometerbymono.NEFTOdoMeterRequest
@@ -28,9 +30,9 @@ import com.paytm.hpclpos.livedatamodels.chequeodometerreading.ChequeOdometerRead
 import com.paytm.hpclpos.livedatamodels.chequereloadbycheque.ChequeReloadByChequeRequest
 import com.paytm.hpclpos.livedatamodels.chequereloadbycheque.ChequeReloadResponseByCheque
 import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenRequest
-import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenResponse
 import com.paytm.hpclpos.livedatamodels.generateapi.GenerateOtpRequest
 import com.paytm.hpclpos.livedatamodels.generateapi.GenerateOtpResponse
+import com.paytm.hpclpos.livedatamodels.generatetoken.ApiResponse
 import com.paytm.hpclpos.livedatamodels.neftreloadbyneft.NEFTREloadByResponseReload
 import com.paytm.hpclpos.livedatamodels.neftreloadbyneft.NEFTReloadRequsetByNEFT
 import com.paytm.hpclpos.livedatamodels.sendotp.SendOtpRequest
@@ -39,17 +41,20 @@ import com.paytm.hpclpos.livedatamodels.validatepin.ValidatePinRequest
 import com.paytm.hpclpos.livedatamodels.validatepin.ValidatePinResponse
 import com.paytm.hpclpos.livedatamodels.walletbalance.WalletBalanceRequest
 import com.paytm.hpclpos.livedatamodels.walletbalance.WalletBalanceResponse
+import com.paytm.hpclpos.posterminal.base.DemoApp
 import com.paytm.hppay.api.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import java.net.ConnectException
+import java.net.SocketException
+import java.net.UnknownHostException
 
 class MainActivityViewModel : ViewModel() {
 
-    var liveDataGenerateToken: MutableLiveData<GenerateTokenResponse> = MutableLiveData()
+    var liveDataGenerateToken: MutableLiveData<ApiResponse> = MutableLiveData()
 
-    fun getLiveDataObserverGenerateToken(): MutableLiveData<GenerateTokenResponse> {
+    fun getLiveDataObserverGenerateToken(): MutableLiveData<ApiResponse> {
         return liveDataGenerateToken
     }
 
@@ -58,15 +63,28 @@ class MainActivityViewModel : ViewModel() {
         Constants.MainUrlChanged.urlChanged = "1"
         val retrofitInstance = ApiClient.getClient
         val retroService = retrofitInstance.getGenerateToken(generateTokenRequest)
-        retroService.enqueue(object : Callback<GenerateTokenResponse> {
-            override fun onResponse(call: Call<GenerateTokenResponse>, response: Response<GenerateTokenResponse>) {
-                liveDataGenerateToken.postValue(response.body())
+        retroService.enqueue(object : Callback<ApiResponse.GenerateTokenResponse> {
+            override fun onResponse(call: Call<ApiResponse.GenerateTokenResponse>, response: Response<ApiResponse.GenerateTokenResponse>) {
+                if(response.isSuccessful) {
+                    liveDataGenerateToken.postValue(response.body())
+                } else {
+                    liveDataGenerateToken.postValue(ApiResponse.Error(HttpError(response.code().toString(),response.errorBody().toString()).toString()))
+                }
             }
 
-            override fun onFailure(call: Call<GenerateTokenResponse>, t: Throwable) {
-                liveDataGenerateToken.postValue(null)
-            }
+            override fun onFailure(call: Call<ApiResponse.GenerateTokenResponse>, t: Throwable) {
+                if (t is ConnectException) {
+                    liveDataGenerateToken.postValue(t.localizedMessage?.let { ApiResponse.Error(it) })
+                }
 
+                if (t is SocketException) {
+                    liveDataGenerateToken.postValue(t.localizedMessage?.let { ApiResponse.Error(it) })
+                }
+
+                if (t is UnknownHostException) {
+                    liveDataGenerateToken.postValue(t.localizedMessage?.let { ApiResponse.Error(if(NetworkUtil.checkNetworkStatus(DemoApp.appContext!!)) { "Please enter a valid Server Ip" } else { "Please check Your Internet Connection" }) })
+                }
+            }
         })
     }
 

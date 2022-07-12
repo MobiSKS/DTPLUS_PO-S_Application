@@ -10,7 +10,7 @@ import com.paytm.hpclpos.printreceipts.printmodels.ReceiptDataFieldEntity
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.roomDatabase.entity.HpclTransaction
 
 class BalanceTransferReceipts(val context: Context, val activity: Activity, val lastTransactionData: HpclTransaction) {
@@ -42,7 +42,7 @@ class BalanceTransferReceipts(val context: Context, val activity: Activity, val 
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("EXP DATE:",lastTransactionData.expDate))
         val transNameForPrintReceipt = PrintUtils().displayTransNameForPrintReciepts(lastTransactionData.TransactionType!!)
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-        addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", GlobalMethods.getSaleType()))
+      //  addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", GlobalMethods.getSaleType()))
 
         PrintUtils.getFooterData(context, receiptFieldList)
         PrintUtils.callPrinter(printViewContainer, activity, receiptFieldList, view, null)

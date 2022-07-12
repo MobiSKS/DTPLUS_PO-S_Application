@@ -42,7 +42,7 @@ class AmountEntryFragment : BaseFragment() {
     private fun viewFinds() {
         binding.tvTitle.text = GlobalMethods.getSaleType()
         binding.lLconfirm.setOnClickListener({ callConfirmAmountActivity() })
-        binding.gotoBack.setOnClickListener({ /*goToMainFragment()*/ })
+       // binding.gotoBack.setOnClickListener({ /*goToMainFragment()*/ })
         binding.amountEntryCancelButton.setOnClickListener({ goToMainFragment() })
         handleOnBackPressed()
     }

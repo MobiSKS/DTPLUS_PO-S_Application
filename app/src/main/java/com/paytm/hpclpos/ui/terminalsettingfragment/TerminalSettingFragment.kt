@@ -45,6 +45,5 @@ class TerminalSettingFragment : BaseFragment(){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         binding.confirm.setOnClickListener({ navController!!.popBackStack() })
-        binding.gotoBack.setOnClickListener({ navController!!.popBackStack() })
     }
 }

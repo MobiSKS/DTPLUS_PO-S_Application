@@ -15,16 +15,14 @@ import com.paytm.hpclpos.R
 import com.paytm.hpclpos.constants.DateUtils
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.enums.SaleTransactionDetails
-import com.paytm.hpclpos.posterminal.printer.PrintUtils
+import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.roomDatabase.entity.HpclTransaction
 
 class CCMSRechargeReceipts(val context: Context, val activity: Activity, val lastTransactionData: HpclTransaction) {
 
-    val SERVICE = "SERVICE"
     val UTR = "UTR#"
     val MICR_CODE = "MICR CODE"
     val CHEQUE_NUM = "CHEQUE NUM"
-    val CHEQUE_RECHARGE = "CHEQUE RECHARGE"
 
     fun displayReceiptCarded(printStatusListener: PrintStatusListener) {
         val recommendedWidthE500 = 576
@@ -57,17 +55,17 @@ class CCMSRechargeReceipts(val context: Context, val activity: Activity, val las
         val transNameForPrintReceipt = PrintUtils().displayTransNameForPrintReciepts(lastTransactionData.TransactionType!!)
         if (lastTransactionData.TransactionType!!.equals(SaleTransactionDetails.CCMS_CHEQUERECHARGE.saleName)) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType))
+          //  addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType))
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("CH# ", lastTransactionData.chequeNum))
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("MICR CODE", lastTransactionData.micrCode))
         } else if (lastTransactionData.TransactionType!!.equals(SaleTransactionDetails.CCMS_NEFTRECHARGE.saleName)) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType))
+          //  addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType))
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$UTR : ",lastTransactionData.UTRNum as String))
         } else {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType))
+          //  addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("SERVICE", lastTransactionData.TransactionType))
         }
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("AMOUNT:", lastTransactionData.transaction_Amount))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("BALANCE:",""))
@@ -103,25 +101,25 @@ class CCMSRechargeReceipts(val context: Context, val activity: Activity, val las
         val transNameForPrintReceipt = PrintUtils().displayTransNameForPrintReciepts(lastTransactionData.TransactionType!!)
         if (lastTransactionData.TransactionType!!.equals(SaleTransactionDetails.CCMS_CHEQUERECHARGE.saleName)) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
-                ReceiptDataFieldEntity("$SERVICE : ",CHEQUE_RECHARGE))
+          /*  addReceiptHeader(receiptFieldList,
+                ReceiptDataFieldEntity("$SERVICE : ",CHEQUE_RECHARGE))*/
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$CHEQUE_NUM : ",lastTransactionData.chequeNum as String))
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$MICR_CODE : ",lastTransactionData.micrCode as String))
         } else if(lastTransactionData.TransactionType!!.equals(SaleTransactionDetails.CCMS_NEFTRECHARGE.saleName)) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt ,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
+           /* addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType)
-            )
+            )*/
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$UTR# : ",lastTransactionData.UTRNum)
             )
         } else {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt ,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
+           /* addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType)
-            )
+            )*/
         }
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("AMOUNT:", lastTransactionData.transaction_Amount))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("BALANCE:"," "))
@@ -165,22 +163,22 @@ class CCMSRechargeReceipts(val context: Context, val activity: Activity, val las
         if (!(lastTransactionData.chequeNum.isNullOrBlank() && lastTransactionData.micrCode.isNullOrBlank())) {
 
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt ,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
-                ReceiptDataFieldEntity("$SERVICE : ",CHEQUE_RECHARGE))
+          /*  addReceiptHeader(receiptFieldList,
+                ReceiptDataFieldEntity("$SERVICE : ",CHEQUE_RECHARGE))*/
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$CHEQUE_NUM : ",lastTransactionData.chequeNum as String))
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$MICR_CODE : ",lastTransactionData.micrCode as String))
         } else if(!lastTransactionData.UTRNum.isNullOrBlank()) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
-                ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))
+          /*  addReceiptHeader(receiptFieldList,
+                ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))*/
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$UTR# : ",lastTransactionData.UTRNum))
         } else {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
-                ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))
+          /*  addReceiptHeader(receiptFieldList,
+                ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))*/
         }
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("AMOUNT:", lastTransactionData.transaction_Amount))
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("BALANCE:"," "))
@@ -217,20 +215,20 @@ class CCMSRechargeReceipts(val context: Context, val activity: Activity, val las
         val transNameForPrintReceipt = PrintUtils().displayTransNameForPrintReciepts(lastTransactionData.TransactionType!!)
         if (!(lastTransactionData.chequeNum.isNullOrBlank() && lastTransactionData.micrCode.isNullOrBlank())) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt ,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
-                ReceiptDataFieldEntity("$SERVICE : ",CHEQUE_RECHARGE))
+          /*  addReceiptHeader(receiptFieldList,
+                ReceiptDataFieldEntity("$SERVICE : ",CHEQUE_RECHARGE))*/
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$CHEQUE_NUM : ",lastTransactionData.chequeNum as String))
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$MICR_CODE : ",lastTransactionData.micrCode as String))
         } else if(!lastTransactionData.UTRNum.isNullOrBlank()) {
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
-            addReceiptHeader(receiptFieldList,
-                ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))
+         /*   addReceiptHeader(receiptFieldList,
+                ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))*/
             addReceiptHeader(receiptFieldList,
                 ReceiptDataFieldEntity("$UTR# : ",lastTransactionData.UTRNum))
         } else {
-            addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))
+          //  addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("$SERVICE : ",lastTransactionData.TransactionType))
             addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity(transNameForPrintReceipt,"1".toFloat()))
         }
         addReceiptHeader(receiptFieldList, ReceiptDataFieldEntity("AMOUNT:", lastTransactionData.transaction_Amount))

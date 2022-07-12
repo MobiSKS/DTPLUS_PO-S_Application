@@ -54,7 +54,6 @@ class MerchantServiceDashboardActivity : BaseFragment(), OnItemClick {
         super.onViewCreated(view, savedInstanceState)
         handleOnBackPressed()
         navController = Navigation.findNavController(view)
-        binding.gotoBack.setOnClickListener { gotoBackActivity() }
         reprintData()
         settlementData()
         managementData()
