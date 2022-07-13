@@ -4,7 +4,6 @@ import com.paytm.hpclpos.posterminal.util.BaseTester
 import com.pax.dal.IIcc
 import kotlin.Throws
 import com.pax.dal.exceptions.IccDevException
-import com.paytm.hpclpos.posterminal.cardChipRead.IccTester
 import com.paytm.hpclpos.posterminal.base.DemoApp
 
 class IccTester private constructor() : BaseTester() {

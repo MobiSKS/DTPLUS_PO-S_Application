@@ -70,6 +70,7 @@ class EnterCardPinFragment : BaseFragment() {
             ToastMessages.customMsgToast(this.requireContext(), "Enter 4 digit PIN")
         } else {
             GlobalMethods.setPinData(binding.enterPinText.text.toString())
+            Log.d("Enter Card Pin","Card Pin ${GlobalMethods.getPinData()}")
             callPinVerifyThreadInit()
         }
     }

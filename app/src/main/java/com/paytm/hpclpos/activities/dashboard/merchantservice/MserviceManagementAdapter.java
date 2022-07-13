@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.paytm.hpclpos.R;
 import com.paytm.hpclpos.activities.dashboard.CardedAndMobileModel;
-import com.paytm.hpclpos.activities.dashboard.merchantservice.management.TrminalPinChangeFrag;
 import com.paytm.hpclpos.activities.dashboard.merchantservice.management.UnblockTerminalPinFrag;
-import com.paytm.hpclpos.ui.OperatorOptions.OperatorOptionsFragment;
+import com.paytm.hpclpos.constants.Constants;
+import com.paytm.hpclpos.constants.GlobalMethods;
 
 import java.util.List;
 
@@ -67,8 +67,9 @@ public class MserviceManagementAdapter extends RecyclerView.Adapter<MserviceMana
                 break;
 
             case 1:
-                fragment=new TrminalPinChangeFrag();
-                callEnterchecknoandmicr(fragment);
+                GlobalMethods.Companion.setTransType(Constants.CHANGE_TERMINAL_PIN);
+                dashboardMerchantService.runOnUiThread(() ->
+                        navController.navigate(R.id.action_change_card_pin_fragment));
                 break;
 
             case 2:

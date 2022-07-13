@@ -1,18 +1,15 @@
-package com.paytm.hpclpos.fragmentscardedandmobtrans.changecardpin
+package com.paytm.hpclpos.ui.changecardpin
 
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.cardredoptions.CardEventListener
@@ -21,7 +18,6 @@ import com.paytm.hpclpos.cardredoptions.VerifyPinThreadInit
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.FragmentChangeTerminalPinBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
-import com.paytm.hpclpos.fragmentscardedandmobtrans.loyalty.CcmsSaleFragment
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 import com.paytm.hpclpos.viewmodel.ConstructSaleRequest
 import com.paytm.hpclpos.viewmodel.MerchantActivityViewModel
@@ -94,8 +90,17 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
                 binding.reEnterPinEditText.setError(resources.getString(R.string.mismatchnewpin))
                 ToastMessages.customMsgToast(context, resources.getString(R.string.mismatchnewpin))
             } else {
-                callPinVerifyThreadInit(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
+                performCheckForNavigation(binding.oldPINEditText.text.toString()
+                    ,binding.newPINEditText.text.toString())
             }
+    }
+
+    fun performCheckForNavigation(oldPin: String,newPin: String) {
+        if(GlobalMethods.getTransType().equals(Constants.CHANGE_TERMINAL_PIN)) {
+           changeTerminalPin(oldPin,newPin)
+        } else {
+            callPinVerifyThreadInit(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
+        }
     }
 
     override fun onClick(v: View) {
@@ -153,6 +158,7 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
         binding.reEnterPinEditText.setImeOptions(EditorInfo.IME_ACTION_DONE)
         binding.reEnterPinEditText.setOnEditorActionListener({ v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                hideKeypad()
                 pinValidations()
                 true
             } else false
@@ -173,5 +179,18 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
                 })
             }
         },Constants.CHANGE_PIN,oldPin,newPin)
+    }
+
+    fun changeTerminalPin(oldPin: String,newPin: String) {
+        if(TransactionUtils.getTerminalPin(requireContext(),Constants.TERMINAL_PIN).equals(oldPin)) {
+            TransactionUtils.setTerminalPin(requireContext(),newPin,Constants.TERMINAL_PIN)
+            val bundle = Bundle()
+            bundle.putString(Constants.LIMITEXCEED, "Pin Changed")
+            navController!!.navigate(R.id.action_pin_changed_success, bundle)
+        } else {
+            val bundle = Bundle()
+            bundle.putString(Constants.LIMITEXCEED, "Invalid Old Pin")
+            navController!!.navigate(R.id.action_transactionFailed, bundle)
+        }
     }
 }

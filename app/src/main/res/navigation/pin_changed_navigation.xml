@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pinChangedFragment"
+    app:startDestination="@id/gopinChangedFragment">
+
+    <fragment
+        android:id="@+id/gopinChangedFragment"
+        android:name="com.paytm.hpclpos.ui.transactionfailed.PinChangedFragment"
+        android:label="Pin Changed Fragment"
+        tools:layout="@layout/fragment_pin_changed">
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+</navigation>

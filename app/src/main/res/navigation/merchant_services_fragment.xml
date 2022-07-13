@@ -24,6 +24,10 @@
             app:destination="@id/operatorOptionsFragment" />
 
         <action
+            android:id="@+id/action_change_card_pin_fragment"
+            app:destination="@id/changeCardPinFragment" />
+
+        <action
             android:id="@+id/action_main_fragment"
             app:destination="@+id/mainFragment" />
     </fragment>
@@ -36,4 +40,5 @@
 
     <include app:graph="@navigation/operator_options_fragment"/>
     <include app:graph="@navigation/settlement_screen_fragment" />
+    <include app:graph="@navigation/change_card_pin_fragment"/>
 </navigation>

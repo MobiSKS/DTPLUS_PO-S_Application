@@ -1,6 +1,5 @@
 package com.paytm.hpclpos.cardredoptions;
 
-import android.os.Build;
 import android.util.Log;
 import com.pax.dal.exceptions.IccDevException;
 import com.paytm.hpclpos.constants.Constants;

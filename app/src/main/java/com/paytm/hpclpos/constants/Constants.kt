@@ -22,6 +22,8 @@ interface Constants {
 
         const val VERIFY_PIN = "verifypin"
         const val CHANGE_PIN = "changepin"
+        const val CHANGE_TERMINAL_PIN = "changeterminalpin"
+        const val UNBLOCK_TERMINAL_PIN = "unblockterminalpin"
 
         const val NAV_VALUE = "navValue"
         const val NAV_VALUE1 = "navValue1"

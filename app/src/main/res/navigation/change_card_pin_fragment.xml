@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/gochangeCardPinFragment"
-        android:name="com.paytm.hpclpos.fragmentscardedandmobtrans.changecardpin.ChangeTerminalPinFragment"
+        android:name="com.paytm.hpclpos.ui.changecardpin.ChangeTerminalPinFragment"
         android:label="ChangeTerminalPinFragment"
         tools:layout="@layout/fragment_change_terminal_pin">
 
@@ -23,7 +23,12 @@
                 app:argType="string"
                 android:defaultValue="Transaction Failed" />
         </action>
+
+        <action
+            android:id="@+id/action_pin_changed_success"
+            app:destination="@id/pinChangedFragment" />
     </fragment>
     <include app:graph="@navigation/transaction_failure_fragment" />
     <include app:graph="@navigation/transaction_success_fragment" />
+    <include app:graph="@navigation/pin_changed_navigation" />
 </navigation>
