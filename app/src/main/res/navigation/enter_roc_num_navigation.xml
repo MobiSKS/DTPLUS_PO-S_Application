@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rocNumberFragment"
+    app:startDestination="@id/gorocNumberFragment">
+
+    <fragment
+        android:id="@+id/gorocNumberFragment"
+        android:name="com.paytm.hpclpos.ui.EnterRocNumber.EnterRocNoFragment"
+        android:label="Enter Roc Number"
+        tools:layout="@layout/fragment_roc_no">
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+
+        <action
+            android:id="@+id/action_enterCardPinFragment"
+            app:destination="@id/card_pin_fragment" />
+
+        <action
+            android:id="@+id/action_enterOtpFragment"
+            app:destination="@id/enterOtpFragment" />
+
+    </fragment>
+    <include app:graph="@navigation/enter_otp_fragment" />
+    <include app:graph="@navigation/card_pin_fragment" />
+</navigation>

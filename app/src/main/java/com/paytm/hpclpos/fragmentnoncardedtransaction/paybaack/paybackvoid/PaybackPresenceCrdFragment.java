@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.paytm.hpclpos.R;
+import com.paytm.hpclpos.ui.EnterRocNumber.EnterRocNoFragment;
 
 
 public class PaybackPresenceCrdFragment extends Fragment {
@@ -61,7 +62,7 @@ public class PaybackPresenceCrdFragment extends Fragment {
     }
 
     private void callCardbyActivity() {
-        Fragment fragment = new PaybackRocNoFragment();
+        Fragment fragment = new EnterRocNoFragment();
         getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left)
                 .replace(android.R.id.content, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
 

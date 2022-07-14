@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="?attr/actionBarSize">
+
+            <LinearLayout
+                android:id="@+id/gotoBack"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/back_icon"/>
+            </LinearLayout>
+
+            <TextView
+                android:fontFamily="@font/ptregular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="35dp"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:lines="1"
+                android:textStyle="normal"
+                android:text="@string/voidpayback"
+                android:textAllCaps="true"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            app:boxStrokeColor="@color/light_blue"
+            android:background="@drawable/rounded_fragment_white">
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:layout_constraintTop_toTopOf="@+id/constLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/outlinedTextField1"
+                android:textColorHint="@color/light_blue"
+                app:hintTextColor="@color/colorBlack"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                app:boxStrokeColor="@color/light_blue"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter ROC NO">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="number"
+                    android:maxLength="15"
+                    android:id="@+id/rocNo_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:layout_constraintTop_toBottomOf="@+id/outlinedTextField1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/outlinedTextField3"
+                app:hintTextColor="@color/colorBlack"
+                android:textColorHint="@color/light_blue"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:boxStrokeColor="@color/light_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="RE-Enter ROC NO">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/reEnterrocNo_EditText"
+                    android:inputType="number"
+                    android:maxLength="15"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+</layout>

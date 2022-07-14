@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.cardredoptions.CardEventListener

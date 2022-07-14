@@ -1,141 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
-    android:layout_height="210dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/dialog_drawable_layout">
+    android:background="@drawable/rounded_fragment_white">
 
-    <TextView
-        android:id="@+id/title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="7dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="@string/success"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutPrint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_marginStart="@dimen/_6sdp"
-        android:layout_marginTop="@dimen/_6sdp"
-        android:layout_marginEnd="@dimen/_6sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/cardNumberLinearLayout"
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/cardNumber"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="start"
-                android:text="@string/card_no"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/msg1"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="@string/success"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/transactionTypeLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/transactionType"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="start"
-                android:text="@string/transactionType"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/msg2"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="@string/success"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/amountLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/amount"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="@string/amount"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-
-            <TextView
-                android:id="@+id/msg3"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="@string/success"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="@dimen/_5sdp"
-        android:layout_below="@+id/linearLayoutPrint"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:id="@+id/ok"
-            android:background="@drawable/button_drawable_layout"
-            android:layout_width="@dimen/_70sdp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorwhite"
-            android:textSize="@dimen/_20sdp"
-            android:text="@string/ok_text"/>
-    </LinearLayout>
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/success"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPrint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <LinearLayout
+                android:id="@+id/amountLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/amount"
+                    style="@style/textSize16sp_robomedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:textAllCaps="true"
+                    android:text="@string/void_amount" />
+
+                <TextView
+                    android:id="@+id/voidAmount"
+                    style="@style/textstylemediumred"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/success" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/ok"
+                    android:textColor="@color/light_blue"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

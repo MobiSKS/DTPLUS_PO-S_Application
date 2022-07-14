@@ -15,6 +15,9 @@ enum class SaleTransactionDetails(val saleType : Int ,val saleName : String,val 
     CHEQUE_RELOAD(507,"CHEQUE RELOAD","RELOAD"),
     CCMS_RELOAD(508,"CCMS RELOAD","RELOAD"),
 
+    // Void
+    VOID(518,"VOID","VOID"),
+
     // CCMS Recharge Types
     CCMS_CASHRECHARGE(528,"CASH RECHARGE","CCMS RECHARGE"),
     CCMS_CHEQUERECHARGE(529,"CHEQUE RECHARGE","CCMS RECHARGE"),

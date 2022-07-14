@@ -20,13 +20,10 @@ import com.paytm.hpclpos.R;
 import com.paytm.hpclpos.cardredoptions.CardInfoEntity;
 import com.paytm.hpclpos.constants.GlobalMethods;
 import com.paytm.hpclpos.enums.SaleTransactionDetails;
-import com.paytm.hpclpos.fragmentnoncardedtransaction.ccmsbalance.BalanceMainFragment;
-import com.paytm.hpclpos.fragmentnoncardedtransaction.controlpinchange.ControlPinMainFragment;
 import com.paytm.hpclpos.fragmentnoncardedtransaction.creditsalecomplete.CSCMainFragment;
 import com.paytm.hpclpos.fragmentnoncardedtransaction.loyalitybalance.LoyalityBalanceMainFragment;
 import com.paytm.hpclpos.fragmentnoncardedtransaction.loyaltyredeem.LoyaltyRedeemMainFrag;
 import com.paytm.hpclpos.fragmentnoncardedtransaction.paybaack.PaybackMainFragment;
-import com.paytm.hpclpos.fragmentnoncardedtransaction.paymarchant.PayMarchantMainFragment;
 
 import java.util.List;
 
@@ -64,8 +61,7 @@ public class NonCardedAdapter extends RecyclerView.Adapter<NonCardedAdapter.Home
         Fragment fragment;
         switch (pos) {
             case 0:
-                fragment = new PayMarchantMainFragment();
-                callEnterchecknoandmicr(fragment);
+                runOnUiThread(R.id.action_pay_merchant_fragment);
                 break;
 
             case 1:

@@ -152,6 +152,7 @@
     <string name="success">Success: </string>
     <string name="ok_text">OK</string>
     <string name="amount">Amount</string>
+    <string name="void_amount">Void Amount</string>
     <string name="transactionType">Transaction Type</string>
     <string name="card_no">Card No</string>
     <string name="insert_swipe_or_enter_mobile">Insert/Swipe Card or Enter Mobile No.</string>
@@ -211,4 +212,5 @@
     <string name="reenter_terminal_pin">Re-Enter Terminal Pin</string>
     <string name="select_product">SELECT PRODUCT</string>
     <string name="select_transaction_type">SELECT TRANSACTION TYPE</string>
+    <string name="paycode">Paycode</string>
 </resources>

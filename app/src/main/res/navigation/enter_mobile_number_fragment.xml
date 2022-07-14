@@ -22,7 +22,13 @@
         <action
             android:id="@+id/action_main_fragment"
             app:destination="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_enter_roc_fragment"
+            app:destination="@+id/rocNumberFragment" />
+
     </fragment>
+    <include app:graph="@navigation/enter_roc_num_navigation" />
     <include app:graph="@navigation/enter_otp_fragment" />
     <include app:graph="@navigation/vehicle_number_fragment" />
 </navigation>

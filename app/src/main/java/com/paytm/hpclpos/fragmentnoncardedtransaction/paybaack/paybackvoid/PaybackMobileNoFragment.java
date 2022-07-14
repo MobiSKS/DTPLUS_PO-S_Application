@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.paytm.hpclpos.R;
 import com.paytm.hpclpos.constants.EnterMobileNoKeyboard;
 import com.paytm.hpclpos.constants.Validation;
+import com.paytm.hpclpos.ui.EnterRocNumber.EnterRocNoFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +70,7 @@ public class PaybackMobileNoFragment extends Fragment {
     }
     private void enterAmntActivityCall(){
         if (Validation.isValidMobileNo(mobnoEditText.getText().toString())){
-            Fragment fragment = new PaybackRocNoFragment();
+            Fragment fragment = new EnterRocNoFragment();
             getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left)
                     .replace(android.R.id.content, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
         } else {

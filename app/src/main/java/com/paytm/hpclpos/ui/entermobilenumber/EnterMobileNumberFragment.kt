@@ -69,6 +69,10 @@ class EnterMobileNumberFragment : BaseFragment(), View.OnClickListener {
                 SaleTransactionDetails.FASTAG_SALE_ONLY_CARDLESS_MOBILE.saleName -> {
                     navController!!.navigate(R.id.action_vehicleNumberFragment)
                 }
+
+                SaleTransactionDetails.VOID.saleName -> {
+                    navController!!.navigate(R.id.action_enter_roc_fragment)
+                }
                 else -> sendOtp()
             }
         }

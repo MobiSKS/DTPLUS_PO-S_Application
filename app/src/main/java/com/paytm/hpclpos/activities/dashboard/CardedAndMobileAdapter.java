@@ -76,8 +76,9 @@ public class CardedAndMobileAdapter extends RecyclerView.Adapter<CardedAndMobile
                 break;
 
             case 3:
-               /* Fragment cardedVoidMainFragment = new CardedVoidMainFragment();
-                callFragment(cardedVoidMainFragment);*/
+                GlobalMethods.Companion.setTransType(SaleTransactionDetails.VOID.getSaleName());
+                GlobalMethods.Companion.setSaleType(SaleTransactionDetails.VOID.getSaleName());
+                runOnUiThread(R.id.action_present_card);
                 break;
 
             case 4:

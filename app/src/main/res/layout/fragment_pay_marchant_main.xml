@@ -1,122 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".ui.selecttransactiontype.SelectTransactionTypeFargment">
-
-    <LinearLayout
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/background"
+        tools:context=".ui.selecttransactiontype.SelectTransactionTypeFargment">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="?attr/actionBarSize">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/gotoBack"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/back_icon">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center">
 
-                </ImageView>
+                    <ImageView
+                        android:id="@+id/gotoBack"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/back_icon" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="35dp"
+                    android:fontFamily="@font/ptregular"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="PAY MERCHANT"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="normal" />
+
             </LinearLayout>
 
 
-            <TextView
-                android:fontFamily="@font/ptregular"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="35dp"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:lines="1"
-                android:textStyle="normal"
-                android:text="PAY MERCHANT"
-                android:textColor="@color/white">
-
-            </TextView>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:fontFamily="@font/ptregular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="25dp"
-                android:text="PAYCODE">
-
-            </TextView>
-
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="20dp"
-                app:cardCornerRadius="7dp"
-                app:cardElevation="6dp"
-                android:layout_height="50dp">
+                android:layout_marginRight="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_10dp"
+                app:cardElevation="6dp">
 
-                <EditText
-                    android:fontFamily="@font/ptregular"
-                    android:id="@+id/paycode_EditText"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:hint="Enter Minimum 6 &amp; Maximum 16 digits"
-                    android:maxLength="16">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_7sdp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_7sdp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:orientation="vertical">
 
-                </EditText>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/outlinedTextField1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_7sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_7sdp"
+                        android:hint="@string/paycode"
+                        android:textColorHint="@color/light_blue"
+                        android:textCursorDrawable="@color/light_blue"
+                        app:boxStrokeColor="@color/light_blue"
+                        app:hintTextColor="@color/colorBlack"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/paycode_EditText"
+                            style="@style/textSize16sp_robomedium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:inputType="number"
+                            android:maxLength="16" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:fontFamily="@font/robotomedium"
+                        android:text="Enter Minimum 6 &amp; Maximum 16 digits"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-
-
-
         </LinearLayout>
 
-
-    </LinearLayout>
-
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white">
-
-        <com.paytm.hpclpos.constants.EnterMobileNoKeyboard
-            android:id="@+id/mobileNokeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"/>
-
     </RelativeLayout>
-
-
-</RelativeLayout>
+</layout>

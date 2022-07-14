@@ -163,6 +163,10 @@ class EnterOTPFragment : BaseFragment() {
                     }
                 })
             }
+
+            SaleTransactionDetails.VOID.saleName -> {
+                ToastMessages.customMsgToast(requireContext(),"Not Implemented")
+            }
         }
     }
 
@@ -215,8 +219,7 @@ class EnterOTPFragment : BaseFragment() {
     }
 
     override fun handleOnBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(
-            viewLifecycleOwner,
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     gotoMainActivity()

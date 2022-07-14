@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.paytm.hpclpos.Dialog.DialogUtil
 import com.paytm.hpclpos.PrintReceipts.Store
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.activities.dialogs.SettlementDialog
@@ -186,8 +187,12 @@ class EnterCardPinFragment : BaseFragment() {
                         }
                     })
                 }
+
+            SaleTransactionDetails.VOID.saleName -> {
+                DialogUtil.showTerminalPinDialog(requireContext(), dialogListener)
             }
         }
+    }
 
     override fun updateTimerUi(l: Long) {
         requireView().findViewById<TextView>(R.id.timer).setText(l.toString()
@@ -300,5 +305,19 @@ class EnterCardPinFragment : BaseFragment() {
        } else {
            checkTransTypeforNavigation()
        }
+    }
+
+    val dialogListener = object : DialogUtil.TerminalPinOnClickListener {
+        override fun onConfirm(pinPassword: String) {
+            if (TransactionUtils.getTerminalPin(requireContext(), Constants.TERMINAL_PIN).equals(pinPassword)) {
+                ToastMessages.customMsgToast(requireContext(),"Need to be Implemented")
+            } else {
+                ToastMessages.customMsgToast(requireContext(),"Incorrect Terminal Password")
+            }
+        }
+
+        override fun onCancel() {
+            // Do nothing
+        }
     }
 }

@@ -70,6 +70,12 @@
         <item name="fontFamily">@font/robotomedium</item>
     </style>
 
+    <style name="textstylemediumred">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/robotomedium</item>
+    </style>
+
     <style name="textstyletitle">
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textSize">13sp</item>
@@ -78,6 +84,12 @@
 
     <style name="textSize16sp_robomedium">
         <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/robotomedium</item>
+    </style>
+
+    <style name="textSize16sp_robomedium_red">
+        <item name="android:textColor">@color/red</item>
         <item name="android:textSize">16sp</item>
         <item name="fontFamily">@font/robotomedium</item>
     </style>

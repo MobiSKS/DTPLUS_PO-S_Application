@@ -23,7 +23,17 @@
             android:id="@+id/action_main_fragment"
             app:destination="@+id/mainFragment" />
 
+        <action
+            android:id="@+id/action_enter_roc_fragment"
+            app:destination="@+id/rocNumberFragment" />
+
+        <action
+            android:id="@+id/action_enterMobileNumberFragment"
+            app:destination="@id/entermobilenumber" />
+
     </fragment>
     <include app:graph="@navigation/pin_change_fragment" />
     <include app:graph="@navigation/change_card_pin_fragment" />
+    <include app:graph="@navigation/enter_roc_num_navigation" />
+    <include app:graph="@navigation/enter_mobile_number_fragment" />
 </navigation>

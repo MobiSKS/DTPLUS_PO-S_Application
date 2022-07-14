@@ -53,7 +53,7 @@ public class DialogUtil {
         dialog = new OkDialog(context);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-        dialog.setTitle(title).setMsg(msg).setOnClickListener(onClickListener);
+        dialog.setTitle(title).setVoidAmount(msg).setOnClickListener(onClickListener);
         dialog.show();
         return dialog;
     }
@@ -200,7 +200,7 @@ public class DialogUtil {
 
     private static class OkDialog extends Dialog implements View.OnClickListener {
 
-        private String msg = "";
+        private String voidAmount = "";
         private String title = "";
         private DialogUtil.OnClickListener onClickListener;
         Context context;
@@ -223,24 +223,36 @@ public class DialogUtil {
         }
 
         private void initView() {
-            TextView tvMsg = findViewById(R.id.msg);
+            TextView voidAmount = findViewById(R.id.voidAmount);
             TextView tvTitle = findViewById(R.id.title);
-            Button okBtn = findViewById(R.id.ok);
-            okBtn.setOnClickListener(this);
+            TextView confirm = findViewById(R.id.confirm);
+            TextView cancel = findViewById(R.id.cancel);
+            confirm.setOnClickListener(this);
+            cancel.setOnClickListener(this);
             if (TextUtils.isEmpty(title)) {
                 tvTitle.setVisibility(View.GONE);
             }
-            tvMsg.setText(msg);
+            voidAmount.setText(this.voidAmount);
             tvTitle.setText(title);
         }
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.ok && onClickListener != null) {
-                onClickListener.onConfirm();
-            } else {
-                dismiss();
+            switch (v.getId()) {
+                case R.id.confirm:
+                    if (onClickListener != null) {
+                        onClickListener.onConfirm();
+                    }
+                    break;
+                case R.id.cancel:
+                    if (onClickListener != null) {
+                        onClickListener.onCancel();
+                    }
+                    break;
+                default:
+                    break;
             }
+            dismiss();
         }
 
         public OkDialog setTitle(String title) {
@@ -248,8 +260,8 @@ public class DialogUtil {
             return this;
         }
 
-        public OkDialog setMsg(String msg) {
-            this.msg = msg;
+        public OkDialog setVoidAmount(String voidAmount) {
+            this.voidAmount = voidAmount;
             return this;
         }
 

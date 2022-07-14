@@ -1,6 +1,5 @@
 package com.paytm.hpclpos.ui.PresentCardFragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import com.paytm.hpclpos.R
-import com.paytm.hpclpos.activities.mainsaleactivities.MainActivity
 import com.paytm.hpclpos.cardredoptions.*
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.constants.ToastMessages
@@ -33,6 +31,7 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        enableMobileforVoid()
         viewFinds(view)
     }
 
@@ -40,6 +39,7 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
         view.setOnTouchListener { view, motionEvent -> true }
         presentCardFragment.cardSwipeTransaction.setOnClickListener(this)
         presentCardFragment.llChipCardRead.setOnClickListener(this)
+        presentCardFragment.lLcardlesstransaction.setOnClickListener(this)
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 CardOptions.closeIccAndMag()
@@ -49,7 +49,16 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
     }
 
      override fun onClick(v: View) {
-       // Do nothing
+       when(v.id) {
+           R.id.lLcardlesstransaction -> {
+               CardOptions.closeIccAndMag()
+               callEnterMobNoActivity()
+           }
+       }
+    }
+
+    private fun callEnterMobNoActivity() {
+        navController!!.navigate(R.id.action_enterMobileNumberFragment)
     }
 
     override fun onResume() {
@@ -71,12 +80,16 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
             GlobalMethods.setCardInfoEntity(cardInfoEntity)
             requireActivity().runOnUiThread({
                 when(GlobalMethods.getSaleType()) {
+                    SaleTransactionDetails.VOID.saleName -> {
+                       navController?.navigate(R.id.action_enter_roc_fragment)
+                    }
+
                     SaleTransactionDetails.UNBLOCK_CARD_PIN.saleName -> {
-                        navController!!.navigate(R.id.action_enter_newpin)
+                        navController?.navigate(R.id.action_enter_newpin)
                     }
 
                     SaleTransactionDetails.CHANGE_CARD_PIN.saleName -> {
-                        navController!!.navigate(R.id.action_change_card_pin_fragment)
+                        navController?.navigate(R.id.action_change_card_pin_fragment)
                     }
                 }
             })
@@ -94,6 +107,16 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
                 ToastMessages.customMsgToast(requireActivity(), "Card Removed while Reading")
                 navController!!.navigate(R.id.action_main_fragment)
             }
+        }
+    }
+
+    fun enableMobileforVoid() {
+        // Enables Mobile in view for Void Transaction
+        when(GlobalMethods.getSaleType()) {
+             SaleTransactionDetails.VOID.saleName -> {
+                 presentCardFragment.lLcardlesstransaction.visibility = View.VISIBLE
+             }
+            else -> { /*Do Nothing*/ }
         }
     }
 }
