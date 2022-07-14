@@ -20,6 +20,7 @@ interface Constants {
             GlobalMethods.putString("trace", msg)
         }
 
+        const val RUPEEE_SYMBOL = "₹"
         const val VERIFY_PIN = "verifypin"
         const val CHANGE_PIN = "changepin"
         const val CHANGE_TERMINAL_PIN = "changeterminalpin"

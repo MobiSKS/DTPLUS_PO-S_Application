@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import com.paytm.hpclpos.R
 import androidx.databinding.DataBindingUtil
+import com.example.apphpcldb.entity.repository.AppRepository
 import com.paytm.hpclpos.Dialog.DialogUtil
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.FragmentRocNoBinding
@@ -43,7 +44,7 @@ class EnterRocNoFragment : BaseFragment() {
     private fun enterAmountCall() {
          if (binding.rocNoEditText.getText().toString().equals(binding.reEnterrocNoEditText.getText().toString(),true)) {
             if (Validation.isValidRocNo(binding.rocNoEditText.getText().toString())) {
-                dialogCnfrmAmnt()
+               getTransactionForRoc()
             } else {
                 ToastMessages.customMsgToast(requireContext(),getString(R.string.entervalirocno))
             }
@@ -52,8 +53,18 @@ class EnterRocNoFragment : BaseFragment() {
         }
     }
 
-    private fun dialogCnfrmAmnt() {
-        DialogUtil.showOkDialog(requireContext(),"CONFIRM AMOUNT","100",object : DialogUtil.OnClickListener{
+    fun getTransactionForRoc() {
+        val db = AppRepository(requireContext())
+        val transaction = db.getTransactionBasedOnId(binding.rocNoEditText.getText().toString().toInt())
+        if (transaction != null) {
+            dialogCnfrmAmnt(transaction.transaction_Amount!!)
+        } else {
+            ToastMessages.customMsgToast(requireContext(),"ROC not found")
+        }
+    }
+
+    private fun dialogCnfrmAmnt(amount: String) {
+        DialogUtil.showOkDialog(requireContext(),"CONFIRM AMOUNT","${Constants.RUPEEE_SYMBOL} ${amount}",object : DialogUtil.OnClickListener{
             override fun onConfirm() {
                 if (GlobalMethods.getCardInfoEntity()!!.isMobileTransaction) {
                     DialogUtil.showTerminalPinDialog(requireContext(), dialogListener)
