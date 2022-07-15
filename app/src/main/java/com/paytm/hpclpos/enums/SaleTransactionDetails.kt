@@ -44,6 +44,9 @@ enum class SaleTransactionDetails(val saleType : Int ,val saleName : String,val 
     //Driver Loyalty (NON DTP)
     DRIVER_LOYAL(510,"DRIVER LOYAL","DRIVER LOYAL"),
 
+    // Credit Sale Complete
+    CREDIT_SALE_COMPLETE(522,"CREDIT SALE COMPLETE","CREDIT SALE COMPLETE"),
+
     // CCMS Balance
     CCMS_BALANCE(531,"CCMS BALANCE","CCMS BALANCE");
 

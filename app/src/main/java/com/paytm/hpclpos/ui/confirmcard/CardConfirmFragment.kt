@@ -14,7 +14,6 @@ import com.paytm.hpclpos.databinding.FragmentCardConfirmFragmentBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 
-
 class CardConfirmFragment  : BaseFragment()  {
 
     lateinit var binding: FragmentCardConfirmFragmentBinding
@@ -27,7 +26,8 @@ class CardConfirmFragment  : BaseFragment()  {
         var cardType = ""
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_card_confirm_fragment, container, false)
         var cardNumber: String? = null
-        if (GlobalMethods.getTransType().equals(SaleTransactionDetails.CCMS_CASHRECHARGE.category)
+        if ((GlobalMethods.getTransType().equals(SaleTransactionDetails.CCMS_CASHRECHARGE.category)
+                    || GlobalMethods.getTransType().equals(SaleTransactionDetails.CREDIT_SALE_COMPLETE.category))
             && GlobalMethods.getCardInfoEntity() != null && GlobalMethods.getCardInfoEntity()!!.isControlCardNumber) {
             cardType = "Control Card No"
             cardNumber = GlobalMethods.getControlCardNumber()!!
@@ -39,10 +39,11 @@ class CardConfirmFragment  : BaseFragment()  {
                 navController!!.navigate(R.id.action_main_fragment)
             }
         }
+
         showDialogForCardCOnfirm(cardType, getString(R.string.confirm_transaction), cardNumber!!, GlobalMethods.getSaleType()!!,
             GlobalMethods.getAmount()!!, object : DialogUtil.OnClickListener {
                 override fun onConfirm() {
-                    navController!!.navigate(R.id.action_enterCardPinFragment)
+                    checkTransTypeAndNavigate()
                     dialog?.cancel()
                 }
 
@@ -69,5 +70,14 @@ class CardConfirmFragment  : BaseFragment()  {
     private fun goToMainFragment() {
         ToastMessages.customMsgToastShort(requireContext(),getString(R.string.transaction_cancelled))
         navController!!.navigate(R.id.action_main_fragment)
+    }
+
+    fun checkTransTypeAndNavigate() {
+        when(GlobalMethods.getSaleType()) {
+            SaleTransactionDetails.CREDIT_SALE_COMPLETE.saleName -> {
+                ToastMessages.customMsgToast(requireContext(),"Need to be Implemented")
+            }
+            else -> {  navController!!.navigate(R.id.action_enterCardPinFragment) }
+        }
     }
 }

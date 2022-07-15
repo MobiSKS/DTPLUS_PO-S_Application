@@ -20,7 +20,7 @@ public class BaseTester {
         childName = getClass().getSimpleName() + ".";
         String errorLog = childName + method + "   errorMessage：" + errString;
         Log.e("IPPITest", errorLog);
-        FloatView.appendLog("error:"+errorLog + "\n");
+        //FloatView.appendLog("error:"+errorLog + "\n");
     }
 
     public void clear() {

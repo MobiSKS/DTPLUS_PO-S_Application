@@ -102,9 +102,10 @@ class AmountEntryFragment : BaseFragment() {
     fun checkTransAndNavigate() {
         when (GlobalMethods.getTransType()) {
             SaleTransactionDetails.CCMS_CASHRECHARGE.category,
-            SaleTransactionDetails.CASH_RELOAD.category -> {
-                showTerminalPinDialog(dialogListener)
-            }
+            SaleTransactionDetails.CASH_RELOAD.category -> { showTerminalPinDialog(dialogListener) }
+
+            SaleTransactionDetails.CREDIT_SALE_COMPLETE.saleName -> { navigateCardConfirmFragment() }
+
             else -> navigateAmountConfirmFragment()
         }
     }

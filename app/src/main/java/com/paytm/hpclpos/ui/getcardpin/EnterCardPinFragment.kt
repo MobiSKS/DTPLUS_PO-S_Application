@@ -16,10 +16,7 @@ import com.paytm.hpclpos.Dialog.DialogUtil
 import com.paytm.hpclpos.PrintReceipts.Store
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.activities.dialogs.SettlementDialog
-import com.paytm.hpclpos.cardredoptions.CardEventListener
-import com.paytm.hpclpos.cardredoptions.CardEventState
-import com.paytm.hpclpos.cardredoptions.CardOptions
-import com.paytm.hpclpos.cardredoptions.VerifyPinThreadInit
+import com.paytm.hpclpos.cardredoptions.*
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivityEnterCardPinBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
@@ -271,7 +268,6 @@ class EnterCardPinFragment : BaseFragment() {
         when (state!!.state) {
             CardEventState.CARD_PROFILE_READ_ERROR ->   requireActivity().runOnUiThread({
                 ToastMessages.customMsgToast(requireActivity(), "Card Profile Read Failed")
-                CardOptions.closeIccAndMag()
                 navController!!.navigate(R.id.action_main_fragment)
             })
 
@@ -282,29 +278,22 @@ class EnterCardPinFragment : BaseFragment() {
 
             CardEventState.CARD_PIN_READ_ERROR -> requireActivity().runOnUiThread {
                 ToastMessages.customMsgToast(requireActivity(), "Card Pin Read Error")
-                CardOptions.closeIccAndMag()
+                navController!!.navigate(R.id.action_main_fragment)
+            }
+
+            CardEventState.CHIP_CARD_NOT_DETECTED -> requireActivity().runOnUiThread {
+                ToastMessages.customMsgToast(requireActivity(), "Chip Card not detected,Please Insert card")
                 navController!!.navigate(R.id.action_main_fragment)
             }
         }
     }
 
     fun callPinVerifyThreadInit() {
-       if(GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.ICC)) {
-           verifyPinThreadInit = VerifyPinThreadInit(object : CardEventListener {
-               override fun onCardEvent(state: CardEventState?) {
-                   handleCardReadError(state)
-               }
-
-               override fun onCardReadSuccess() {
-                   requireActivity().runOnUiThread({
-                       ToastMessages.customMsgToast(requireActivity(), "Card Read Success")
-                       checkTransTypeforNavigation()
-                   })
-               }
-           },Constants.VERIFY_PIN)
-       } else {
-           checkTransTypeforNavigation()
-       }
+        if (GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.ICC)) {
+            IcCardCommand(requireActivity(), cardEventListener).verifyPinData(GlobalMethods.getPinData()!!)
+        } else {
+            checkTransTypeforNavigation()
+        }
     }
 
     val dialogListener = object : DialogUtil.TerminalPinOnClickListener {
@@ -318,6 +307,19 @@ class EnterCardPinFragment : BaseFragment() {
 
         override fun onCancel() {
             // Do nothing
+        }
+    }
+
+    val cardEventListener = object : CardEventListener {
+        override fun onCardEvent(state: CardEventState?) {
+            handleCardReadError(state)
+        }
+
+        override fun onCardReadSuccess() {
+            requireActivity().runOnUiThread({
+                ToastMessages.customMsgToast(requireActivity(), "Card Read Success")
+                checkTransTypeforNavigation()
+            })
         }
     }
 }

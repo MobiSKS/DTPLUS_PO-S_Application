@@ -65,8 +65,9 @@ public class NonCardedAdapter extends RecyclerView.Adapter<NonCardedAdapter.Home
                 break;
 
             case 1:
-                fragment = new CSCMainFragment();
-                callEnterchecknoandmicr(fragment);
+                GlobalMethods.Companion.setTransType(SaleTransactionDetails.CREDIT_SALE_COMPLETE.getSaleName());
+                GlobalMethods.Companion.setSaleType(SaleTransactionDetails.CREDIT_SALE_COMPLETE.getSaleName());
+                runOnUiThread(R.id.action_control_card_fragment);
                 break;
 
             case 2:
