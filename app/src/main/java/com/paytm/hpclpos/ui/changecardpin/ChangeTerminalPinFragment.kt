@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.paytm.hpclpos.R
 import com.paytm.hpclpos.cardredoptions.CardEventListener
 import com.paytm.hpclpos.cardredoptions.CardEventState
-import com.paytm.hpclpos.cardredoptions.VerifyPinThreadInit
+import com.paytm.hpclpos.cardredoptions.IcCardCommand
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.FragmentChangeTerminalPinBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
@@ -26,7 +26,6 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
     lateinit var mobNokeyboard: EnterMobileNoKeyboard
     lateinit var binding: FragmentChangeTerminalPinBinding
     lateinit var batchId: String
-    var verifyPinThreadInit: VerifyPinThreadInit? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -98,7 +97,8 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
         if(GlobalMethods.getTransType().equals(Constants.CHANGE_TERMINAL_PIN)) {
            changeTerminalPin(oldPin,newPin)
         } else {
-            callPinVerifyThreadInit(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
+            IcCardCommand(requireActivity(),cardEventListener).
+            changeCardPin(binding.oldPINEditText.text.toString(),binding.newPINEditText.text.toString())
         }
     }
 
@@ -164,22 +164,6 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
         })
     }
 
-
-    fun callPinVerifyThreadInit(newPin: String,oldPin: String) {
-        verifyPinThreadInit = VerifyPinThreadInit(object : CardEventListener {
-            override fun onCardEvent(state: CardEventState?) {
-                ToastMessages.customMsgToast(requireContext(),state?.state)
-            }
-
-            override fun onCardReadSuccess() {
-                requireActivity().runOnUiThread({
-                    ToastMessages.customMsgToast(requireActivity(), "Pin Changed SuccessFully")
-                    checkAndNavigate(binding.newPINEditText.text.toString(),binding.oldPINEditText.text.toString())
-                })
-            }
-        },Constants.CHANGE_PIN,oldPin,newPin)
-    }
-
     fun changeTerminalPin(oldPin: String,newPin: String) {
         if(TransactionUtils.getTerminalPin(requireContext(),Constants.TERMINAL_PIN).equals(oldPin)) {
             TransactionUtils.setTerminalPin(requireContext(),newPin,Constants.TERMINAL_PIN)
@@ -190,6 +174,20 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
             val bundle = Bundle()
             bundle.putString(Constants.LIMITEXCEED, "Invalid Old Pin")
             navController!!.navigate(R.id.action_transactionFailed, bundle)
+        }
+    }
+
+    val cardEventListener = object : CardEventListener {
+        override fun onCardEvent(state: CardEventState?) {
+            ToastMessages.customMsgToast(requireContext(),state?.state)
+            navController?.navigate(R.id.action_main_fragment)
+        }
+
+        override fun onCardReadSuccess() {
+            requireActivity().runOnUiThread({
+                ToastMessages.customMsgToast(requireActivity(), "Pin Changed SuccessFully")
+                checkAndNavigate(binding.newPINEditText.text.toString(), binding.oldPINEditText.text.toString())
+            })
         }
     }
 }

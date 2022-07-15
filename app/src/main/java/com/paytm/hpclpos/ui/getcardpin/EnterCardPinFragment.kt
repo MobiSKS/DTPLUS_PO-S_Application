@@ -32,7 +32,6 @@ class EnterCardPinFragment : BaseFragment() {
     lateinit var batchId: String
     lateinit var viewModel: MainActivityViewModel
     private var settlementDialog: SettlementDialog? = null
-    var verifyPinThreadInit: VerifyPinThreadInit? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_enter_card_pin, container, false)

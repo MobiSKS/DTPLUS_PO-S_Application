@@ -11,6 +11,8 @@ public class CardEventState {
     public static final String INCORRECT_PIN = "INCORRECT_PIN";
     public static final String CARD_PIN_READ_ERROR = "CARD_PIN_READ_ERROR";
     public static final String CHIP_CARD_NOT_DETECTED = "CHIP NOT DETECTED";
+    public static final String INCORRECT_OLD_PIN = "INCORRECT OLD PIN";
+    public static final String CHANGE_CARDPIN_FAILED = "CHANGE CARDPIN FAILED";
 
     @Getter
     public String state;

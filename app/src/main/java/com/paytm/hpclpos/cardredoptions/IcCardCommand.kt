@@ -13,7 +13,7 @@ class IcCardCommand(val activity: Activity,val cardEventListener: CardEventListe
     val dfCommand = "00A40000027F02"
     val userCardProfileCommand = "00A40000020020"
     val verifyPinCommand = "0020001008"
-    val changePinCommand = "0020001008"
+    val changePinCommand = "0024001010"
     val appendFF = "FFFFFFFF"
     val readCardProfile = "00B00000A2"
 
@@ -35,7 +35,6 @@ class IcCardCommand(val activity: Activity,val cardEventListener: CardEventListe
                 if (mfResult.substring(mfResult.length - 4).equals("9000")) {
                     val dfResult = setDF()
                     if (dfResult.substring(dfResult.length - 4).equals("9000")) {
-                        ToastMessages.customMsgToast(activity," Set DF Success")
                         val userCardProfileResult = setPathUserCardProfile()
                         if (userCardProfileResult.substring(userCardProfileResult.length - 4).equals("9000")) {
                             val readCardProfile = readCardProfile()
@@ -49,6 +48,7 @@ class IcCardCommand(val activity: Activity,val cardEventListener: CardEventListe
                 ToastMessages.customMsgToast(activity, "Failure ${iccTester}")
             }
         } else {
+            IccTester.instance?.light(false)
             cardEventListener.onCardEvent(CardEventState(CardEventState.CHIP_CARD_NOT_DETECTED))
         }
         return false
@@ -82,10 +82,41 @@ class IcCardCommand(val activity: Activity,val cardEventListener: CardEventListe
         if (initCard()) {
             val verifyPinResult = verifyPinCommand(pinData)
             if (verifyPinResult.substring(verifyPinResult.length - 4).equals("9000")) {
+                IccTester.instance?.light(false)
                 cardEventListener.onCardReadSuccess()
             } else {
+                IccTester.instance?.light(false)
                 cardEventListener.onCardEvent(CardEventState(CardEventState.INCORRECT_PIN))
             }
         }
+    }
+
+    fun changeCardPin(oldPin: String,newPin: String) {
+        if (initCard()) {
+            val verifyPinResult = verifyPinCommand(oldPin)
+            if (verifyPinResult.substring(verifyPinResult.length - 4).equals("9000")) {
+                 val changePinResult = changePinCommand(oldPin,newPin)
+                 if(changePinResult.substring(changePinResult.length - 4).equals("9000")) {
+                     IccTester.instance?.light(false)
+                     cardEventListener.onCardReadSuccess()
+                 } else {
+                     IccTester.instance?.light(false)
+                     cardEventListener.onCardEvent(CardEventState(CardEventState.INCORRECT_PIN))
+                 }
+            } else {
+                IccTester.instance?.light(false)
+                cardEventListener.onCardEvent(CardEventState(CardEventState.CHANGE_CARDPIN_FAILED))
+            }
+        }
+    }
+
+    fun changePinCommand(oldPin: String,newPin: String): String {
+        val FFByte = HexaUtils.hexStr2Bytes(appendFF)
+        val chnagePinCommandByte = HexaUtils.hexStr2Bytes(changePinCommand)
+        val oldPindataByte = HexaUtils.concatByteArray(HexaUtils.hexStr2Bytes(HexaUtils.stringToHexDecimal(oldPin)),FFByte)
+        val newPinDataByte = HexaUtils.concatByteArray(HexaUtils.hexStr2Bytes(HexaUtils.stringToHexDecimal(newPin)),FFByte)
+        val oldnewPinDataByteArray = HexaUtils.concatByteArray(oldPindataByte,newPinDataByte)
+        return HexaUtils.byte2HexStr(IccTester.instance?.isoCommand
+            (0.toByte(), HexaUtils.concatByteArray(chnagePinCommandByte, oldnewPinDataByteArray)))
     }
 }

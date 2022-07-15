@@ -27,6 +27,10 @@
         <action
             android:id="@+id/action_pin_changed_success"
             app:destination="@id/pinChangedFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
     </fragment>
     <include app:graph="@navigation/transaction_failure_fragment" />
     <include app:graph="@navigation/transaction_success_fragment" />
