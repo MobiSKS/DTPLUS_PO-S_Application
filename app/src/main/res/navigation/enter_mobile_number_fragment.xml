@@ -27,8 +27,17 @@
             android:id="@+id/action_enter_roc_fragment"
             app:destination="@+id/rocNumberFragment" />
 
+        <action
+            android:id="@+id/action_amount_entry_fragment"
+            app:destination="@+id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_payback_amount_point_fragment"
+            app:destination="@+id/payBackAmountPointFragment" />
+
     </fragment>
     <include app:graph="@navigation/enter_roc_num_navigation" />
     <include app:graph="@navigation/enter_otp_fragment" />
     <include app:graph="@navigation/vehicle_number_fragment" />
+    <include app:graph="@navigation/payback_amount_point_navigation" />
 </navigation>

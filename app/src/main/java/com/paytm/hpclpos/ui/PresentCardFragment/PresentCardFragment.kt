@@ -18,6 +18,8 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
 
     lateinit var presentCardFragment: FragmentPresentCardTypeBinding
     var cardOptions: CardOptions? = null
+    var enableIcc : Boolean = true
+    var enableMag : Boolean = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -71,7 +73,7 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
             override fun onCardReadSuccess() {
                 requireActivity().runOnUiThread({ ToastMessages.customMsgToast(requireActivity(), "Card Read Success") })
             }
-        }, this)
+        }, this,enableIcc,enableMag)
     }
 
      override fun performActionSuccess(cardInfoEntity: CardInfoEntity) {
@@ -90,6 +92,18 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
 
                     SaleTransactionDetails.CHANGE_CARD_PIN.saleName -> {
                         navController?.navigate(R.id.action_change_card_pin_fragment)
+                    }
+
+                    SaleTransactionDetails.PAYBACK_BURN.saleName -> {
+                        navController?.navigate(R.id.action_payback_amount_point_fragment)
+                    }
+
+                    SaleTransactionDetails.PAYBACK_EARN.saleName -> {
+                        navController?.navigate(R.id.action_amount_entry_fragment)
+                    }
+
+                    SaleTransactionDetails.PAYBACK_VOID.saleName -> {
+                        navController?.navigate(R.id.action_enter_roc_fragment)
                     }
                 }
             })
@@ -112,10 +126,19 @@ class PresentCardFragment : BaseFragment(),View.OnClickListener, CardSuccessList
 
     fun enableMobileforVoid() {
         // Enables Mobile in view for Void Transaction
-        when(GlobalMethods.getSaleType()) {
-             SaleTransactionDetails.VOID.saleName -> {
+        when(GlobalMethods.getTransType()) {
+             SaleTransactionDetails.VOID.category -> {
+                 enableIcc = true
+                 enableMag = true
                  presentCardFragment.lLcardlesstransaction.visibility = View.VISIBLE
              }
+
+            SaleTransactionDetails.PAYBACK_EARN.category -> {
+                enableMag = true
+                enableIcc = false
+                presentCardFragment.lLcardlesstransaction.visibility = View.VISIBLE
+                presentCardFragment.llChipCardRead.visibility = View.GONE
+            }
             else -> { /*Do Nothing*/ }
         }
     }

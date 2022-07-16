@@ -20,10 +20,8 @@ import com.paytm.hpclpos.R;
 import com.paytm.hpclpos.cardredoptions.CardInfoEntity;
 import com.paytm.hpclpos.constants.GlobalMethods;
 import com.paytm.hpclpos.enums.SaleTransactionDetails;
-import com.paytm.hpclpos.fragmentnoncardedtransaction.creditsalecomplete.CSCMainFragment;
 import com.paytm.hpclpos.fragmentnoncardedtransaction.loyalitybalance.LoyalityBalanceMainFragment;
 import com.paytm.hpclpos.fragmentnoncardedtransaction.loyaltyredeem.LoyaltyRedeemMainFrag;
-import com.paytm.hpclpos.fragmentnoncardedtransaction.paybaack.PaybackMainFragment;
 
 import java.util.List;
 
@@ -71,8 +69,8 @@ public class NonCardedAdapter extends RecyclerView.Adapter<NonCardedAdapter.Home
                 break;
 
             case 2:
-                fragment = new PaybackMainFragment();
-                callEnterchecknoandmicr(fragment);
+                GlobalMethods.Companion.setTransType(SaleTransactionDetails.PAYBACK_BURN.getCategory());
+                runOnUiThread(R.id.action_payback_main_fragment);
                 break;
 
             case 3:

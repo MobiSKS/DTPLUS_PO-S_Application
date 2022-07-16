@@ -67,7 +67,7 @@ class SelectEnquiryTypeFragment : BaseFragment(), View.OnClickListener,CardSucce
             override fun onCardReadSuccess() {
                 requireActivity().runOnUiThread({ ToastMessages.customMsgToast(requireActivity(), "Card Read Success") })
             }
-        }, this)
+        }, this,true,true)
     }
 
     fun handleCardReadError(state: CardEventState?) {

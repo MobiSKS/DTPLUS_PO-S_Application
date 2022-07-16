@@ -5,13 +5,8 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.telephony.PhoneNumberFormattingTextWatcher
-import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -70,6 +65,15 @@ class EnterMobileNumberFragment : BaseFragment(), View.OnClickListener {
                     navController!!.navigate(R.id.action_vehicleNumberFragment)
                 }
 
+                SaleTransactionDetails.PAYBACK_EARN.saleName -> {
+                    navController?.navigate(R.id.action_amount_entry_fragment)
+                }
+
+                SaleTransactionDetails.PAYBACK_BURN.saleName -> {
+                    navController?.navigate(R.id.action_payback_amount_point_fragment)
+                }
+
+                SaleTransactionDetails.PAYBACK_VOID.saleName,
                 SaleTransactionDetails.VOID.saleName -> {
                     navController!!.navigate(R.id.action_enter_roc_fragment)
                 }

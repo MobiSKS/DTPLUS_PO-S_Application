@@ -31,9 +31,19 @@
             android:id="@+id/action_enterMobileNumberFragment"
             app:destination="@id/entermobilenumber" />
 
+        <action
+            android:id="@+id/action_amount_entry_fragment"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_payback_amount_point_fragment"
+            app:destination="@id/payBackAmountPointFragment" />
+
     </fragment>
     <include app:graph="@navigation/pin_change_fragment" />
     <include app:graph="@navigation/change_card_pin_fragment" />
     <include app:graph="@navigation/enter_roc_num_navigation" />
     <include app:graph="@navigation/enter_mobile_number_fragment" />
+    <include app:graph="@navigation/amount_entry_fragment" />
+    <include app:graph="@navigation/payback_amount_point_navigation"/>
 </navigation>

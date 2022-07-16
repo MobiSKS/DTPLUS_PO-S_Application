@@ -106,6 +106,8 @@ class AmountEntryFragment : BaseFragment() {
 
             SaleTransactionDetails.CREDIT_SALE_COMPLETE.saleName -> { navigateCardConfirmFragment() }
 
+            SaleTransactionDetails.PAYBACK_VOID.category -> { payBackNavigation() }
+
             else -> navigateAmountConfirmFragment()
         }
     }
@@ -154,5 +156,17 @@ class AmountEntryFragment : BaseFragment() {
     fun goToMainFragment() {
         ToastMessages.customMsgToast(requireContext(),"Transaction Cancelled")
         navController!!.navigate(R.id.action_main_fragment)
+    }
+
+    fun payBackNavigation() {
+        when(GlobalMethods.getSaleType()) {
+            SaleTransactionDetails.PAYBACK_EARN.saleName -> {
+                ToastMessages.customMsgToast(requireContext(),"Need to be Implemented")
+            }
+
+            SaleTransactionDetails.PAYBACK_BURN.saleName -> {
+                ToastMessages.customMsgToast(requireContext(),"Need to be Implemented")
+            }
+        }
     }
 }

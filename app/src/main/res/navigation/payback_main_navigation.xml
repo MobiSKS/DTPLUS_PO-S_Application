@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payBackMainFragment"
+    app:startDestination="@id/gopayBackMainFragment">
+
+    <fragment
+        android:id="@+id/gopayBackMainFragment"
+        android:name="com.paytm.hpclpos.ui.payback.PayBackMainFragment"
+        android:label="PayBackMainFragment"
+        tools:layout="@layout/fragment_payback_main">
+
+        <action
+            android:id="@+id/action_present_card"
+            app:destination="@id/present_card_fragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+    <include app:graph="@navigation/confirmamountfragment" />
+</navigation>

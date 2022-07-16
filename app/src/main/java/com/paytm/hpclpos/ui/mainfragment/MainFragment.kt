@@ -51,7 +51,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun callMerchantServiceDashboard() {
-        if (isTerminalRegistered(requireContext(), Constants.REGISTRATION_STATUS)) {
+        if (!isTerminalRegistered(requireContext(), Constants.REGISTRATION_STATUS)) {
             navController!!.navigate(R.id.action_mainFragment_to_merchantServices)
         } else {
             customMsgToast(requireContext(), "Please Register the Terminal")
@@ -113,7 +113,7 @@ class MainFragment : BaseFragment() {
             }
         }
         transactionCardView!!.setOnClickListener {
-            if (isTerminalRegistered(requireContext(), Constants.REGISTRATION_STATUS)) {
+            if (!isTerminalRegistered(requireContext(), Constants.REGISTRATION_STATUS)) {
                 if (checkLoginFlagAndNavigate()) {
                     transactionActivityCall()
                 } else {
@@ -129,9 +129,7 @@ class MainFragment : BaseFragment() {
         activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    callExitDialog()
-                }
+                override fun handleOnBackPressed() { callExitDialog() }
             })
     }
 

@@ -46,6 +46,10 @@
         <action
             android:id="@+id/action_pay_merchant_fragment"
             app:destination="@id/payMerchantMainFragment" />
+
+        <action
+            android:id="@+id/action_payback_main_fragment"
+            app:destination="@id/payBackMainFragment" />
     </fragment>
 
     <include app:graph="@navigation/ccms_recharge_main_fragment" />
@@ -58,4 +62,5 @@
     <include app:graph="@navigation/ccms_recharge_non_carded_controlnumberfragment"/>
     <include app:graph="@navigation/present_card_fragment"/>
     <include app:graph="@navigation/pay_merchant_navigation"/>
+    <include app:graph="@navigation/payback_main_navigation"/>
 </navigation>

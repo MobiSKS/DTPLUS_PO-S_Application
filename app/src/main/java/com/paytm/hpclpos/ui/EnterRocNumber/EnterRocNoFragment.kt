@@ -14,6 +14,7 @@ import com.example.apphpcldb.entity.repository.AppRepository
 import com.paytm.hpclpos.Dialog.DialogUtil
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.FragmentRocNoBinding
+import com.paytm.hpclpos.enums.SaleTransactionDetails
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 
 class EnterRocNoFragment : BaseFragment() {
@@ -95,7 +96,15 @@ class EnterRocNoFragment : BaseFragment() {
     val dialogListener = object : DialogUtil.TerminalPinOnClickListener {
         override fun onConfirm(pinPassword: String) {
             if (TransactionUtils.getTerminalPin(requireContext(), Constants.TERMINAL_PIN).equals(pinPassword)) {
-                navController?.navigate(R.id.action_enterOtpFragment)
+                when(GlobalMethods.getSaleType()) {
+                    SaleTransactionDetails.VOID.saleName -> {
+                        navController?.navigate(R.id.action_enterOtpFragment)
+                    }
+
+                    SaleTransactionDetails.PAYBACK_VOID.saleName -> {
+                        ToastMessages.customMsgToast(requireContext(),"Need to be Implemented")
+                    }
+                }
             } else {
                 ToastMessages.customMsgToast(requireContext(),"Incorrect Terminal Password")
             }

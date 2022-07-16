@@ -53,7 +53,8 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
             inflater,
             R.layout.activity_setting_dashboard,
             container,
-            false)
+            false
+        )
         sharedPreferencesData = SharedPreferencesData(context)
         rvAdmin = binding.root.findViewById(R.id.rvAdmin)
         rvMaintenance = binding.root.findViewById(R.id.rvMaintenance)
@@ -206,7 +207,7 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
                 customMsgToast(requireContext(), "Please Register the Terminal")
             }
             3 -> navController?.navigate(R.id.action_about_fragment)
-            else -> {}
+            else -> { }
         }
     }
 
@@ -215,27 +216,26 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
         val viewModel = ViewModelProvider(this).get(SettingDashboardViewModel::class.java)
         viewModel.makeApiRegistration(performRegistartion)
         viewModel.getliveRegistration().observe(viewLifecycleOwner) { apiResponse ->
-                when (apiResponse) {
-                    is ApiResponse.Error -> {
-                        requireActivity().runOnUiThread {
-                        settlementDialog!!.onFailure(apiResponse.error)
-                        Handler(Looper.getMainLooper()).postDelayed({ settlementDialog!!.dismiss() }, 2000) }
-                        customMsgToast(requireContext(), apiResponse.error)
-                    }
+            when (apiResponse) {
+                is ApiResponse.Error -> { showFailureMessage(apiResponse.error) }
 
-                    is ApiResponse.RegistrationResponse -> {
-                        if (apiResponse.Success) {
-                            if (apiResponse.Internel_Status_Code == Constants.STATUS_SUCCESS) {
-                                val data = apiResponse.Data
-                                settlementDialog!!.onSuccess()
-                                Handler(Looper.getMainLooper()).postDelayed({ settlementDialog!!.dismiss() }, 2000)
-                                viewModel.storeRegistrationDataIntoDb(data, requireContext())
-                                viewModel.setAlarmForSettlement(requireActivity())
-                            }
+                is ApiResponse.RegistrationResponse -> {
+                    if (apiResponse.Success) {
+                        if (apiResponse.Internel_Status_Code == Constants.STATUS_SUCCESS) {
+                            val data = apiResponse.Data
+                            settlementDialog!!.onSuccess()
+                            Handler(Looper.getMainLooper()).postDelayed({ settlementDialog!!.dismiss() }, 2000)
+                            viewModel.storeRegistrationDataIntoDb(data, requireContext())
+                            viewModel.setAlarmForSettlement(requireActivity())
+                        } else {
+                            showFailureMessage(apiResponse.Message)
                         }
+                    } else {
+                        showFailureMessage(apiResponse.Message)
                     }
                 }
             }
+        }
     }
 
     private fun showDialog() {
@@ -303,6 +303,14 @@ class SettingDashboardFragment : BaseFragment(), View.OnClickListener, OnItemCli
            callRegistrationApi()
         } else {
             ToastMessages.noInternetConnectionToast(requireContext())
+        }
+    }
+
+    fun showFailureMessage(statusMessage: String) {
+        requireActivity().runOnUiThread {
+            settlementDialog!!.onFailure(statusMessage)
+            Handler(Looper.getMainLooper()).postDelayed({ settlementDialog!!.dismiss() }, 2000)
+            customMsgToast(requireContext(), statusMessage)
         }
     }
 }

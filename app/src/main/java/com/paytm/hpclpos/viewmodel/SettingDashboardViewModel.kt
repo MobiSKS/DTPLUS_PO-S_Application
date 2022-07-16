@@ -5,11 +5,12 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.apphpcldb.entity.repository.AppRepository
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.paytm.hpclpos.activities.broadcastreceiver.MyAlarm
 import com.paytm.hpclpos.constants.Constants
 import com.paytm.hpclpos.constants.HttpError
@@ -17,11 +18,14 @@ import com.paytm.hpclpos.constants.RegistartionUtils
 import com.paytm.hpclpos.constants.TransactionUtils
 import com.paytm.hpclpos.livedatamodels.registrationapi.ApiResponse
 import com.paytm.hpclpos.livedatamodels.registrationapi.Data
+import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationErrorResponse
 import com.paytm.hpclpos.livedatamodels.registrationapi.RegistrationRequest
+import com.paytm.hpclpos.posterminal.base.DemoApp
 import com.paytm.hppay.api.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketException
 import java.net.UnknownHostException
@@ -47,8 +51,7 @@ class SettingDashboardViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     liveDataRegistration!!.postValue(response.body())
                 } else {
-                    liveDataRegistration!!.postValue(ApiResponse.Error(HttpError(response.code().toString()
-                        ,response.errorBody().toString()).toString()))
+                    constructPojoFromJson(response)
                 }
             }
 
@@ -66,6 +69,19 @@ class SettingDashboardViewModel : ViewModel() {
                 }
             }
         })
+    }
+
+    fun constructPojoFromJson(response: Response<ApiResponse.RegistrationResponse?>) {
+        val gson: Gson = GsonBuilder().create()
+        var regErrorPojo: RegistrationErrorResponse
+        try {
+            regErrorPojo = gson.fromJson(response.errorBody()!!.string(), RegistrationErrorResponse::class.java)
+            liveDataRegistration!!.postValue(ApiResponse.Error(HttpError(regErrorPojo.Status_Code.toString()
+                ,regErrorPojo.Message.toString()).toString()))
+        } catch (e: IOException) {
+            liveDataRegistration!!.postValue(ApiResponse.Error(HttpError(response.code().toString()
+                ,response.message()).toString()))
+        }
     }
 
     fun storeRegistrationDataIntoDb(data: Data, context: Context) {

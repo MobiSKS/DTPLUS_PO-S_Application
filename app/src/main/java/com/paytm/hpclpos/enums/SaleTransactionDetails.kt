@@ -47,6 +47,11 @@ enum class SaleTransactionDetails(val saleType : Int ,val saleName : String,val 
     // Credit Sale Complete
     CREDIT_SALE_COMPLETE(522,"CREDIT SALE COMPLETE","CREDIT SALE COMPLETE"),
 
+    // Payback
+    PAYBACK_EARN(523,"PAYBACK EARN","PAYBACK"),
+    PAYBACK_BURN(524,"PAYBACK BURN","PAYBACK"),
+    PAYBACK_VOID(525,"PAYBACK VOID","PAYBACK"),
+
     // CCMS Balance
     CCMS_BALANCE(531,"CCMS BALANCE","CCMS BALANCE");
 

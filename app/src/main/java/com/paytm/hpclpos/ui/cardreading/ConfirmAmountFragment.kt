@@ -1,7 +1,5 @@
 package com.paytm.hpclpos.ui.cardreading
 
-import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -12,7 +10,6 @@ import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import com.paytm.hpclpos.R
-import com.paytm.hpclpos.activities.mainsaleactivities.MainActivity
 import com.paytm.hpclpos.cardredoptions.*
 import com.paytm.hpclpos.constants.GlobalMethods
 import com.paytm.hpclpos.constants.ToastMessages
@@ -67,7 +64,7 @@ class ConfirmAmountFragment : BaseFragment(), View.OnClickListener,CardSuccessLi
                         ToastMessages.customMsgToastShort(requireActivity(), "Card Read Success")
                     })
                 }
-            }, this)
+            }, this,true,true)
         }
     }
 

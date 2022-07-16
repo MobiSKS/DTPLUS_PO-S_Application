@@ -10,4 +10,5 @@ import lombok.Setter
     var Useragent: String? = null
     var Userip: String? = null
     var IACId: String? = null
+    var TerminalId: String? = null
 }

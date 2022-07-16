@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payBackAmountPointFragment"
+    app:startDestination="@id/gopayBackAmountPointFragment">
+
+    <fragment
+        android:id="@+id/gopayBackAmountPointFragment"
+        android:name="com.paytm.hpclpos.ui.paybackamountpointscreen.PaybackAmountPointFragment"
+        android:label="PaybackAmountPointFragment"
+        tools:layout="@layout/fragment_payback_amountpoint_screen">
+
+        <action
+            android:id="@+id/action_amount_entry_fragment"
+            app:destination="@id/amountEntryFragment" />
+
+        <action
+            android:id="@+id/action_main_fragment"
+            app:destination="@+id/mainFragment" />
+    </fragment>
+</navigation>

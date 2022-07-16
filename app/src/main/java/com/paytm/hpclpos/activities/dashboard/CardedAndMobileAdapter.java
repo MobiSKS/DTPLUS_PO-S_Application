@@ -85,29 +85,35 @@ public class CardedAndMobileAdapter extends RecyclerView.Adapter<CardedAndMobile
                 Fragment trackingFragment = new TrackingFragment();
                 callFragment(trackingFragment);
                 break;
+
             case 5:
                 Fragment presentCardFragment = new PresentCardFragment();
                 callFragment(presentCardFragment);
                 break;
+
             case 6:
                 Fragment enterCardPinFragment = new EnterCardPinFragment();
                 callFragment(enterCardPinFragment);
                 break;
+
             case 7:
                 runOnUiThread(R.id.action_balanceEnquiryFragment);
                 GlobalMethods.Companion.setSaleType(SaleTransactionDetails.BALANCE_ENQUIRY.getSaleName());
                 GlobalMethods.Companion.setTransType(SaleTransactionDetails.BALANCE_ENQUIRY.getSaleName());
                 break;
+
             case 8:
                 GlobalMethods.Companion.setTransType(SaleTransactionDetails.CHANGE_CARD_PIN.getSaleName());
                 GlobalMethods.Companion.setSaleType(SaleTransactionDetails.CHANGE_CARD_PIN.getSaleName());
                 runOnUiThread(R.id.action_present_card);
                 break;
+
             case 9:
                 GlobalMethods.Companion.setTransType(SaleTransactionDetails.UNBLOCK_CARD_PIN.getSaleName());
                 GlobalMethods.Companion.setSaleType(SaleTransactionDetails.UNBLOCK_CARD_PIN.getSaleName());
                 runOnUiThread(R.id.action_present_card);
                 break;
+
             case 10:
                /* Fragment loyaltyBalanceFragment = new LoyaltyBalanceFragment();
                 callFragment(loyaltyBalanceFragment);*/
