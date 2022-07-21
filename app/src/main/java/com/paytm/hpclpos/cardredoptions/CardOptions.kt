@@ -25,12 +25,6 @@ class CardOptions(
             MagTester.instance?.reset()
         }
 
-        fun closeIcc() {
-            iccDetectThread?.interrupt()
-            IccTester.instance?.close(0.toByte())
-            IccTester.instance?.light(false)
-        }
-
         object cardeventListener : CardEventListener {
             override fun onCardEvent(state: CardEventState?) {
                 closeIccAndMag()

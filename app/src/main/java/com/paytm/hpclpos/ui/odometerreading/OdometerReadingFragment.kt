@@ -20,6 +20,7 @@ import com.paytm.hpclpos.activities.dialogs.SettlementDialog
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivityOdometerReadingBinding
 import com.paytm.hpclpos.livedatamodels.ccmssale.CCMSSaleRequest
+import com.paytm.hpclpos.livedatamodels.generatetoken.ApiResponse
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 import com.paytm.hpclpos.viewmodel.ConstructSaleRequest
 import com.paytm.hpclpos.viewmodel.MainActivityViewModel
@@ -28,6 +29,7 @@ class OdometerReadingFragment : BaseFragment(), View.OnClickListener {
     lateinit var binding: ActivityOdometerReadingBinding
     private var settlementDialog: SettlementDialog? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_odometer_reading, container, false)
@@ -44,6 +46,7 @@ class OdometerReadingFragment : BaseFragment(), View.OnClickListener {
         handleOnBackPressed()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun odometerdoneCall() {
         if (NetworkUtil.checkNetworkStatus(requireContext())) {
             showProcessingDialog()
@@ -57,6 +60,7 @@ class OdometerReadingFragment : BaseFragment(), View.OnClickListener {
         navController!!.navigate(R.id.action_transactionSuccess)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onClick(v: View) {
         closesoftKeypad(binding.odometerEditText)
         when (v.id) {
@@ -78,17 +82,24 @@ class OdometerReadingFragment : BaseFragment(), View.OnClickListener {
 
         viewModel.makeApiCcmsSale(ccmsSaleRequest)
         viewModel.getliveDataCcmsSale().observe(viewLifecycleOwner, {
-            if (it != null) {
-                if (it.success) {
-                    Store(requireContext()).storeTransDetailsInDB(ccmsSaleRequest,it.data[0].balance,
-                        it.data[0].rsp)
-                    settlementDialog!!.onSuccess()
-                    Handler().postDelayed({ goToTransactionSuccessActivity()},1000)
-                } else {
-                    postFailure(ccmsSaleRequest,it.data[0].reason)
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.ccmssale.ApiResponse.Error -> {
+                    ToastMessages.customMsgToast(requireContext(), it.error)
                 }
-            } else {
-                postFailure(ccmsSaleRequest,"Internal Server Error")
+
+                is com.paytm.hpclpos.livedatamodels.ccmssale.ApiResponse.CCMSSaleResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            Store(requireContext()).storeTransDetailsInDB(ccmsSaleRequest, it.data[0].balance, it.data[0].rsp)
+                            settlementDialog!!.onSuccess()
+                            Handler().postDelayed({ goToTransactionSuccessActivity() }, 1000)
+                        } else {
+                            postFailure(ccmsSaleRequest,it.data[0].reason)
+                        }
+                    } else {
+                        postFailure(ccmsSaleRequest,it.data[0].reason)
+                    }
+                }
             }
         })
     }
@@ -135,6 +146,7 @@ class OdometerReadingFragment : BaseFragment(), View.OnClickListener {
         },1000)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun handleEnterKey() {
         val imgr: InputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

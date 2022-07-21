@@ -19,22 +19,13 @@ import com.paytm.hpclpos.posterminal.base.BaseFragment
 import com.paytm.hpclpos.viewmodel.ConstructSaleRequest
 import com.paytm.hpclpos.viewmodel.MerchantActivityViewModel
 
-
 class EnterPinFragment : BaseFragment(), View.OnClickListener {
     var gotoBack: LinearLayout? = null
     lateinit var batchId: String
     lateinit var fragmentEnterPinBinding: FragmentEnterPinBinding
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        fragmentEnterPinBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_enter_pin,
-            container,
-            false
-        )
+        fragmentEnterPinBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_enter_pin, container, false)
         gotoBack = fragmentEnterPinBinding.gotoBack
         fragmentEnterPinBinding.rocNoEditText.setTransformationMethod(PasswordTransformationMethod())
         fragmentEnterPinBinding.reEnterrocNoEditText.setTransformationMethod(PasswordTransformationMethod())
@@ -57,21 +48,15 @@ class EnterPinFragment : BaseFragment(), View.OnClickListener {
             ToastMessages.customMsgToast(requireContext(), resources.getString(R.string.entervalidnewpin))
             fragmentEnterPinBinding.rocNoEditText.setError( resources.getString(R.string.input_required))
         } else if (fragmentEnterPinBinding.reEnterrocNoEditText.text.toString()
-                .equals("", ignoreCase = true)
-        ) {
+                .equals("", ignoreCase = true)) {
             ToastMessages.customMsgToast(requireContext(), resources.getString(R.string.entervalidreintpin))
             fragmentEnterPinBinding.reEnterrocNoEditText.setError(resources.getString(R.string.input_required))
         } else if (!fragmentEnterPinBinding.rocNoEditText.text.toString()
-                .equals(
-                    fragmentEnterPinBinding.reEnterrocNoEditText.text.toString(),
-                    ignoreCase = true
-                )
-        ) {
+                .equals(fragmentEnterPinBinding.reEnterrocNoEditText.text.toString(), ignoreCase = true)) {
             ToastMessages.customMsgToast(requireContext(), resources.getString(R.string.mismatchnewpin))
             fragmentEnterPinBinding.reEnterrocNoEditText.setError(resources.getString(R.string.mismatchnewpin))
-
         } else {
-            checkTransTypeforNavigation(fragmentEnterPinBinding.rocNoEditText.text.toString())
+           checkCardType()
         }
     }
 
@@ -98,12 +83,24 @@ class EnterPinFragment : BaseFragment(), View.OnClickListener {
             .constructUnblockCardPinRequest(pinNew)
         merchantViewModel.makeApiUnblockCardPin(constructSaleRequest)
         merchantViewModel.getliveDataUnblockCardPin().observe(viewLifecycleOwner, {
-            if (it != null) {
-                val bundle = Bundle()
-                bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
-                navController!!.navigate(R.id.action_transactionFailed, bundle)
-            } else {
-                ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                    ToastMessages.customMsgToast(requireContext(), it.error)
+                }
+
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            val bundle = Bundle()
+                            bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
+                            navController!!.navigate(R.id.action_transactionFailed, bundle)
+                        } else {
+                            ToastMessages.customMsgToast(requireContext(), it.message)
+                        }
+                    } else {
+                        ToastMessages.customMsgToast(requireContext(), it.message)
+                    }
+                }
             }
         })
     }
@@ -121,5 +118,17 @@ class EnterPinFragment : BaseFragment(), View.OnClickListener {
                 true
             } else false
         })
+    }
+
+    fun checkCardType() {
+        if (GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.ICC)) {
+            ToastMessages.customMsgToast(requireContext(), "Need to be Implemented")
+            return
+        }
+
+        if (GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.MAG_STRIPE)) {
+            checkTransTypeforNavigation(fragmentEnterPinBinding.rocNoEditText.text.toString())
+            return
+        }
     }
 }

@@ -1,7 +1,9 @@
-package com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse
+package com.paytm.hpclpos.livedatamodels.CCMSBalance
+
 import com.google.gson.annotations.SerializedName
 
-data class BalanceEnquiryResponse(
+sealed class ApiResponse {
+    data class CCMSBalanceResponse(
         @SerializedName("Success")
         val success : Boolean,
         @SerializedName("Status_Code")
@@ -16,4 +18,7 @@ data class BalanceEnquiryResponse(
         val data : ArrayList<Data>,
         @SerializedName("Model_State")
         val modelState : Any
-)
+    ) : ApiResponse()
+
+    data class Error(var error: String) : ApiResponse()
+}

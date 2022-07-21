@@ -23,6 +23,7 @@ import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.constants.GlobalMethods.Companion.setCardNo
 import com.paytm.hpclpos.databinding.ActivityTransactionSucessBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
+import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.ApiResponse
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 import com.paytm.hpclpos.posterminal.util.PrintUtils
 import com.paytm.hpclpos.printreceipts.BalanceTransferReceipts
@@ -201,25 +202,31 @@ open class TransactionSucessActivity : BaseFragment() {
         val constructSettlementRequest = ConstructSettlementRequest(requireContext()).getSettlementRequest(Constants.SALE)
         viewModel.makeApiBatchSettlement(constructSettlementRequest)
         viewModel.getliveDataBatchSettlement().observe(this, {
-            if (it != null) {
-                if (it.success) {
-                    if(it.internelStatusCode.equals(Constants.STATUS_SUCCESS)) {
-                        // to start Invoice id by 1
-                        GlobalMethods.decrementTransactionIdByOne(requireContext(), "000001")
-                        ToastMessages.customMsgToast(requireContext(),
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> { ToastMessages.customMsgToast(requireContext(), it.error) }
+
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                    if (it.success) {
+                        if(it.internelStatusCode.equals(Constants.STATUS_SUCCESS)) {
+                            // to start Invoice id by 1
+                            GlobalMethods.decrementTransactionIdByOne(requireContext(), "000001")
+                            ToastMessages.customMsgToast(requireContext(),
+                                "Response Message ${it.internelStatusCode} Message ${it.message}")
+                            TransactionUtils.incrementBatch(requireContext(),Constants.BATCH)
+                            settlementDialog.dismiss()
+                            Log.d("MerchantService", "Incremented to" + TransactionUtils.getCurrentBatch( requireContext(),
+                                Constants.BATCH))
+                        } else {
+                            ToastMessages.customMsgToast(
+                                requireContext(),
+                                "Response Message ${it.internelStatusCode} Message ${it.message}")
+                        }
+                    } else {
+                        ToastMessages.customMsgToast(
+                            requireContext(),
                             "Response Message ${it.internelStatusCode} Message ${it.message}")
-                        TransactionUtils.incrementBatch(requireContext(),Constants.BATCH)
-                        settlementDialog.dismiss()
-                        Log.d("MerchantService", "Incremented to" + TransactionUtils.getCurrentBatch( requireContext(),
-                            Constants.BATCH))
                     }
-                } else {
-                    ToastMessages.customMsgToast(
-                        requireContext(),
-                        "Response Message ${it.internelStatusCode} Message ${it.message}")
                 }
-            } else {
-                ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
             }
         })
     }

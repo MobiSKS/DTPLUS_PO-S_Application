@@ -21,7 +21,17 @@
         <action
             android:id="@+id/action_main_fragment"
             app:destination="@+id/mainFragment" />
+
+        <action
+            android:id="@+id/action_transactionFailed"
+            app:destination="@id/transaction_failure" >
+            <argument
+                android:name="transactionStatus"
+                app:argType="string"
+                android:defaultValue="Transaction Failed" />
+        </action>
     </fragment>
+    <include app:graph="@navigation/transaction_failure_fragment" />
     <include app:graph="@navigation/confirmamountfragment" />
     <include app:graph="@navigation/confirmcardfragment"/>
 </navigation>

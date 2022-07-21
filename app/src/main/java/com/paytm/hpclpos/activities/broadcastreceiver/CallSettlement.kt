@@ -2,7 +2,7 @@ package com.paytm.hpclpos.activities.broadcastreceiver
 
 import android.content.Context
 import com.paytm.hpclpos.constants.Constants
-import com.paytm.hpclpos.livedatamodels.ccmsrecharge.CCMSRechargeResponse
+import com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse
 import com.paytm.hpclpos.viewmodel.ConstructSettlementRequest
 import com.paytm.hppay.api.ApiClient
 import retrofit2.Call
@@ -17,10 +17,10 @@ class CallSettlement(val context: Context) {
         Constants.MainUrlChanged.urlChanged = "1"
         val retrofitInstance = ApiClient.getClient
         val retroService = retrofitInstance.getBatchSettlement(constructSettlementRequest)
-        retroService.enqueue(object : Callback<CCMSRechargeResponse> {
+        retroService.enqueue(object : Callback<ApiResponse.CCMSRechargeResponse> {
 
             override fun onResponse(
-                call: Call<CCMSRechargeResponse?>, response: Response<CCMSRechargeResponse?>) {
+                call: Call<ApiResponse.CCMSRechargeResponse?>, response: Response<ApiResponse.CCMSRechargeResponse?>) {
                 if (response.isSuccessful) {
                     settlementListener.response(response.body()!!)
                 } else {
@@ -28,7 +28,7 @@ class CallSettlement(val context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<CCMSRechargeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse.CCMSRechargeResponse>, t: Throwable) {
                 settlementListener.response(null)
             }
         })

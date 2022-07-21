@@ -137,7 +137,9 @@ class AmountEntryFragment : BaseFragment() {
                     navigateCardConfirmFragment()
                 } else { navigateAmountConfirmFragment() }
             } else {
-                ToastMessages.customMsgToast(requireContext(),"Incorrect Terminal Password")
+                val bundle = Bundle()
+                bundle.putString(Constants.LIMITEXCEED, "Incorrect Terminal Password")
+                navController?.navigate(R.id.action_transactionFailed, bundle)
             }
         }
 

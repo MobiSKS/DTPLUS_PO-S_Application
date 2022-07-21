@@ -1,6 +1,5 @@
 package com.paytm.hpclpos.ui.transactionfailed
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.paytm.hpclpos.R
-import com.paytm.hpclpos.activities.mainsaleactivities.MainActivity
 import com.paytm.hpclpos.constants.Constants
 import com.paytm.hpclpos.databinding.ActivityTransactionFailedBinding
 import com.paytm.hpclpos.posterminal.base.BaseFragment
@@ -25,7 +23,6 @@ class TransactionFailedFragment : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_transaction_failed, container, false)
         val lLgoToMain = binding.root.findViewById<View>(R.id.lLgoToMain) as LinearLayout
         lLgoToMain.setOnClickListener {
-            transResultTimer.cancel()
             goToMainActivity()
         }
         tvErrorMessage = binding.root.findViewById(R.id.tvErrorMessage)
@@ -33,7 +30,9 @@ class TransactionFailedFragment : BaseFragment() {
         tvErrorMessage!!.setText(errorMessage)
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { navController!!.navigate(R.id.action_main_fragment) }
+            override fun handleOnBackPressed() {
+                goToMainActivity()
+            }
         })
         return binding.root
     }
@@ -49,6 +48,7 @@ class TransactionFailedFragment : BaseFragment() {
     }
 
     private fun goToMainActivity() {
+        transResultTimer.cancel()
         navController!!.navigate(R.id.action_main_fragment)
     }
 

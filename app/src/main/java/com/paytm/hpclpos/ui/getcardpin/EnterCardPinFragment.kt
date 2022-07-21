@@ -20,6 +20,7 @@ import com.paytm.hpclpos.cardredoptions.*
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivityEnterCardPinBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
+import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.ApiResponse
 import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.BalanceEnquiryRequest
 import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.Data
 import com.paytm.hpclpos.posterminal.base.BaseFragment
@@ -92,16 +93,26 @@ class EnterCardPinFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructCCMSRechargeRequest()
                 viewModel.makeApiCcmsRechargeSale(constructSaleRequest)
                 viewModel.getliveDataCcmsRechargeSale().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            Store(requireActivity()).storeRechargeTransDetailsInDB(constructSaleRequest)
-                            callSettlementOnSuccessDialog()
-                        } else {
-                            GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
-                            callSettlementOnFailureDialog(it.data[0].reason)
+
+                    when (it) {
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                            ToastMessages.customMsgToast(requireContext(), it.error)
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    Store(requireActivity()).storeRechargeTransDetailsInDB(constructSaleRequest)
+                                    callSettlementOnSuccessDialog()
+                                } else {
+                                    GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                    callSettlementOnFailureDialog(it.data[0].reason)
+                                }
+                            } else {
+                                GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                callSettlementOnFailureDialog(it.data[0].reason)
+                            }
+                        }
                     }
                 })
             }
@@ -111,17 +122,27 @@ class EnterCardPinFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructBalanceTransferRequest()
                 merchantViewModel.makeApiBalanceTransfer(constructSaleRequest)
                 merchantViewModel.getliveDataBalanceTransfer().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            Store(requireContext()).storeBalanceTransferDetailsInDB(constructSaleRequest)
-                            ToastMessages.customMsgToast(requireContext(),"Response Message ${it.message}")
-                            callSettlementOnSuccessDialog()
-                        } else {
-                            GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
-                            callSettlementOnFailureDialog(it.data[0].reason)
+
+                    when (it) {
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                            ToastMessages.customMsgToast(requireContext(), it.error)
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    Store(requireContext()).storeBalanceTransferDetailsInDB(constructSaleRequest)
+                                    ToastMessages.customMsgToast(requireContext(),"Response Message ${it.message}")
+                                    callSettlementOnSuccessDialog()
+                                } else {
+                                    GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                    callSettlementOnFailureDialog(it.data[0].reason)
+                                }
+                            } else {
+                                GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                callSettlementOnFailureDialog(it.data[0].reason)
+                            }
+                        }
                     }
                 })
             }
@@ -133,17 +154,26 @@ class EnterCardPinFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructReloadRequest()
                    merchantViewModel.makeApiReload(constructSaleRequest)
                    merchantViewModel.getliveDataReload().observe(viewLifecycleOwner, {
-                       if (it != null) {
-                           if (it.success) {
-                               ToastMessages.customMsgToast(requireContext(),"Response Message ${it.message}")
-                               Store(requireActivity()).storeReloadTransDetailsInDB(constructSaleRequest)
-                               callSettlementOnSuccessDialog()
-                           } else {
-                               GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
-                               callSettlementOnFailureDialog(it.data[0].reason)
+                       when (it) {
+                           is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                               ToastMessages.customMsgToast(requireContext(), it.error)
                            }
-                       } else {
-                           ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                           is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                               if (it.success) {
+                                   if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                       ToastMessages.customMsgToast(requireContext(),"Response Message ${it.message}")
+                                       Store(requireActivity()).storeReloadTransDetailsInDB(constructSaleRequest)
+                                       callSettlementOnSuccessDialog()
+                                   } else {
+                                       GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                       callSettlementOnFailureDialog(it.data[0].reason)
+                                   }
+                               } else {
+                                   GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                   callSettlementOnFailureDialog(it.data[0].reason)
+                               }
+                           }
                        }
                    })
             }
@@ -153,15 +183,22 @@ class EnterCardPinFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructBalanceEnquiryRequest()
                 merchantViewModel.makeApiBalanceEnquiry(constructSaleRequest)
                 merchantViewModel.getliveDataBalanceEnquiry().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            settlementDialog?.onSuccess()
-                            Handler().postDelayed({ goToBalanceEnquiryTransactionSuccessActivity(it.data[0],constructSaleRequest)},1000)
-                        } else {
-                            callSettlementOnFailureDialog(it.message)
+
+                    when (it) {
+                        is ApiResponse.Error -> { ToastMessages.customMsgToast(requireContext(), it.error) }
+
+                        is ApiResponse.BalanceEnquiryResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    settlementDialog?.onSuccess()
+                                    Handler().postDelayed({ goToBalanceEnquiryTransactionSuccessActivity(it.data[0],constructSaleRequest)},1000)
+                                } else {
+                                    callSettlementOnFailureDialog(it.message)
+                                }
+                            } else {
+                                callSettlementOnFailureDialog(it.message)
+                            }
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
                     }
                 })
             }
@@ -171,15 +208,24 @@ class EnterCardPinFragment : BaseFragment() {
                     val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructCCMSBalanceRequest()
                     merchantViewModel.makeApiCCMSBalanceEnquiry(constructSaleRequest)
                     merchantViewModel.getliveDataCCMSBalanceEnquiry().observe(viewLifecycleOwner, {
-                        if (it != null) {
-                            if (it.success) {
-                                settlementDialog?.onSuccess()
-                                Handler().postDelayed({ goToCCMSBalanceEnquiryTransactionSuccessActivity(it.data[0])},1000)
-                            } else {
-                                callSettlementOnFailureDialog(it.message)
+
+                        when (it) {
+                            is com.paytm.hpclpos.livedatamodels.CCMSBalance.ApiResponse.Error -> {
+                                ToastMessages.customMsgToast(requireContext(), it.error)
                             }
-                        } else {
-                            ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                            is com.paytm.hpclpos.livedatamodels.CCMSBalance.ApiResponse.CCMSBalanceResponse -> {
+                                if (it.success) {
+                                    if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                        settlementDialog?.onSuccess()
+                                        Handler().postDelayed({ goToCCMSBalanceEnquiryTransactionSuccessActivity(it.data[0])},1000)
+                                    } else {
+                                        callSettlementOnFailureDialog(it.message)
+                                    }
+                                } else {
+                                    callSettlementOnFailureDialog(it.message)
+                                }
+                            }
                         }
                     })
                 }
@@ -271,7 +317,9 @@ class EnterCardPinFragment : BaseFragment() {
             })
 
             CardEventState.INCORRECT_PIN ->  requireActivity().runOnUiThread {
-                ToastMessages.customMsgToast(requireActivity(), "Incorrect Pin")
+                val bundle = Bundle()
+                bundle.putString(Constants.LIMITEXCEED, "Incorrect Pin")
+                navController!!.navigate(R.id.action_transactionFailed, bundle)
                 CardOptions.closeIccAndMag()
             }
 

@@ -132,35 +132,41 @@ class MerchantServiceDashboardActivity : BaseFragment(), OnItemClick {
         val constructSettlementRequest = ConstructSettlementRequest(requireContext()).getSettlementRequest(Constants.ALL)
         viewModel.makeApiBatchSettlement(constructSettlementRequest)
         viewModel.getliveDataBatchSettlement().observe(this, {
-            if (it != null) {
-                if (it.success) {
-                    if(it.internelStatusCode.equals(Constants.STATUS_SUCCESS)) {
-                        ConstructSettlementReportObject(requireContext())
-                            .constructSettlementReportObj(constructSettlementRequest)
-                        settlementDialog!!.onSuccess()
-                        Handler().postDelayed({ settlementDialog!!.dismiss() },1000)
-                        ToastMessages.customMsgToast(requireContext(),
-                            "Response Message ${it.internelStatusCode} Message ${it.message}")
-                        Log.d("MerchantService", "Incremented to" + TransactionUtils.getCurrentBatch( requireContext(),
-                            Constants.BATCH))
-                        TransactionUtils.incrementBatch(requireContext(),Constants.BATCH)
-                        GlobalMethods.decrementTransactionIdByOne(requireContext(), "000001")
-                        SettlementReportReceipt(requireContext(),requireActivity()).displayReceipt(object: PrintStatusListener{
-                            override fun onSuccess() {
-                                //
-                            }
 
-                            override fun onError(error: Int) {
-                                ToastMessages.customMsgToast(context,"Printing Error $error")
-                            }
-                        },constructSettlementRequest)
-                    }
-                } else {
-                    settlementDialog!!.onFailure(it.message)
-                    Handler().postDelayed({ settlementDialog!!.dismiss() },1000)
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                    ToastMessages.customMsgToast(requireContext(), it.error)
                 }
-            } else {
-                ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            ConstructSettlementReportObject(requireContext())
+                                .constructSettlementReportObj(constructSettlementRequest)
+                            settlementDialog!!.onSuccess()
+                            Handler().postDelayed({ settlementDialog!!.dismiss() }, 1000)
+                            ToastMessages.customMsgToast(requireContext(), "Response Message ${it.internelStatusCode} Message ${it.message}")
+                            Log.d("MerchantService", "Incremented to" + TransactionUtils.getCurrentBatch(requireContext(), Constants.BATCH))
+                            TransactionUtils.incrementBatch(requireContext(), Constants.BATCH)
+                            GlobalMethods.decrementTransactionIdByOne(requireContext(), "000001")
+                            SettlementReportReceipt(requireContext(), requireActivity()).displayReceipt(object : PrintStatusListener {
+                                override fun onSuccess() {
+                                    //
+                                }
+
+                                override fun onError(error: Int) {
+                                    ToastMessages.customMsgToast(context, "Printing Error $error")
+                                }
+                            }, constructSettlementRequest)
+                        } else {
+                            settlementDialog!!.onFailure(it.message)
+                            Handler().postDelayed({ settlementDialog!!.dismiss() }, 1000)
+                        }
+                    } else {
+                        settlementDialog!!.onFailure(it.message)
+                        Handler().postDelayed({ settlementDialog!!.dismiss() }, 1000)
+                    }
+                }
             }
         })
     }

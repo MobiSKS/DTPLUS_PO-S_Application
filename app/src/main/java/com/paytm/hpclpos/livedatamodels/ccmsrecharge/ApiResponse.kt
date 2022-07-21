@@ -1,8 +1,10 @@
-package com.paytm.hpclpos.livedatamodels.CCMSBalance
+package com.paytm.hpclpos.livedatamodels.ccmsrecharge
 
 import com.google.gson.annotations.SerializedName
+import com.paytm.hpclpos.livedatamodels.ccmssale.Data
 
-data class CCMSBalanceResponse(
+sealed class ApiResponse() {
+    data class CCMSRechargeResponse(
         @SerializedName("Success")
         val success : Boolean,
         @SerializedName("Status_Code")
@@ -17,4 +19,7 @@ data class CCMSBalanceResponse(
         val data : ArrayList<Data>,
         @SerializedName("Model_State")
         val modelState : Any
-)
+    ) : ApiResponse()
+
+    data class Error(var error: String) : ApiResponse()
+}

@@ -94,11 +94,28 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
     }
 
     fun performCheckForNavigation(oldPin: String,newPin: String) {
-        if(GlobalMethods.getTransType().equals(Constants.CHANGE_TERMINAL_PIN)) {
-           changeTerminalPin(oldPin,newPin)
-        } else {
-            IcCardCommand(requireActivity(),cardEventListener).
-            changeCardPin(binding.oldPINEditText.text.toString(),binding.newPINEditText.text.toString())
+        batchId = TransactionUtils.getCurrentBatch(requireContext(), Constants.BATCH)
+        val merchantViewModel = ViewModelProvider(this).get(MerchantActivityViewModel::class.java)
+
+        when(GlobalMethods.getTransType()) {
+            Constants.CHANGE_TERMINAL_PIN -> { changeTerminalPin(oldPin,newPin) }
+
+            SaleTransactionDetails.CHANGE_CARD_PIN.saleName -> {
+                if(GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.ICC)) {
+                    IcCardCommand(requireActivity(), cardEventListener)
+                        .changeCardPin(binding.oldPINEditText.text.toString(), binding.newPINEditText.text.toString())
+                    return
+                }
+
+                if(GlobalMethods.getCardInfoEntity()?.cardType.equals(Constants.MAG_STRIPE)){
+                    callApiChangeCardPin(oldPin,newPin,merchantViewModel)
+                    return
+                }
+            }
+
+            SaleTransactionDetails.CONTROL_PIN_CHANGE.saleName -> {
+                callApiControlPinChange(oldPin,newPin,merchantViewModel)
+            }
         }
     }
 
@@ -111,42 +128,60 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    fun checkAndNavigate(pinNew: String,pinOld: String) {
-        batchId = TransactionUtils.getCurrentBatch(requireContext(), Constants.BATCH)
-        val merchantViewModel = ViewModelProvider(this).get(MerchantActivityViewModel::class.java)
-        when(GlobalMethods.getTransType()) {
-            SaleTransactionDetails.CHANGE_CARD_PIN.saleName -> {
-                val constructSaleRequest =
-                    ConstructSaleRequest(requireContext(), batchId.toInt(), "")
-                        .constructChangeCardPinRequest(pinNew, pinOld)
-                merchantViewModel.makeApiChangeCardPin(constructSaleRequest)
-                merchantViewModel.getliveDataChangeCardPin().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        val bundle = Bundle()
-                        bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
-                        navController!!.navigate(R.id.action_transactionFailed, bundle)
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
-                    }
-                })
-            }
+    fun callApiChangeCardPin(pinOld: String,pinNew: String,merchantViewModel: MerchantActivityViewModel) {
+        val constructSaleRequest =
+            ConstructSaleRequest(requireContext(), batchId.toInt(), "")
+                .constructChangeCardPinRequest(pinNew, pinOld)
+        merchantViewModel.makeApiChangeCardPin(constructSaleRequest)
+        merchantViewModel.getliveDataChangeCardPin().observe(viewLifecycleOwner, {
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                    ToastMessages.customMsgToast(requireContext(), it.error)
+                }
 
-            SaleTransactionDetails.CONTROL_PIN_CHANGE.saleName -> {
-                val constructSaleRequest =
-                    ConstructSaleRequest(requireContext(), batchId.toInt(), "")
-                        .constructControlPinChangeRequest(pinNew, pinOld)
-                merchantViewModel.makeApiControlPinChange(constructSaleRequest)
-                merchantViewModel.getliveDataControlPinChange().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        val bundle = Bundle()
-                        bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
-                        navController!!.navigate(R.id.action_transactionFailed, bundle)
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            val bundle = Bundle()
+                            bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
+                            navController!!.navigate(R.id.action_transactionFailed, bundle)
+                        } else {
+                            ToastMessages.customMsgToast(requireContext(), it.message)
+                        }
                     } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+                        ToastMessages.customMsgToast(requireContext(), it.message)
                     }
-                })
+                }
             }
-        }
+        })
+    }
+
+    fun callApiControlPinChange(pinOld: String,pinNew: String,merchantViewModel: MerchantActivityViewModel) {
+        val constructSaleRequest =
+            ConstructSaleRequest(requireContext(), batchId.toInt(), "")
+                .constructControlPinChangeRequest(pinNew, pinOld)
+        merchantViewModel.makeApiControlPinChange(constructSaleRequest)
+        merchantViewModel.getliveDataControlPinChange().observe(viewLifecycleOwner, {
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                    ToastMessages.customMsgToast(requireContext(), it.error)
+                }
+
+                is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            val bundle = Bundle()
+                            bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
+                            navController!!.navigate(R.id.action_transactionFailed, bundle)
+                        } else {
+                            ToastMessages.customMsgToast(requireContext(), it.message)
+                        }
+                    } else {
+                        ToastMessages.customMsgToast(requireContext(), it.message)
+                    }
+                }
+            }
+        })
     }
 
     private fun handleEnterKey() {
@@ -180,13 +215,17 @@ class ChangeTerminalPinFragment : BaseFragment(), View.OnClickListener {
     val cardEventListener = object : CardEventListener {
         override fun onCardEvent(state: CardEventState?) {
             ToastMessages.customMsgToast(requireContext(),state?.state)
-            navController?.navigate(R.id.action_main_fragment)
+            val bundle = Bundle()
+            bundle.putString(Constants.LIMITEXCEED, state?.state)
+            navController!!.navigate(R.id.action_transactionFailed, bundle)
         }
 
         override fun onCardReadSuccess() {
             requireActivity().runOnUiThread({
                 ToastMessages.customMsgToast(requireActivity(), "Pin Changed SuccessFully")
-                checkAndNavigate(binding.newPINEditText.text.toString(), binding.oldPINEditText.text.toString())
+                val bundle = Bundle()
+                bundle.putString(Constants.LIMITEXCEED, "Pin Changed SuccessFully")
+                navController!!.navigate(R.id.action_pin_changed_success, bundle)
             })
         }
     }

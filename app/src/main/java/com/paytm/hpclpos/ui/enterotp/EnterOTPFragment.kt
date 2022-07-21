@@ -19,6 +19,7 @@ import com.paytm.hpclpos.activities.dialogs.SettlementDialog
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivityEnterOTPBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
+import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.ApiResponse
 import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.BalanceEnquiryRequest
 import com.paytm.hpclpos.livedatamodels.BalanceEnquiryResponse.Data
 import com.paytm.hpclpos.posterminal.base.BaseFragment
@@ -91,16 +92,25 @@ class EnterOTPFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructCCMSRechargeRequest()
                 viewModel.makeApiCcmsRechargeSale(constructSaleRequest)
                 viewModel.getliveDataCcmsRechargeSale().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            Store(requireActivity()).storeRechargeTransDetailsInDB(constructSaleRequest)
-                            callSettlementOnSuccessDialog()
-                        } else {
-                            GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
-                            callSettlementOnFailureDialog(it.data[0].reason)
+                    when (it) {
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                            ToastMessages.customMsgToast(requireContext(), it.error)
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    Store(requireActivity()).storeRechargeTransDetailsInDB(constructSaleRequest)
+                                    callSettlementOnSuccessDialog()
+                                } else {
+                                    GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                    callSettlementOnFailureDialog(it.data[0].reason)
+                                }
+                            } else {
+                                GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                callSettlementOnFailureDialog(it.data[0].reason)
+                            }
+                        }
                     }
                 })
             }
@@ -112,17 +122,25 @@ class EnterOTPFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructReloadRequest()
                 merchantViewModel.makeApiReload(constructSaleRequest)
                 merchantViewModel.getliveDataReload().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            ToastMessages.customMsgToast(requireContext(),"Response Message ${it.message}")
-                            Store(requireActivity()).storeReloadTransDetailsInDB(constructSaleRequest)
-                            callSettlementOnSuccessDialog()
-                        } else {
-                            GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
-                            callSettlementOnFailureDialog(it.data[0].reason)
+                    when (it) {
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                            ToastMessages.customMsgToast(requireContext(), it.error)
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    Store(requireActivity()).storeReloadTransDetailsInDB(constructSaleRequest)
+                                    callSettlementOnSuccessDialog()
+                                } else {
+                                    GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                    callSettlementOnFailureDialog(it.data[0].reason)
+                                }
+                            } else {
+                                GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                callSettlementOnFailureDialog(it.data[0].reason)
+                            }
+                        }
                     }
                 })
             }
@@ -132,16 +150,25 @@ class EnterOTPFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructBalanceTransferRequest()
                 merchantViewModel.makeApiBalanceTransfer(constructSaleRequest)
                 merchantViewModel.getliveDataBalanceTransfer().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            ToastMessages.customMsgToast(requireContext(),"Response Message ${it.message}")
-                            callSettlementOnSuccessDialog()
-                        } else {
-                            GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
-                            callSettlementOnFailureDialog(it.data[0].reason)
+                    when (it) {
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.Error -> {
+                            ToastMessages.customMsgToast(requireContext(), it.error)
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
+
+                        is com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    //Store(requireActivity()).storeReloadTransDetailsInDB(constructSaleRequest)
+                                    callSettlementOnSuccessDialog()
+                                } else {
+                                    GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                    callSettlementOnFailureDialog(it.data[0].reason)
+                                }
+                            } else {
+                                GlobalMethods.decrementTransactionIdByOne(requireContext(),constructSaleRequest.invoiceId.toString())
+                                callSettlementOnFailureDialog(it.data[0].reason)
+                            }
+                        }
                     }
                 })
             }
@@ -151,15 +178,21 @@ class EnterOTPFragment : BaseFragment() {
                 val constructSaleRequest = ConstructSaleRequest(requireContext(), batchId.toInt(), "").constructBalanceEnquiryRequest()
                 merchantViewModel.makeApiBalanceEnquiry(constructSaleRequest)
                 merchantViewModel.getliveDataBalanceEnquiry().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        if (it.success) {
-                            settlementDialog?.onSuccess()
-                            Handler().postDelayed({ goToBalanceEnquiryTransactionSuccessActivity(it.data[0],constructSaleRequest)},1000)
-                        } else {
-                            callSettlementOnFailureDialog(it.message)
+                    when (it) {
+                        is ApiResponse.Error -> { ToastMessages.customMsgToast(requireContext(), it.error) }
+
+                        is ApiResponse.BalanceEnquiryResponse -> {
+                            if (it.success) {
+                                if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                                    settlementDialog?.onSuccess()
+                                    Handler().postDelayed({ goToBalanceEnquiryTransactionSuccessActivity(it.data[0],constructSaleRequest)},1000)
+                                } else {
+                                    callSettlementOnFailureDialog(it.message)
+                                }
+                            } else {
+                                callSettlementOnFailureDialog(it.message)
+                            }
                         }
-                    } else {
-                        ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
                     }
                 })
             }

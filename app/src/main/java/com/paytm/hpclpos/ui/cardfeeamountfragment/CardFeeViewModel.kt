@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.paytm.hpclpos.constants.Constants
 import com.paytm.hpclpos.livedatamodels.cardfee.CardFeeRequest
-import com.paytm.hpclpos.livedatamodels.ccmsrecharge.CCMSRechargeResponse
+import com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse
 import com.paytm.hppay.api.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,8 +12,8 @@ import retrofit2.Response
 
 class CardFeeViewModel : ViewModel() {
 
-    var liveDataCardFee: MutableLiveData<CCMSRechargeResponse>? = null
-    fun getliveDataCardFee(): MutableLiveData<CCMSRechargeResponse> {
+    var liveDataCardFee: MutableLiveData<ApiResponse.CCMSRechargeResponse>? = null
+    fun getliveDataCardFee(): MutableLiveData<ApiResponse.CCMSRechargeResponse> {
         return liveDataCardFee!!
     }
 
@@ -23,11 +23,11 @@ class CardFeeViewModel : ViewModel() {
         Constants.MainUrlChanged.urlChanged = "1"
         val retrofitInstance = ApiClient.getClient
         val retroService = retrofitInstance.getCardFeePayment(cardFeeRequest)
-        retroService.enqueue(object : Callback<CCMSRechargeResponse> {
+        retroService.enqueue(object : Callback<ApiResponse.CCMSRechargeResponse> {
 
             override fun onResponse(
-                call: Call<CCMSRechargeResponse?>,
-                response: Response<CCMSRechargeResponse?>
+                call: Call<ApiResponse.CCMSRechargeResponse?>,
+                response: Response<ApiResponse.CCMSRechargeResponse?>
             ) {
                 if (response.isSuccessful) {
                     liveDataCardFee!!.value = response.body()
@@ -36,7 +36,7 @@ class CardFeeViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<CCMSRechargeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse.CCMSRechargeResponse>, t: Throwable) {
                 liveDataCardFee!!.value = null
             }
         })

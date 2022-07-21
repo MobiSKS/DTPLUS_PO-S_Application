@@ -27,12 +27,10 @@ import com.paytm.hpclpos.activities.broadcastreceiver.SettlementListener
 import com.paytm.hpclpos.activities.dialogs.SettlementDialog
 import com.paytm.hpclpos.activities.mainsaleactivities.MainActivity
 import com.paytm.hpclpos.constants.*
-import com.paytm.hpclpos.livedatamodels.ccmsrecharge.CCMSRechargeResponse
 import com.paytm.hpclpos.livedatamodels.generatetoken.ApiResponse
 import com.paytm.hpclpos.livedatamodels.generatetoken.GenerateTokenRequest
 import com.paytm.hpclpos.viewmodel.DialogListener
 import com.paytm.hpclpos.viewmodel.MainActivityViewModel
-
 
 abstract class BaseFragment : Fragment() {
     open var navController : NavController? = null
@@ -136,7 +134,7 @@ abstract class BaseFragment : Fragment() {
                     CallSettlement(context).makeApiCallForBatchSettlement(object :
                         SettlementListener {
                         override fun response(response: Any?) {
-                            val response1 = response as CCMSRechargeResponse
+                            val response1 = response as com.paytm.hpclpos.livedatamodels.ccmsrecharge.ApiResponse.CCMSRechargeResponse
                             if (response1.success) {
                                 if (response1.internelStatusCode.equals(Constants.STATUS_SUCCESS)) {
                                     GlobalMethods.decrementTransactionIdByOne(context, "000001")

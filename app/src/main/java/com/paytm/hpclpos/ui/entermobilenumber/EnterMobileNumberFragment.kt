@@ -22,6 +22,7 @@ import com.paytm.hpclpos.cardredoptions.CardInfoEntity
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.ActivityEnterMobileNumberBinding
 import com.paytm.hpclpos.enums.SaleTransactionDetails
+import com.paytm.hpclpos.livedatamodels.generateotp.ApiResponse
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 import com.paytm.hpclpos.viewmodel.ConstructSettlementRequest
 import com.paytm.hpclpos.viewmodel.MerchantActivityViewModel
@@ -172,28 +173,32 @@ class EnterMobileNumberFragment : BaseFragment(), View.OnClickListener {
 
     fun sendOtp() {
         showProcessingDialog()
-        val viewModel =
-            ViewModelProvider(this).get(MerchantActivityViewModel::class.java)
-        val generateOtp =
-            ConstructSettlementRequest(requireContext()).getOtpRequest(activityEnterMobileNumner.mobnoEditText.text.toString())
+        val viewModel = ViewModelProvider(this).get(MerchantActivityViewModel::class.java)
+        val generateOtp = ConstructSettlementRequest(requireContext()).getOtpRequest(activityEnterMobileNumner.mobnoEditText.text.toString())
         viewModel.makeApiGenerateOTP(generateOtp)
-        viewModel.getliveDataGenerateOTP().observe(viewLifecycleOwner, Observer {
+        viewModel.getliveDataGenerateOTP().observe(viewLifecycleOwner, {
 
-            if (it != null) {
-                if (it.success) {
-                    settlementDialog!!.onSuccess()
-                    ToastMessages.customMsgToast(context, "Your Generated OTP is " + it.data[0].otp)
-                    if (TitleName.titleName.equals(resources.getString(R.string.ccmssale), ignoreCase = true) || TitleName.titleName.equals(
-                            resources.getString(R.string.cardsale), ignoreCase = true)) {
-                        dialogOpen()
+            when (it) {
+                is ApiResponse.Error -> { ToastMessages.customMsgToast(requireContext(),it.error) }
+
+                is ApiResponse.GenerateOTPResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            settlementDialog!!.onSuccess()
+                            ToastMessages.customMsgToast(context, "Your Generated OTP is " + it.data[0].otp)
+                            if (TitleName.titleName.equals(resources.getString(R.string.ccmssale), ignoreCase = true) || TitleName.titleName.equals(
+                                    resources.getString(R.string.cardsale), ignoreCase = true)) {
+                                dialogOpen()
+                            } else {
+                                Handler().postDelayed({ otpActivityCall()},1000)
+                            }
+                        } else {
+                            postFailure(it.message)
+                        }
                     } else {
-                        Handler().postDelayed({ otpActivityCall()},1000)
+                        postFailure(it.message)
                     }
-                } else {
-                    postFailure(it.message)
                 }
-            } else {
-                postFailure("Internal Server Error")
             }
         })
     }

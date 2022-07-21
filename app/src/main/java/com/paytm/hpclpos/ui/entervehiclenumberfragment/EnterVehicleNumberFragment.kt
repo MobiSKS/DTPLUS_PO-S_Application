@@ -3,6 +3,7 @@ package com.paytm.hpclpos.ui.entervehiclenumberfragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.paytm.hpclpos.activities.dialogs.SettlementDialog
 import com.paytm.hpclpos.ui.entermobilenumber.EnterMobileNumberFragment
 import com.paytm.hpclpos.constants.*
 import com.paytm.hpclpos.databinding.FragmentEnterVehicleNumberBinding
+import com.paytm.hpclpos.livedatamodels.registrationapi.ApiResponse
 import com.paytm.hpclpos.posterminal.base.BaseFragment
 import com.paytm.hpclpos.viewmodel.ConstructSaleRequest
 import com.paytm.hpclpos.viewmodel.MainActivityViewModel
@@ -83,23 +85,21 @@ class EnterVehicleNumberFragment : BaseFragment() {
         merchantViewModel.makeApiIdfcGetOtp(idfcGetOtpRequest)
         merchantViewModel.getliveDataIdfcGetOtp().observe(viewLifecycleOwner,{
 
-            if (it != null) {
-                if (it.success) {
-                    settlementDialog!!.onSuccess()
-                    Handler().postDelayed({ goToTransactionSuccessActivity()},1000)
-                } else {
-                  /*  GlobalMethods.decrementTransactionIdByOne(requireContext(), ccmsSaleRequest.invoiceId.toString())
-                    settlementDialog!!.onFailure(it.data[0].reason)
-                    Handler().postDelayed({
-                        settlementDialog!!.dismiss()
-                        val bundle = Bundle()
-                        bundle.putString(Constants.LIMITEXCEED, it.data[0].reason)
-                        navController!!.navigate(R.id.action_transactionFailed, bundle)
-                    },1000)*/
+            when (it) {
+                is com.paytm.hpclpos.livedatamodels.idfcGetOtp.ApiResponse.Error -> { ToastMessages.customMsgToast(requireContext(),it.error) }
+
+                is com.paytm.hpclpos.livedatamodels.idfcGetOtp.ApiResponse.IdfcGetOtpResponse -> {
+                    if (it.success) {
+                        if (it.internelStatusCode == Constants.STATUS_SUCCESS) {
+                            settlementDialog!!.onSuccess()
+                            Handler().postDelayed({ goToTransactionSuccessActivity()},1000)
+                        } else {
+                            ToastMessages.customMsgToast(requireContext(),it.message)
+                        }
+                    } else {
+                        ToastMessages.customMsgToast(requireContext(),it.message)
+                    }
                 }
-            } else {
-              //  GlobalMethods.decrementTransactionIdByOne(requireContext(),ccmsSaleRequest.invoiceId.toString())
-                ToastMessages.customMsgToast(requireContext(), "Internal Server Error")
             }
         })
 

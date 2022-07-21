@@ -11,7 +11,7 @@ import com.paytm.hpclpos.R
 object ToastMessages {
     @JvmStatic
     fun noInternetConnectionToast(context: Context) {
-        Toast.makeText(context, context.resources.getString(R.string.nointernetconnection), Toast.LENGTH_LONG).show()
+        customMsgToastShort(context,context.resources.getString(R.string.nointernetconnection))
     }
 
     @JvmStatic
